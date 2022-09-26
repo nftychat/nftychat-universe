@@ -1,13 +1,11 @@
-import React from "react";
+import { css } from "@emotion/css";
 import { Icon } from "@iconify/react";
 import Popover from "@mui/material/Popover";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
 import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
-import { css } from '@emotion/css'
-import { Global } from "@emotion/react";
 
 export default function DmButton(props) {
   const { address: wagmiAddress } = useAccount();
@@ -28,26 +26,23 @@ export default function DmButton(props) {
         return payload.json();
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setNumberOfNotifications(data);
       });
   }, [props.address]);
 
-
   // useEffect to close popover if user is same as props.address
   useEffect(() => {
-    if (props.address === wagmiAddress){
-      setPopoverAnchor(null); 
+    if (props.address === wagmiAddress) {
+      setPopoverAnchor(null);
     }
-  }, [props.address, wagmiAddress])
+  }, [props.address, wagmiAddress]);
 
   async function sendClick() {
     let tempAccessToken = accessToken;
     if (accessToken === null) {
       const message_response = await fetch(
-        mainUrl +
-          "/v1/siwe_message?address=" +
-          wagmiAddress,
+        mainUrl + "/v1/siwe_message?address=" + wagmiAddress,
         {
           method: "post",
         }
@@ -110,32 +105,36 @@ export default function DmButton(props) {
     <ConnectButton.Custom>
       {({ openConnectModal }) => {
         return (
-          <div className={css`
-          position: relative;
-          `}>
+          <div
+            className={css`
+              position: relative;
+            `}
+          >
             {/* Activation button */}
             <button
               className={css`
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-              border-radius: 9999px;
-              background-color: white;
-              padding: 8px 16px;
-              color: #467EE5;
-              border: none;
-              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-              transition: color 200ms, background-color 200ms;
-              font-family: Inter,sans-serif;
-              &:hover {
-                background-color: #f9fafb;
-              }
+                align-items: center;
+                background-color: white;
+                border-radius: 9999px;
+                border: none;
+                box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+                  0 2px 4px -2px rgb(0 0 0 / 0.1);
+                color: #467ee5;
+                cursor: pointer;
+                display: flex;
+                font-family: Inter, sans-serif;
+                gap: 8px;
+                justify-content: center;
+                padding: 8px 16px;
+                transition: color 200ms, background-color 200ms;
+                &:hover {
+                  background-color: #f9fafb;
+                }
               `}
               type="button"
               onClick={(event) => {
-                if (wagmiAddress === props.address){
-                  window.open('https://nftychat.xyz/dms', '_blank');
+                if (wagmiAddress === props.address) {
+                  window.open("https://nftychat.xyz/dms", "_blank");
                 } else {
                   if (!wagmiAddress) {
                     openConnectModal();
@@ -145,47 +144,56 @@ export default function DmButton(props) {
               }}
             >
               {/* Icon */}
-              <div className={css`
-              position: relative;
-              display: flex;
-              height: 24px;
-              width: 24px;
-              align-items: center;
-              justify-content: center;
-              `} >
-                {numberOfNotifications > 0 && (
-                  <div className={css`
-                  position: absolute;
-                  top: -4px;
-                  right: -4px;
-                  display: flex;
-                  width: 14px;
-                  height: 14px;
+              <div
+                className={css`
                   align-items: center;
-                  justify-content: center; 
-                  border-radius: 9999px;
-                  background-color: #FA2449;
-                  color: white;
-                  font-size: 10px; 
-                  `}>
+                  display: flex;
+                  height: 24px;
+                  justify-content: center;
+                  position: relative;
+                  width: 24px;
+                `}
+              >
+                {numberOfNotifications > 0 && (
+                  <div
+                    className={css`
+                      align-items: center;
+                      background-color: #fa2449;
+                      border-radius: 9999px;
+                      color: white;
+                      display: flex;
+                      font-size: 10px;
+                      height: 14px;
+                      justify-content: center;
+                      position: absolute;
+                      right: -4px;
+                      top: -4px;
+                      width: 14px;
+                    `}
+                  >
                     {numberOfNotifications}
                   </div>
                 )}
                 <Icon
                   className={css`
-                  height: 100%;
-                  width: 100%;
+                    height: 100%;
+                    width: 100%;
                   `}
                   icon="ant-design:message-outlined"
                 />
               </div>
 
               {/* Text */}
-              <span className={css`    
-              font-size: 16px;
-              line-height: 1.5rem;
-              font-weight: 400;`
-              }>{wagmiAddress === props.address ? "Check Messages" : `DM ${props.displayName}`}</span>
+              <span
+                className={css`
+                  font-size: 16px;
+                  font-weight: 400;
+                `}
+              >
+                {wagmiAddress === props.address
+                  ? "Check Messages"
+                  : `DM ${props.displayName}`}
+              </span>
             </button>
 
             <Popover
@@ -195,84 +203,99 @@ export default function DmButton(props) {
                 horizontal: "center",
               }}
               className={css`
-              border-radius: 6px;
-              margin-top: 8px;`}
+                border-radius: 6px;
+                margin-top: 8px;
+              `}
               onClose={() => setPopoverAnchor(null)}
-              open={popoverAnchor !== null && ![null, undefined].includes(wagmiAddress)}
+              open={
+                popoverAnchor !== null &&
+                ![null, undefined].includes(wagmiAddress)
+              }
               transformOrigin={{
                 vertical: "top",
                 horizontal: "center",
               }}
             >
-              <div className={css`display:flex;
-              width: 384px;
-              flex-direction: column;
-              background-color: white;
-              padding: 16px 16px 8px 16px;
-              `}>
+              <div
+                className={css`
+                  background-color: white;
+                  display: flex;
+                  flex-direction: column;
+                  padding: 16px 16px 8px 16px;
+                  width: 384px;
+                `}
+              >
                 <textarea
                   className={css`
-                  margin-bottom: 6px;
-                  min-height: 66px;
-                  resize: none;
-                  padding: 8px;
-                  border: solid #e2e8f0 1px;
-                  border-radius: 6px;
-                  color: #467EE5;
-                  outline: none;
-                  transition: color 200ms, background-color 200ms;
-                  font-family: Inter,sans-serif;
-                  font-size: 1rem;
-                  line-height: 1.5rem;
-                  &:focus {
-                    border-color: #cbd5e1;
-                  }
+                    border-radius: 6px;
+                    border: solid #e2e8f0 1px;
+                    color: #467ee5;
+                    font-family: Inter, sans-serif;
+                    font-size: 1rem;
+                    margin-bottom: 6px;
+                    min-height: 66px;
+                    outline: none;
+                    padding: 8px;
+                    resize: none;
+                    transition: color 200ms, background-color 200ms;
+                    &:focus {
+                      border-color: #cbd5e1;
+                    }
                   `}
                   spellCheck={false}
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                 />
-                <div className={css`
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                `} >
-                  <div className={css`
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  `}>
+                <div
+                  className={css`
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                  `}
+                >
+                  <div
+                    className={css`
+                      align-items: center;
+                      display: flex;
+                      gap: 8px;
+                    `}
+                  >
                     <Logo />
-                    <span className={css`color: #B58FD9;
-                              font-family: Inter,sans-serif;
-                              font-size: 1rem;
-                              line-height: 1.5rem;
-                              `}>Sent via nfty chat</span>
+                    <span
+                      className={css`
+                        color: #b58fd9;
+                        font-family: Inter, sans-serif;
+                        font-size: 16px;
+                      `}
+                    >
+                      Sent via nfty chat
+                    </span>
                   </div>
                   {/* Send button */}
                   <button
                     className={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 32px;
-                    width: 32px;
-                    border-radius: 9999px;
-                    border: none;
-                    padding: 6px;
-                    color: #B58FD9; 
-                    transition: color 200ms, background-color 200ms;
-                    background-color: transparent;
-                    &:hover {
-                      background-color: #f9fafb;
-                    }
+                      align-items: center;
+                      background-color: transparent;
+                      border-radius: 9999px;
+                      border: none;
+                      color: #b58fd9;
+                      cursor: pointer;
+                      display: flex;
+                      height: 32px;
+                      justify-content: center;
+                      padding: 6px;
+                      transition: color 200ms, background-color 200ms;
+                      width: 32px;
+                      &:hover {
+                        background-color: #f9fafb;
+                      }
                     `}
                     onClick={sendClick}
                   >
                     <Icon
                       className={css`
-                      height: 100%;
-                      width: 100%;
+                        height: 100%;
+                        width: 100%;
                       `}
                       icon="ant-design:send-outlined"
                     />
