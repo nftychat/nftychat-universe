@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { Icon } from "@iconify/react";
 import Popover from "@mui/material/Popover";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
 import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
