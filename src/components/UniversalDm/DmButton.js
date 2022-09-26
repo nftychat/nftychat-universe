@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
 import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
 import { css } from '@emotion/css'
-import { Global } from "@emotion/react";
 
 export default function DmButton(props) {
   const { address: wagmiAddress } = useAccount();
