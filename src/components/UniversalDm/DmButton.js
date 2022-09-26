@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
 import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
+import { css } from '@emotion/css'
+import { Global } from "@emotion/react";
 
 export default function DmButton(props) {
   const { address: wagmiAddress } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
-  const mainUrl = "https://nftychat.xyz";
+  const mainUrl = "https://nftychat-staging.herokuapp.com";
   const [accessToken, setAccessToken] = useState(null);
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
@@ -26,6 +28,7 @@ export default function DmButton(props) {
         return payload.json();
       })
       .then((data) => {
+        console.log(data)
         setNumberOfNotifications(data);
       });
   }, [props.address]);
@@ -107,10 +110,28 @@ export default function DmButton(props) {
     <ConnectButton.Custom>
       {({ openConnectModal }) => {
         return (
-          <div className="relative">
+          <div className={css`
+          position: relative;
+          `}>
             {/* Activation button */}
             <button
-              className="flex items-center justify-center gap-2 rounded-full bg-white py-2 px-4 text-[#467EE5] shadow-md transition-colors hover:bg-gray-50"
+              className={css`
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              border-radius: 9999px;
+              background-color: white;
+              padding: 8px 16px;
+              color: #467EE5;
+              border: none;
+              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+              transition: color 200ms, background-color 200ms;
+              font-family: Inter,sans-serif;
+              &:hover {
+                background-color: #f9fafb;
+              }
+              `}
               type="button"
               onClick={(event) => {
                 if (wagmiAddress === props.address){
@@ -124,20 +145,47 @@ export default function DmButton(props) {
               }}
             >
               {/* Icon */}
-              <div className="relative flex h-6 w-6 items-center justify-center">
+              <div className={css`
+              position: relative;
+              display: flex;
+              height: 24px;
+              width: 24px;
+              align-items: center;
+              justify-content: center;
+              `} >
                 {numberOfNotifications > 0 && (
-                  <div className="debug absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#FA2449] text-[10px] text-white">
+                  <div className={css`
+                  position: absolute;
+                  top: -4px;
+                  right: -4px;
+                  display: flex;
+                  width: 14px;
+                  height: 14px;
+                  align-items: center;
+                  justify-content: center; 
+                  border-radius: 9999px;
+                  background-color: #FA2449;
+                  color: white;
+                  font-size: 10px; 
+                  `}>
                     {numberOfNotifications}
                   </div>
                 )}
                 <Icon
-                  className="h-full w-full"
+                  className={css`
+                  height: 100%;
+                  width: 100%;
+                  `}
                   icon="ant-design:message-outlined"
                 />
               </div>
 
               {/* Text */}
-              <span className="text-base">{wagmiAddress === props.address ? "Check Messages" : `DM ${props.displayName}`}</span>
+              <span className={css`    
+              font-size: 16px;
+              line-height: 1.5rem;
+              font-weight: 400;`
+              }>{wagmiAddress === props.address ? "Check Messages" : `DM ${props.displayName}`}</span>
             </button>
 
             <Popover
@@ -146,7 +194,9 @@ export default function DmButton(props) {
                 vertical: "bottom",
                 horizontal: "center",
               }}
-              className="popover"
+              className={css`
+              border-radius: 6px;
+              margin-top: 8px;`}
               onClose={() => setPopoverAnchor(null)}
               open={popoverAnchor !== null && ![null, undefined].includes(wagmiAddress)}
               transformOrigin={{
@@ -154,25 +204,76 @@ export default function DmButton(props) {
                 horizontal: "center",
               }}
             >
-              <div className="flex w-96 flex-col bg-white px-4 pt-4 pb-2">
+              <div className={css`display:flex;
+              width: 384px;
+              flex-direction: column;
+              background-color: white;
+              padding: 16px 16px 8px 16px;
+              `}>
                 <textarea
-                  className="mb-1.5 min-h-[66px] resize-none rounded-md border border-solid border-gray-200 p-2 text-[#467EE5] outline-none transition-colors focus:border-gray-300"
+                  className={css`
+                  margin-bottom: 6px;
+                  min-height: 66px;
+                  resize: none;
+                  padding: 8px;
+                  border: solid #e2e8f0 1px;
+                  border-radius: 6px;
+                  color: #467EE5;
+                  outline: none;
+                  transition: color 200ms, background-color 200ms;
+                  font-family: Inter,sans-serif;
+                  font-size: 1rem;
+                  line-height: 1.5rem;
+                  &:focus {
+                    border-color: #cbd5e1;
+                  }
+                  `}
                   spellCheck={false}
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                 />
-                <div className=" flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className={css`
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                `} >
+                  <div className={css`
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  `}>
                     <Logo />
-                    <span className="text-[#B58FD9]">Sent via nfty chat</span>
+                    <span className={css`color: #B58FD9;
+                              font-family: Inter,sans-serif;
+                              font-size: 1rem;
+                              line-height: 1.5rem;
+                              `}>Sent via nfty chat</span>
                   </div>
                   {/* Send button */}
                   <button
-                    className="flex h-8 w-8 items-center justify-center rounded-full p-1.5 text-[#B58FD9] transition-colors hover:bg-gray-50"
+                    className={css`
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 32px;
+                    width: 32px;
+                    border-radius: 9999px;
+                    border: none;
+                    padding: 6px;
+                    color: #B58FD9; 
+                    transition: color 200ms, background-color 200ms;
+                    background-color: transparent;
+                    &:hover {
+                      background-color: #f9fafb;
+                    }
+                    `}
                     onClick={sendClick}
                   >
                     <Icon
-                      className="h-full w-full"
+                      className={css`
+                      height: 100%;
+                      width: 100%;
+                      `}
                       icon="ant-design:send-outlined"
                     />
                   </button>

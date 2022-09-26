@@ -6,7 +6,6 @@ import svgr from '@svgr/rollup'
 import url from '@rollup/plugin-url';
 import resolve from '@rollup/plugin-node-resolve'
 
-
 export default {
     input: pkg.source,
     output: [
