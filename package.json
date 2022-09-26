@@ -14,7 +14,8 @@
   "scripts": {
     "build": "rollup -c",
     "build-watch": "rollup -c -w",
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "test": "echo \"No test specified\""
   },
   "alias": {
     "@rainbow-me/rainbowkit/styles.css": "@rainbow-me/rainbowkit/dist/index.css"
