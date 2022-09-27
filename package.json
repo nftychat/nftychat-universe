@@ -5,7 +5,7 @@
     "url": "https://github.com/nftychat/nftychat-universe"
   },
   "type": "module",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
@@ -95,8 +95,8 @@
   "peerDependencies": {
     "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
-    "wagmi": "^0.6.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "wagmi": "^0.6.4"
   }
 }
