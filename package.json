@@ -50,7 +50,8 @@
     "@emotion/css": "^11.10.0",
     "@emotion/styled": "^11.10.4",
     "@iconify/react": "^3.2.2",
-    "@mui/material": "^5.10.5"
+    "@mui/material": "^5.10.5",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.4"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.1",

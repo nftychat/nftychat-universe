@@ -7,6 +7,7 @@ import url from '@rollup/plugin-url';
 import resolve from '@rollup/plugin-node-resolve'
 import styles from "rollup-plugin-styles";
 import commonjs from '@rollup/plugin-commonjs';
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 
 
 export default {
@@ -17,14 +18,20 @@ export default {
     ],
     inlineDynamicImports: true,
     plugins: [
+        // handle css -> js
         styles(),
+        // Don't include peer dependencies
         external(),
+        //svg
         url(),
         svgr(),
+        //commonjs used by rainbowkit
         resolve({preferBuiltins: true}),
         commonjs({
             include: /node_modules/
         }),
+        //dynamicImportVars used by rainbowkit
+        dynamicImportVars,
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
