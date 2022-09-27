@@ -31,7 +31,7 @@ export default {
             include: /node_modules/
         }),
         //dynamicImportVars used by rainbowkit
-        dynamicImportVars,
+        dynamicImportVars(),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
