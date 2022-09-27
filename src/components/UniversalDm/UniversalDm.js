@@ -1,6 +1,6 @@
 import React from "react";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import "@rainbow-me/rainbowkit/styles.css";
+import "../../rainbowkit-alias.css";
 import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
