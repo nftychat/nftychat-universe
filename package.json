@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/nftychat/nftychat-universe"
   },
-  "version": "0.1.11",
+  "version": "0.1.10",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
@@ -47,7 +47,10 @@
     ]
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^0.6.1"
+    "@emotion/css": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
+    "@iconify/react": "^3.2.2",
+    "@mui/material": "^5.10.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.1",
@@ -69,7 +72,6 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "process": "^0.11.10",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-scripts": "^5.0.1",
@@ -78,24 +80,19 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-svg": "^2.0.0",
-    "sass": "^1.54.9",
-    "sass-loader": "^13.0.2",
-    "tailwindcss": "^3.1.8",
     "url-loader": "^4.1.1",
     "wagmi": "^0.6.4",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "@rainbow-me/rainbowkit": "^0.6.1"
   },
   "peerDependencies": {
-    "@emotion/css": "^11.10.0",
-    "@emotion/styled": "^11.10.4",
-    "@iconify/react": "^3.2.2",
-    "@mui/material": "^5.10.5",
+    "@rainbow-me/rainbowkit": "^0.6.1",
+    "wagmi": "^0.6.4",
     "ethers": "^5.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
-    "react-scripts": "^5.0.1",
-    "wagmi": "^0.6.4"
+    "react-scripts": "^5.0.1"
   }
 }
