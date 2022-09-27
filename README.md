@@ -13,7 +13,7 @@ npm install nftychat-universe
 ## UniversalDm
 import the component
 ```
-import UniversalDm from 'nftychat-universe'
+import {UniversalDm} from 'nftychat-universe'
 ```
 
 Then replace sample address and sampleDisplayName with the user you're trying to dm.
