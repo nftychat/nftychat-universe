@@ -14,16 +14,16 @@ export default {
         { file: pkg.main, format: 'cjs' },
         { file: pkg.module, format: 'esm' }
     ],
-    // inlineDynamicImports: true,
+    inlineDynamicImports: true,
     plugins: [
-        external(),
         styles(),
+        external(),
         url(),
         svgr(),
-        // resolve({preferBuiltins: true}),
-        // commonjs({
-        //     include: /node_modules/
-        // }),
+        resolve({preferBuiltins: true}),
+        commonjs({
+            include: /node_modules/
+        }),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
