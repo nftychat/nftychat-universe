@@ -2429,7 +2429,7 @@
 
 "@rollup/plugin-dynamic-import-vars@^1.4.4":
   version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-dynamic-import-vars/-/plugin-dynamic-import-vars-1.4.4.tgz#6c156f7437f4e3033d53c96ba970ab476cbf367f"
+  resolved "https://registry.npmjs.org/@rollup/plugin-dynamic-import-vars/-/plugin-dynamic-import-vars-1.4.4.tgz"
   integrity sha512-51BcU6ag9EeF09CtEsa5D/IHYo7KI42TR1Jc4doNzV1nHAiH7TvUi5vsLERFMjs9Gzy9K0otbZH/2wb0hpBhRA==
   dependencies:
     "@rollup/pluginutils" "^4.1.2"
@@ -2468,6 +2468,14 @@
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     magic-string "^0.25.7"
+
+"@rollup/plugin-typescript@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.npmjs.org/@rollup/plugin-typescript/-/plugin-typescript-8.5.0.tgz"
+  integrity sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    resolve "^1.17.0"
 
 "@rollup/plugin-url@^7.0.0":
   version "7.0.0"
@@ -5541,7 +5549,7 @@ encodeurl@~1.0.2:
   resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   integrity sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==
 
-enhanced-resolve@^5.10.0:
+enhanced-resolve@^5.10.0, enhanced-resolve@^5.7.0:
   version "5.10.0"
   resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.10.0.tgz"
   integrity sha512-T0yTFjdpldGY8PmuXXR0PyQ1ufZpEGiHVrp7zHKB7jdR4qlmZHhONVM5AQOAWXuF/w3dnHbEQVrNptJgt7F+cQ==
@@ -8497,6 +8505,14 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+next-transpile-modules@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/next-transpile-modules/-/next-transpile-modules-9.0.0.tgz#133b1742af082e61cc76b02a0f12ffd40ce2bf90"
+  integrity sha512-VCNFOazIAnXn1hvgYYSTYMnoWgKgwlYh4lm1pKbSfiB3kj5ZYLcKVhfh3jkPOg1cnd9DP+pte9yCUocdPEUBTQ==
+  dependencies:
+    enhanced-resolve "^5.7.0"
+    escalade "^3.1.1"
+
 no-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/no-case/-/no-case-3.0.4.tgz"
@@ -9966,7 +9982,7 @@ react-transition-group@^4.4.5:
 
 react@^18.2.0:
   version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
+  resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"

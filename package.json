@@ -52,6 +52,8 @@
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.5",
     "@rollup/plugin-dynamic-import-vars": "^1.4.4",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "next-transpile-modules": "^9.0.0",
     "react-hot-toast": "^2.3.0"
   },
   "devDependencies": {
@@ -92,8 +94,6 @@
   "peerDependencies": {
     "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "wagmi": "^0.6.4"
   }
 }
