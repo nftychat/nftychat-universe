@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/nftychat/nftychat-universe"
   },
-  "version": "0.1.9",
+  "version": "0.1.10",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
