@@ -20,6 +20,11 @@
   "alias": {
     "@rainbow-me/rainbowkit/styles.css": "@rainbow-me/rainbowkit/dist/index.css"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "browserslist": {
     "production": [
       ">0.2%",
