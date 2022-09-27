@@ -26,7 +26,6 @@ export default function DmButton(props) {
         return payload.json();
       })
       .then((data) => {
-        console.log(data);
         setNumberOfNotifications(data);
       });
   }, [props.address]);
