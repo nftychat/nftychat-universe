@@ -72,7 +72,6 @@
     "cross-env": "^7.0.3",
     "cssnano": "^5.1.13",
     "ethers": "^5.7.0",
-    "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "process": "^0.11.10",
