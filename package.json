@@ -21,6 +21,7 @@
     "@rainbow-me/rainbowkit/styles.css": "@rainbow-me/rainbowkit/dist/index.css"
   },
   "browser": {
+    "stream": false,
     "fs": false,
     "path": false,
     "os": false
