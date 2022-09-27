@@ -23,6 +23,8 @@
   "browser": {
     "stream": false,
     "fs": false,
+    "zlib": false,
+    "assert": false,
     "path": false,
     "os": false
   },
