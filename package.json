@@ -4,11 +4,11 @@
     "type": "git",
     "url": "https://github.com/nftychat/nftychat-universe"
   },
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
-  "main": "dist/index.esm.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "source": "src/components/index.js",
   "scripts": {
@@ -72,9 +72,11 @@
     "cross-env": "^7.0.3",
     "cssnano": "^5.1.13",
     "ethers": "^5.7.0",
+    "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "process": "^0.11.10",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-scripts": "^5.0.1",
@@ -89,6 +91,8 @@
     "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
     "wagmi": "^0.6.4"
