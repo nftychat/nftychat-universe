@@ -15,7 +15,7 @@
   "scripts": {
     "build": "rollup -c",
     "build-watch": "rollup -c -w",
-    "start": "react-scripts start",
+    "start": "react-scripts --es-module-specifier-resolution=node start",
     "test": "echo \"No test specified\""
   },
   "alias": {

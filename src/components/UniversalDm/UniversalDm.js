@@ -3,7 +3,7 @@ import "../../rainbowkit-alias.css";
 import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import DmButton from "./DmButton";
+import DmButton from "./DmButton.js";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],

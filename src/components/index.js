@@ -1,1 +1,1 @@
-export {default as UniversalDm} from './UniversalDm/UniversalDm'
+export {default as UniversalDm} from './UniversalDm/UniversalDm.js'
