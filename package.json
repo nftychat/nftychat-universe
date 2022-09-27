@@ -8,7 +8,7 @@
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "source": "src/components/index.js",
   "scripts": {
@@ -51,7 +51,8 @@
     "@emotion/styled": "^11.10.4",
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.5",
-    "@rollup/plugin-dynamic-import-vars": "^1.4.4"
+    "@rollup/plugin-dynamic-import-vars": "^1.4.4",
+    "react-hot-toast": "^2.3.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.1",
@@ -90,10 +91,6 @@
   "peerDependencies": {
     "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.3.0",
-    "react-scripts": "^5.0.1",
     "wagmi": "^0.6.4"
   }
 }

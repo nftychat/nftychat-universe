@@ -1,4 +1,3 @@
-import React from "react";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "../../rainbowkit-alias.css";
 import { Toaster } from "react-hot-toast";

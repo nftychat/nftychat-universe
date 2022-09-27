@@ -13,7 +13,7 @@ import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 export default {
     input: pkg.source,
     output: [
-        { file: pkg.main, format: 'cjs' },
+        // { file: pkg.main, format: 'cjs' },
         { file: pkg.module, format: 'esm' }
     ],
     inlineDynamicImports: true,
@@ -31,7 +31,9 @@ export default {
             include: /node_modules/
         }),
         //dynamicImportVars used by rainbowkit
-        dynamicImportVars(),
+        dynamicImportVars({
+            include: /node_modules/
+        }),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
