@@ -23,7 +23,7 @@ export default {
         external(),
         url(),
         svgr(),
-        resolve({preferBuiltins: true}),
+        resolve({preferBuiltins: false}),
         commonjs({
             include: /node_modules/
         }),
