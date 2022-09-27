@@ -5,6 +5,8 @@ import pkg from './package.json';
 import svgr from '@svgr/rollup'
 import url from '@rollup/plugin-url';
 import resolve from '@rollup/plugin-node-resolve'
+import styles from "rollup-plugin-styles";
+import commonjs from '@rollup/plugin-commonjs';
 
 export default {
     input: pkg.source,
@@ -12,11 +14,16 @@ export default {
         { file: pkg.main, format: 'cjs' },
         { file: pkg.module, format: 'esm' }
     ],
+    // inlineDynamicImports: true,
     plugins: [
         external(),
+        styles(),
         url(),
         svgr(),
-        resolve(),
+        // resolve({preferBuiltins: true}),
+        // commonjs({
+        //     include: /node_modules/
+        // }),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
