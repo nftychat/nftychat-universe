@@ -44,8 +44,7 @@
     ]
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^0.6.1",
-    "rollup-plugin-polyfill-node": "^0.10.2"
+    "@rainbow-me/rainbowkit": "^0.6.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.1",

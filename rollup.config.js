@@ -7,7 +7,6 @@ import url from '@rollup/plugin-url';
 import resolve from '@rollup/plugin-node-resolve'
 import styles from "rollup-plugin-styles";
 import commonjs from '@rollup/plugin-commonjs';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 
 export default {
@@ -19,11 +18,10 @@ export default {
     inlineDynamicImports: true,
     plugins: [
         styles(),
-        nodePolyfills(),
         external(),
         url(),
         svgr(),
-        resolve({preferBuiltins: false}),
+        resolve({preferBuiltins: true}),
         commonjs({
             include: /node_modules/
         }),
