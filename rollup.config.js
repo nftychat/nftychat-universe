@@ -13,7 +13,6 @@ export default {
     input: pkg.source,
     output: [
         { file: pkg.main, format: 'cjs' },
-        { file: pkg.module, format: 'esm' }
     ],
     inlineDynamicImports: true,
     plugins: [
