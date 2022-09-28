@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/nftychat/nftychat-universe"
   },
-  "version": "0.1.27",
+  "version": "0.1.28",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
@@ -60,8 +60,10 @@
     "autoprefixer": "^10.4.8",
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
+    "csstype": "^3.1.1",
     "ethers": "^5.7.0",
     "install-peers": "^1.0.4",
+    "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "process": "^0.11.10",
     "react-dom": ">=16.0.0",
@@ -75,9 +77,7 @@
     "url-loader": "^4.1.1",
     "wagmi": "^0.6.4",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "csstype": "^3.1.1",
-    "postcss": "^8.4.16"
+    "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
     "ethers": "^5.7.0",
