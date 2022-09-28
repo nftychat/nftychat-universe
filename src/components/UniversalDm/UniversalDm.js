@@ -1,4 +1,5 @@
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import "./UniversalDm.css";
 
 import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -20,10 +21,7 @@ export default function UniversalDm(props) {
   return (
     <WagmiConfig client={wagmiClient}>
       <Toaster />
-      <DmButton
-        address={props.address}
-        displayName={props.displayName}
-      />
+      <DmButton address={props.address} displayName={props.displayName} />
     </WagmiConfig>
   );
 }

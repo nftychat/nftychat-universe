@@ -1,18 +1,17 @@
-import { css } from "@emotion/css";
 import { Icon } from "@iconify/react";
 import Popover from "@mui/material/Popover";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useAccount, useSignMessage, useConnect } from "wagmi";
+import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
 
 export default function DmButton(props) {
   // Wamgi hooks
   const { address: wagmiAddress } = useAccount();
-  const { connect, connectors, error: wagmiError} = useConnect()
+  const { connect, connectors, error: wagmiError } = useConnect();
   const { signMessageAsync } = useSignMessage();
 
-  //Custom states
+  // Custom states
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
   const mainUrl = "https://nftychat-staging.herokuapp.com";
   const [accessToken, setAccessToken] = useState(null);
@@ -23,10 +22,10 @@ export default function DmButton(props) {
 
   // UseEffect to warn user on error
   useEffect(() => {
-    if (wagmiError){
-      toast.error("Wallet not detected.")
+    if (wagmiError) {
+      toast.error("Wallet not detected.");
     }
-  }, [wagmiError])
+  }, [wagmiError]);
 
   useEffect(() => {
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
@@ -111,97 +110,42 @@ export default function DmButton(props) {
   }
 
   return (
-    <div
-      className={css`
-        position: relative;
-      `}
-    >
+    <div className="universal_button">
       {/* Activation button */}
       <button
-        className={css`
-          align-items: center;
-          background-color: white;
-          border-radius: 9999px;
-          border: none;
-          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
-            0 2px 4px -2px rgb(0 0 0 / 0.1);
-          color: #467ee5;
-          cursor: pointer;
-          display: flex;
-          font-family: Inter, sans-serif;
-          gap: 8px;
-          justify-content: center;
-          padding: 8px 16px;
-          transition: color 200ms, background-color 200ms;
-          &:hover {
-            background-color: #f9fafb;
-          }
-        `}
+        className="universal_button__button"
         type="button"
         onClick={(event) => {
           if (wagmiAddress === props.address) {
             window.open("https://nftychat.xyz/dms", "_blank");
           } else {
             if (!wagmiAddress) {
-              try{
+              try {
                 const connector = connectors[0];
-                connect({connector});
-              } catch(error){
-                console.log(error)
+                connect({ connector });
+              } catch (error) {
+                console.log(error);
               }
-
             }
             setPopoverAnchor(event.currentTarget);
           }
         }}
       >
         {/* Icon */}
-        <div
-          className={css`
-            align-items: center;
-            display: flex;
-            height: 24px;
-            justify-content: center;
-            position: relative;
-            width: 24px;
-          `}
-        >
+        <div className="universal_button__icon_container">
           {numberOfNotifications > 0 && (
-            <div
-              className={css`
-                align-items: center;
-                background-color: #fa2449;
-                border-radius: 9999px;
-                color: white;
-                display: flex;
-                font-size: 10px;
-                height: 14px;
-                justify-content: center;
-                position: absolute;
-                right: -4px;
-                top: -4px;
-                width: 14px;
-              `}
-            >
+            <div className="universal_button__badge">
               {numberOfNotifications}
             </div>
           )}
           <Icon
-            className={css`
-              height: 100%;
-              width: 100%;
-            `}
+            className="universal_button__icon"
             icon="ant-design:message-outlined"
           />
         </div>
 
         {/* Text */}
-        <span
-          className={css`
-            font-size: 16px;
-            font-weight: 400;
-          `}
-        >
+        <span className="universal_button__text">
           {wagmiAddress === props.address
             ? "Check Messages"
             : `DM ${props.displayName}`}
@@ -214,101 +158,37 @@ export default function DmButton(props) {
           vertical: "bottom",
           horizontal: "center",
         }}
-        className={css`
-          border-radius: 6px;
-          margin-top: 8px;
-        `}
+        className="universal_button_popover"
         onClose={() => setPopoverAnchor(null)}
         open={
-          popoverAnchor !== null &&
-          ![null, undefined].includes(wagmiAddress)
+          popoverAnchor !== null && ![null, undefined].includes(wagmiAddress)
         }
         transformOrigin={{
           vertical: "top",
           horizontal: "center",
         }}
       >
-        <div
-          className={css`
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 16px 16px 8px 16px;
-            width: 384px;
-          `}
-        >
+        <div className="universal_button_popover__container">
           <textarea
-            className={css`
-              border-radius: 6px;
-              border: solid #e2e8f0 1px;
-              color: #467ee5;
-              font-family: Inter, sans-serif;
-              font-size: 1rem;
-              margin-bottom: 6px;
-              min-height: 66px;
-              outline: none;
-              padding: 8px;
-              resize: none;
-              transition: color 200ms, background-color 200ms;
-              &:focus {
-                border-color: #cbd5e1;
-              }
-            `}
+            className="universal_button_popover__textarea"
             spellCheck={false}
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
           />
-          <div
-            className={css`
-              align-items: center;
-              display: flex;
-              justify-content: space-between;
-            `}
-          >
-            <div
-              className={css`
-                align-items: center;
-                display: flex;
-                gap: 8px;
-              `}
-            >
+          <div className="universal_button_popover__content">
+            <div className="universal_button_popover__content_left">
               <Logo />
-              <span
-                className={css`
-                  color: #b58fd9;
-                  font-family: Inter, sans-serif;
-                  font-size: 16px;
-                `}
-              >
+              <span className="universal_button_popover__user_text">
                 Sent via nfty chat
               </span>
             </div>
             {/* Send button */}
             <button
-              className={css`
-                align-items: center;
-                background-color: transparent;
-                border-radius: 9999px;
-                border: none;
-                color: #b58fd9;
-                cursor: pointer;
-                display: flex;
-                height: 32px;
-                justify-content: center;
-                padding: 6px;
-                transition: color 200ms, background-color 200ms;
-                width: 32px;
-                &:hover {
-                  background-color: #f9fafb;
-                }
-              `}
+              className="universal_button_popover__send"
               onClick={sendClick}
             >
               <Icon
-                className={css`
-                  height: 100%;
-                  width: 100%;
-                `}
+                className="universal_button_popover__send_icon"
                 icon="ant-design:send-outlined"
               />
             </button>
