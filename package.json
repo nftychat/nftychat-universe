@@ -17,9 +17,6 @@
     "start": "react-scripts start",
     "test": "echo \"No test specified\""
   },
-  "alias": {
-    "@rainbow-me/rainbowkit/styles.css": "@rainbow-me/rainbowkit/dist/index.css"
-  },
   "browser": {
     "stream": false,
     "fs": false,
@@ -64,7 +61,6 @@
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.5",
     "@parcel/transformer-sass": "^2.7.0",
-    "@rainbow-me/rainbowkit": "^0.6.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-url": "^7.0.0",
@@ -77,8 +73,6 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "process": "^0.11.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-scripts": "^5.0.1",
     "rollup-plugin-delete": "^2.0.0",
@@ -92,8 +86,9 @@
     "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
-    "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "wagmi": "^0.6.4"
   }
 }

@@ -18,22 +18,22 @@ export default {
     inlineDynamicImports: true,
     plugins: [
         // handle css -> js
-        styles(),
+        // styles(),
         // Don't include peer dependencies
         external(),
         //svg
         url(),
         svgr(),
         //commonjs used by rainbowkit
-        resolve({preferBuiltins: true}),
-        commonjs({
-            transformMixedEsModules:true,
-            include: /node_modules/
-        }),
-        //dynamicImportVars used by rainbowkit
-        dynamicImportVars({
-            include: /node_modules/
-        }),
+        // resolve({preferBuiltins: true}),
+        // commonjs({
+        //     transformMixedEsModules:true,
+        //     include: /node_modules/
+        // }),
+        // //dynamicImportVars used by rainbowkit
+        // dynamicImportVars({
+        //     include: /node_modules/
+        // }),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',

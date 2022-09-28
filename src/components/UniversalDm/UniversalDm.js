@@ -1,5 +1,5 @@
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import "../../rainbowkit-alias.css";
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+
 import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
@@ -10,27 +10,20 @@ const { chains, provider } = configureChains(
   [publicProvider()]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "nftyembed",
-  chains,
-});
-
 const wagmiClient = createClient({
   autoConnect: true,
-  connectors,
+  connectors: [new MetaMaskConnector({ chains })],
   provider,
 });
 
 export default function UniversalDm(props) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <Toaster />
-        <DmButton
-          address={props.address}
-          displayName={props.displayName}
-        />
-      </RainbowKitProvider>
+      <Toaster />
+      <DmButton
+        address={props.address}
+        displayName={props.displayName}
+      />
     </WagmiConfig>
   );
 }
