@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@emotion/css": "^11.10.0",
+    "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.5",
@@ -66,6 +67,8 @@
     "install-peers": "^1.0.4",
     "prettier": "^2.7.1",
     "process": "^0.11.10",
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0",
     "react-scripts": "^5.0.1",
     "rollup": "^2.79.1",
     "rollup-plugin-delete": "^2.0.0",
