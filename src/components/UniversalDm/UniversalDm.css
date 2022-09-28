@@ -2,7 +2,48 @@
   font-family: "Inter", sans-serif;
 }
 
-:root {
+.universal_button,
+.universal_button *,
+.universal_button_popover__container,
+.universal_button_popover__container *,
+.wallet_popover__modal,
+.wallet_popover__modal * {
+  --gray1: hsl(0 0% 99%);
+  --gray2: hsl(0 0% 97.3%);
+  --gray3: hsl(0 0% 95.1%);
+  --gray4: hsl(0 0% 93%);
+  --gray5: hsl(0 0% 90.9%);
+  --gray6: hsl(0 0% 88.7%);
+  --gray7: hsl(0 0% 85.8%);
+  --gray8: hsl(0 0% 78%);
+  --gray9: hsl(0 0% 56.1%);
+  --gray10: hsl(0 0% 52.3%);
+  --gray11: hsl(0 0% 43.5%);
+  --gray12: hsl(0 0% 9%);
+
+  --button-text: #467ee5;
+}
+
+.universal_button___dark,
+.universal_button___dark *,
+.universal_button_popover__container___dark,
+.universal_button_popover__container___dark *,
+.wallet_popover__modal___dark,
+.wallet_popover__modal___dark * {
+  --gray1: hsl(0 0% 8.5%);
+  --gray2: hsl(0 0% 11%);
+  --gray3: hsl(0 0% 13.6%);
+  --gray4: hsl(0 0% 15.8%);
+  --gray5: hsl(0 0% 17.9%);
+  --gray6: hsl(0 0% 20.5%);
+  --gray7: hsl(0 0% 24.3%);
+  --gray8: hsl(0 0% 31.2%);
+  --gray9: hsl(0 0% 43.9%);
+  --gray10: hsl(0 0% 49.4%);
+  --gray11: hsl(0 0% 62.8%);
+  --gray12: hsl(0 0% 93%);
+
+  --button-text: #94eede;
 }
 
 .universal_button {
@@ -11,11 +52,11 @@
 
 .universal_button__button {
   align-items: center;
-  background-color: white;
+  background-color: var(--gray1);
   border-radius: 9999px;
-  border: none;
+  border: 1px solid var(--gray2);
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  color: #467ee5;
+  color: var(--button-text);
   cursor: pointer;
   display: flex;
   font-family: Inter, sans-serif;
@@ -26,7 +67,7 @@
 }
 
 .universal_button__button:hover {
-  background-color: #f9fafb;
+  background-color: var(--gray3);
 }
 
 .universal_button__icon_container {
@@ -69,7 +110,7 @@
 }
 
 .universal_button_popover__container {
-  background-color: white;
+  background-color: var(--gray1);
   display: flex;
   flex-direction: column;
   padding: 16px 16px 8px 16px;
@@ -77,9 +118,10 @@
 }
 
 .universal_button_popover__textarea {
+  background-color: var(--gray1);
   border-radius: 6px;
-  border: solid #e2e8f0 1px;
-  color: #467ee5;
+  border: 1px solid var(--gray6);
+  color: var(--gray12);
   font-family: Inter, sans-serif;
   font-size: 1rem;
   margin-bottom: 6px;
@@ -87,11 +129,11 @@
   outline: none;
   padding: 8px;
   resize: none;
-  transition: color 200ms, background-color 200ms;
+  transition: border-color 200ms;
 }
 
 .universal_button_popover__textarea:focus {
-  border-color: #cbd5e1;
+  border-color: var(--gray8);
 }
 
 .universal_button_popover__content {
@@ -107,7 +149,7 @@
 }
 
 .universal_button_popover__user_text {
-  color: #b58fd9;
+  color: var(--gray11);
   font-family: Inter, sans-serif;
   font-size: 16px;
 }
@@ -117,7 +159,7 @@
   background-color: transparent;
   border-radius: 9999px;
   border: none;
-  color: #b58fd9;
+  color: var(--button-text);
   cursor: pointer;
   display: flex;
   height: 32px;
@@ -128,7 +170,7 @@
 }
 
 .universal_button_popover__send:hover {
-  background-color: #f9fafb;
+  background-color: var(--gray3);
 }
 
 .universal_button_popover__send_icon {
@@ -149,9 +191,9 @@
 
 .wallet_popover__modal {
   align-items: center;
-  background-color: #252527;
+  background-color: var(--gray1);
   border-radius: 14px;
-  border: 1px solid #2f2f36;
+  border: 1px solid var(--gray6);
   box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);
   cursor: default;
   display: flex;
@@ -172,7 +214,7 @@
   background-color: #298574;
   border-radius: 9999px;
   border: none;
-  color: #ffffff;
+  color: white;
   cursor: pointer;
   cursor: pointer;
   display: flex;

@@ -130,7 +130,11 @@ export default function DmButton(props) {
     >
       {/* Activation button */}
       <button
-        className="universal_button__button"
+        className={
+          props.theme === "dark"
+            ? "universal_button__button universal_button__button___dark"
+            : "universal_button__button"
+        }
         type="button"
         onClick={(event) => {
           if (wagmiAddress === props.address) {
@@ -182,7 +186,13 @@ export default function DmButton(props) {
           horizontal: "center",
         }}
       >
-        <div className="universal_button_popover__container">
+        <div
+          className={
+            props.theme === "dark"
+              ? "universal_button_popover__container universal_button_popover__container___dark"
+              : "universal_button_popover__container"
+          }
+        >
           <textarea
             className="universal_button_popover__textarea"
             spellCheck={false}
