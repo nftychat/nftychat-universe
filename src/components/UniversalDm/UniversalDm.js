@@ -40,7 +40,7 @@ export default function UniversalDm(props) {
       <DmButton
         address={props.address}
         displayName={props.displayName}
-        theme="dark"
+        theme={props.theme || 'light'}
       />
     </WagmiConfig>
   );
