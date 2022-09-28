@@ -10,6 +10,7 @@ root.render(
     <UniversalDm
       address={sampleAddress}
       displayName={sampleDisplayName}
+      theme='dark'
     />
   </React.StrictMode>
 );
