@@ -22,7 +22,7 @@
   transition: color 200ms, background-color 200ms;
 }
 
-.universal_button:hover {
+.universal_button__button:hover {
   background-color: #f9fafb;
 }
 
