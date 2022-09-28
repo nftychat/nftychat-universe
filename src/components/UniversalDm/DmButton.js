@@ -8,7 +8,13 @@ import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg"
 export default function DmButton(props) {
   // Wamgi hooks
   const { address: wagmiAddress } = useAccount();
-  const { connect, connectors, error: wagmiError } = useConnect();
+  const {
+    connect,
+    connectors,
+    error: wagmiError,
+    isLoading,
+    pendingConnector,
+  } = useConnect();
   const { signMessageAsync } = useSignMessage();
 
   // Custom states
@@ -19,6 +25,10 @@ export default function DmButton(props) {
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
+
+  // Wallet modal
+  // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
+  const [walletPopoverOpen, setWalletPopoverOpen] = useState(false);
 
   // UseEffect to warn user on error
   useEffect(() => {
@@ -119,6 +129,7 @@ export default function DmButton(props) {
           if (wagmiAddress === props.address) {
             window.open("https://nftychat.xyz/dms", "_blank");
           } else {
+            console.log(wagmiAddress, !wagmiAddress);
             if (!wagmiAddress) {
               try {
                 const connector = connectors[0];
@@ -126,6 +137,7 @@ export default function DmButton(props) {
               } catch (error) {
                 console.log(error);
               }
+              setWalletPopoverOpen(true);
             }
             setPopoverAnchor(event.currentTarget);
           }
@@ -152,6 +164,7 @@ export default function DmButton(props) {
         </span>
       </button>
 
+      {/* Message Popover */}
       <Popover
         anchorEl={popoverAnchor}
         anchorOrigin={{
@@ -193,6 +206,34 @@ export default function DmButton(props) {
               />
             </button>
           </div>
+        </div>
+      </Popover>
+      {/* Wallet Popover */}
+      <Popover
+        open={!wagmiAddress && walletPopoverOpen}
+        anchorPosition={{ top: 200, left: 400 }}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+      >
+        <div>
+          {connectors.map((connector) => (
+            <button
+              disabled={!connector.ready}
+              key={connector.id}
+              onClick={() => connect({ connector })}
+            >
+              {connector.name}
+              {isLoading &&
+                connector.id === pendingConnector?.id &&
+                " (connecting)"}
+            </button>
+          ))}
         </div>
       </Popover>
     </div>
