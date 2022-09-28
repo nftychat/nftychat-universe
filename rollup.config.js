@@ -12,7 +12,7 @@ import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 export default {
     input: pkg.source,
     output: [
-        // { file: pkg.main, format: 'cjs' },
+        { file: pkg.main, format: 'cjs' },
         { file: pkg.module, format: 'esm' }
     ],
     inlineDynamicImports: true,

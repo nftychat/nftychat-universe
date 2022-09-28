@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import { Icon } from "@iconify/react";
-import Popover from "@mui/material/Popover/index.js";
+import Popover from "@mui/material/Popover";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -195,6 +195,113 @@ export default function DmButton(props) {
               </span>
             </button>
 
+            <Popover
+              anchorEl={popoverAnchor}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              className={css`
+                border-radius: 6px;
+                margin-top: 8px;
+              `}
+              onClose={() => setPopoverAnchor(null)}
+              open={
+                popoverAnchor !== null &&
+                ![null, undefined].includes(wagmiAddress)
+              }
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <div
+                className={css`
+                  background-color: white;
+                  display: flex;
+                  flex-direction: column;
+                  padding: 16px 16px 8px 16px;
+                  width: 384px;
+                `}
+              >
+                <textarea
+                  className={css`
+                    border-radius: 6px;
+                    border: solid #e2e8f0 1px;
+                    color: #467ee5;
+                    font-family: Inter, sans-serif;
+                    font-size: 1rem;
+                    margin-bottom: 6px;
+                    min-height: 66px;
+                    outline: none;
+                    padding: 8px;
+                    resize: none;
+                    transition: color 200ms, background-color 200ms;
+                    &:focus {
+                      border-color: #cbd5e1;
+                    }
+                  `}
+                  spellCheck={false}
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                />
+                <div
+                  className={css`
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                  `}
+                >
+                  <div
+                    className={css`
+                      align-items: center;
+                      display: flex;
+                      gap: 8px;
+                    `}
+                  >
+                    <Logo />
+                    <span
+                      className={css`
+                        color: #b58fd9;
+                        font-family: Inter, sans-serif;
+                        font-size: 16px;
+                      `}
+                    >
+                      Sent via nfty chat
+                    </span>
+                  </div>
+                  {/* Send button */}
+                  <button
+                    className={css`
+                      align-items: center;
+                      background-color: transparent;
+                      border-radius: 9999px;
+                      border: none;
+                      color: #b58fd9;
+                      cursor: pointer;
+                      display: flex;
+                      height: 32px;
+                      justify-content: center;
+                      padding: 6px;
+                      transition: color 200ms, background-color 200ms;
+                      width: 32px;
+                      &:hover {
+                        background-color: #f9fafb;
+                      }
+                    `}
+                    onClick={sendClick}
+                  >
+                    <Icon
+                      className={css`
+                        height: 100%;
+                        width: 100%;
+                      `}
+                      icon="ant-design:send-outlined"
+                    />
+                  </button>
+                </div>
+              </div>
+            </Popover>
           </div>
         );
       }}

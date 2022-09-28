@@ -4,18 +4,17 @@
     "type": "git",
     "url": "https://github.com/nftychat/nftychat-universe"
   },
-  "type": "module",
-  "version": "0.1.24",
+  "version": "0.1.20",
   "license": "MIT",
   "description": "nftychat plugins for your website",
   "author": "nftychat",
-  "main": "dist/index.esm.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "source": "src/components/index.js",
   "scripts": {
     "build": "rollup -c",
     "build-watch": "rollup -c -w",
-    "start": "react-scripts --es-module-specifier-resolution=node start",
+    "start": "react-scripts start",
     "test": "echo \"No test specified\""
   },
   "alias": {
@@ -95,8 +94,6 @@
   "peerDependencies": {
     "@rainbow-me/rainbowkit": "^0.6.1",
     "ethers": "^5.7.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "wagmi": "^0.6.4"
   }
 }
