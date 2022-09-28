@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { Modal } from "@mui/material";
 import Popover from "@mui/material/Popover";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -120,7 +121,13 @@ export default function DmButton(props) {
   }
 
   return (
-    <div className="universal_button">
+    <div
+      className={
+        props.theme === "dark"
+          ? "universal_button universal_button___dark"
+          : "universal_button"
+      }
+    >
       {/* Activation button */}
       <button
         className="universal_button__button"
@@ -131,12 +138,6 @@ export default function DmButton(props) {
           } else {
             console.log(wagmiAddress, !wagmiAddress);
             if (!wagmiAddress) {
-              try {
-                const connector = connectors[0];
-                connect({ connector });
-              } catch (error) {
-                console.log(error);
-              }
               setWalletPopoverOpen(true);
             }
             setPopoverAnchor(event.currentTarget);
@@ -208,22 +209,18 @@ export default function DmButton(props) {
           </div>
         </div>
       </Popover>
+
       {/* Wallet Popover */}
-      <Popover
+      <Modal
+        aria-labelledby="wallet_popover"
+        className="wallet_popover"
+        onClose={() => setWalletPopoverOpen(false)}
         open={!wagmiAddress && walletPopoverOpen}
-        anchorPosition={{ top: 200, left: 400 }}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
       >
-        <div>
+        <div className="wallet_popover__modal">
           {connectors.map((connector) => (
             <button
+              className="wallet_popover__button"
               disabled={!connector.ready}
               key={connector.id}
               onClick={() => connect({ connector })}
@@ -235,7 +232,8 @@ export default function DmButton(props) {
             </button>
           ))}
         </div>
-      </Popover>
+      </Modal>
+      {/* </Popover> */}
     </div>
   );
 }

@@ -37,7 +37,11 @@ export default function UniversalDm(props) {
   return (
     <WagmiConfig client={wagmiClient}>
       <Toaster />
-      <DmButton address={props.address} displayName={props.displayName} />
+      <DmButton
+        address={props.address}
+        displayName={props.displayName}
+        theme="dark"
+      />
     </WagmiConfig>
   );
 }
