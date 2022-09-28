@@ -1,4 +1,6 @@
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
 import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
@@ -12,7 +14,20 @@ const { chains, provider } = configureChains(
 
 const wagmiClient = createClient({
   autoConnect: true,
-  connectors: [new MetaMaskConnector({ chains })],
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: true,
+      },
+    }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: 'nftychat',
+      },
+    })],
   provider,
 });
 
