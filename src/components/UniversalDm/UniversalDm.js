@@ -7,13 +7,14 @@ import { Toaster } from "react-hot-toast";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import DmButton from "./DmButton";
+import { useEffect } from "react";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
   [publicProvider()]
 );
 
-const wagmiClient = createClient({
+const defaultWagmiClient = createClient({
   autoConnect: true,
   connectors: [
     new MetaMaskConnector({ chains }),
@@ -34,8 +35,9 @@ const wagmiClient = createClient({
 });
 
 export default function UniversalDm(props) {
+
   return (
-    <WagmiConfig client={wagmiClient}>
+    <WagmiConfig client={defaultWagmiClient}>
       <Toaster />
       <DmButton
         address={props.address}

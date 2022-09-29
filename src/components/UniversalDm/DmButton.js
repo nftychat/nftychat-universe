@@ -140,7 +140,6 @@ export default function DmButton(props) {
           if (wagmiAddress === props.address) {
             window.open("https://nftychat.xyz/dms", "_blank");
           } else {
-            console.log(wagmiAddress, !wagmiAddress);
             if (!wagmiAddress) {
               setWalletPopoverOpen(true);
             }

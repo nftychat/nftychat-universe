@@ -12514,8 +12514,6 @@ function DmButton(props) {
         if (wagmiAddress === props.address) {
           window.open("https://nftychat.xyz/dms", "_blank");
         } else {
-          console.log(wagmiAddress, !wagmiAddress);
-
           if (!wagmiAddress) {
             setWalletPopoverOpen(true);
           }
@@ -12598,7 +12596,7 @@ const {
   chains,
   provider
 } = wagmi.configureChains([wagmi.chain.mainnet, wagmi.chain.polygon, wagmi.chain.optimism, wagmi.chain.arbitrum], [_public.publicProvider()]);
-const wagmiClient = wagmi.createClient({
+const defaultWagmiClient = wagmi.createClient({
   autoConnect: true,
   connectors: [new metaMask.MetaMaskConnector({
     chains
@@ -12617,7 +12615,7 @@ const wagmiClient = wagmi.createClient({
 });
 function UniversalDm(props) {
   return /*#__PURE__*/jsxRuntime.jsxs(wagmi.WagmiConfig, {
-    client: wagmiClient,
+    client: defaultWagmiClient,
     children: [/*#__PURE__*/jsxRuntime.jsx(Ie, {}), /*#__PURE__*/jsxRuntime.jsx(DmButton, {
       address: props.address,
       displayName: props.displayName,
