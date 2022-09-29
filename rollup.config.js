@@ -38,7 +38,7 @@ export default {
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
-            presets: ["@babel/preset-env", ['@babel/preset-react', { runtime: "automatic" }]]
+            presets: [ ['@babel/preset-react', { runtime: "automatic"}]]
         }),
         del({ targets: ['dist/*'] }),
     ],
