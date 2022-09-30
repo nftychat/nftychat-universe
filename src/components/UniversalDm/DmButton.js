@@ -127,11 +127,7 @@ export default function DmButton(props) {
     >
       {/* Activation button */}
       <button
-        className={
-          props.theme === "dark"
-            ? "universal_button__button universal_button__button___dark"
-            : "universal_button__button"
-        }
+        className="universal_button__button"
         type="button"
         onClick={(event) => {
           if (wagmiAddress === props.address) {
@@ -223,7 +219,13 @@ export default function DmButton(props) {
         onClose={() => setWalletPopoverOpen(false)}
         open={!wagmiAddress && walletPopoverOpen}
       >
-        <div className="wallet_popover__modal">
+        <div
+          className={
+            props.theme === "dark"
+              ? "wallet_popover__modal wallet_popover__modal___dark"
+              : "wallet_popover__modal"
+          }
+        >
           {connectors.map((connector) => (
             <button
               className="wallet_popover__button"

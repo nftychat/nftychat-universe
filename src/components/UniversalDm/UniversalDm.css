@@ -1,7 +1,3 @@
-* {
-  font-family: "Inter", sans-serif;
-}
-
 .universal_button,
 .universal_button *,
 .universal_button_popover__container,
@@ -22,6 +18,8 @@
   --gray12: hsl(0 0% 9%);
 
   --button-text: #467ee5;
+
+  font-family: "Inter", sans-serif;
 }
 
 .universal_button___dark,
