@@ -12414,13 +12414,11 @@ function DmButton(props) {
     let tempAccessToken = accessToken;
 
     if (accessToken === null) {
-      const message_response = await fetch(mainUrl + "/v1/siwe_message?address=" + wagmiAddress, {
-        method: "post"
-      });
+      const message_response = await fetch(mainUrl + "/v1/siwe_message?address=" + wagmiAddress);
       const data = await message_response.json();
-      const login_message = data.login_message;
+      const siwe_message = data.siwe_message;
       const signature = await signMessageAsync({
-        message: login_message
+        message: siwe_message
       });
       tempAccessToken = await checkSignature(wagmiAddress, signature);
     }
