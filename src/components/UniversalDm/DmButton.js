@@ -62,13 +62,10 @@ export default function DmButton(props) {
     if (accessToken === null) {
       const message_response = await fetch(
         mainUrl + "/v1/siwe_message?address=" + wagmiAddress,
-        {
-          method: "post",
-        }
       );
       const data = await message_response.json();
-      const login_message = data.login_message;
-      const signature = await signMessageAsync({ message: login_message });
+      const siwe_message = data.siwe_message;
+      const signature = await signMessageAsync({ message: siwe_message });
       tempAccessToken = await checkSignature(wagmiAddress, signature);
     }
 
