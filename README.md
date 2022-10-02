@@ -26,5 +26,5 @@ Then add the component. Customize your address, displayName and theme.
 />
 ```
 
-Check out a demo and more information at [nftychat.xyz/universe](https://nftychat.xyz/universe))
+Check out a demo and more information at [nftychat.xyz/universe](https://nftychat.xyz/universe)
 
