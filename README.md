@@ -1,13 +1,14 @@
 # nftychat-universe
-A collection of nftychat add ons to your site
+nftychat universe is a suite of add-ons that add messaging
+capabilities to your site with just a few lines of code.
 
 ## Install
 ```
-yarn add nftychat-universe
+yarn add nftychat-universe ethers wagmi
 ```
 or
 ```
-npm install nftychat-universe
+npm install nftychat-universe ethers wagmi
 ```
 
 ## UniversalDm
@@ -16,11 +17,12 @@ import the component
 import {UniversalDm} from 'nftychat-universe';
 ```
 
-Then replace sample address and sampleDisplayName with the user you're trying to dm.
+Then add the component. Customize your address, displayName and theme.
 ```
 <UniversalDm
-      address={sampleAddress}
-      displayName={sampleDisplayName}
+  address="0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF"
+  displayName="slobo.eth"
+  theme="dark"
 />
 ```
 
