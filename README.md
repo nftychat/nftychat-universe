@@ -1,5 +1,5 @@
 # nftychat-universe
-nftychat universe is a suite of add-ons that add messaging
+nftychat universe is a suite of react components that add messaging
 capabilities to your site with just a few lines of code.
 
 ## Install
