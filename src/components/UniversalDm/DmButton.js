@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
-import { ReactComponent as Logo } from "../../assets/images/bestagon_circle.svg";
+import logo from "../../assets/images/bestagonCircle.png";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -192,12 +192,20 @@ export default function DmButton(props) {
             onChange={(e) => setMessageText(e.target.value)}
           />
           <div className="universal_button_popover__content">
-            <div className="universal_button_popover__content_left">
-              <Logo />
+           
+            <a href="https://nftychat.xyz" 
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  styel={{ textDecoration: 'none' }}
+                >
+                 <div className="universal_button_popover__content_left">
+              <img src={logo} alt="Logo" style={{width:24, height:24}}/>
               <span className="universal_button_popover__user_text">
-                Sent via nfty chat
+                  Sent via nftychat
               </span>
-            </div>
+              </div>
+              </a>
+
             {/* Send button */}
             <button
               className="universal_button_popover__send"

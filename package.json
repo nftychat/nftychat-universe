@@ -49,7 +49,6 @@
     "@emotion/styled": "^11.10.4",
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.7",
-    "@rollup/plugin-babel": "^5.3.1",
     "react-hot-toast": "^2.3.0"
   },
   "devDependencies": {
@@ -75,9 +74,11 @@
     "rollup": "^2.79.1",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-esformatter": "^2.0.1",
+    "rollup-plugin-img": "^1.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-svg": "^2.0.0",
+    "@rollup/plugin-babel": "^5.3.1",
     "url-loader": "^4.1.1",
     "wagmi": "^0.6.4",
     "webpack": "^5.74.0",

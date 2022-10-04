@@ -147,9 +147,18 @@
 }
 
 .universal_button_popover__user_text {
+  text-decoration: none;
   color: var(--gray11);
   font-family: Inter, sans-serif;
   font-size: 16px;
+}
+
+.universal_button_popover__content a:hover, 
+.universal_button_popover__content a:visited, 
+.universal_button_popover__content a:link, 
+.universal_button_popover__content a:active
+{
+  text-decoration: none;
 }
 
 .universal_button_popover__send {
