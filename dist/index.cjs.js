@@ -12366,7 +12366,8 @@ function DmButton(props) {
   } = wagmi.useSignMessage(); // Custom states
 
   const [numberOfNotifications, setNumberOfNotifications] = React.useState(0);
-  const mainUrl = "https://nftychat-staging.herokuapp.com";
+  const mainUrl = "https://nftychat-staging.herokuapp.com"; // const mainUrl = "http://localhost:8080";
+
   const [accessToken, setAccessToken] = React.useState(null);
   const [messageText, setMessageText] = React.useState("");
   const [popoverAnchor, setPopoverAnchor] = React.useState(null); // const displayName = "Poapdispenser.eth";
