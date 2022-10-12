@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {UniversalDm} from "./components/index.js";
+import {UniversalDm, UniversalChatRoom} from "./components/index.js";
 
 const sampleAddress = '0x11B002247efc78A149F4e6aDc9F143b47bE9123D'
 const sampleDisplayName = 'Poapdispenser.eth'
@@ -12,5 +12,6 @@ root.render(
       displayName={sampleDisplayName}
       theme='dark'
     />
+    <UniversalChatRoom/>
   </React.StrictMode>
 );

@@ -1,0 +1,13 @@
+.universal_chat_room__messages_outer {
+  border: 1px red solid;
+  height: 100px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-grow: 1;
+  overflow-anchor: none;
+}
+.universal_chat_room__messages_inner {
+  display: flex;
+  flex-direction: column;
+}
