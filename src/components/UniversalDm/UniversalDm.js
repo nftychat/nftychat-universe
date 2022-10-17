@@ -40,6 +40,7 @@ export default function UniversalDm(props) {
         address={props.address}
         displayName={props.displayName}
         theme={props.theme || "light"}
+        popoverDirection={props.popoverDirection || "top"}
       />
     </WagmiConfig>
   );

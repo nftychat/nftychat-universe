@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import logo from "../../assets/images/bestagonCircle.png";
+import { getDisplayName, shortenAddress } from "../../utilities";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -25,6 +26,7 @@ export default function DmButton(props) {
   const [accessToken, setAccessToken] = useState(null);
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
+  const [displayName, setDisplayName] = useState(props.displayName)
   // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
 
@@ -38,6 +40,17 @@ export default function DmButton(props) {
       toast.error("Wallet not detected.");
     }
   }, [wagmiError]);
+
+  //useEffect if displayName not defined
+  useEffect(() =>{
+    async function resolveDisplayName(){
+      if (!displayName || displayName === ""){
+        const tempDisplayName = await getDisplayName(props.address);
+        setDisplayName(tempDisplayName)
+      }
+    }
+    resolveDisplayName();
+  },[displayName, props.address])
 
   useEffect(() => {
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
@@ -158,7 +171,7 @@ export default function DmButton(props) {
         <span className="universal_button__text">
           {wagmiAddress === props.address
             ? "Check Messages"
-            : `DM ${props.displayName}`}
+            : `DM ${displayName ? displayName : shortenAddress(props.address)}`}
         </span>
       </button>
 
@@ -166,16 +179,17 @@ export default function DmButton(props) {
       <Popover
         anchorEl={popoverAnchor}
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: props.popoverDirection,
           horizontal: "center",
         }}
         className="universal_button_popover"
+        style={props.popoverDirection === "bottom" ? {marginTop: 8} : {marginTop: -8}}
         onClose={() => setPopoverAnchor(null)}
         open={
           popoverAnchor !== null && ![null, undefined].includes(wagmiAddress)
         }
         transformOrigin={{
-          vertical: "top",
+          vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
           horizontal: "center",
         }}
       >
