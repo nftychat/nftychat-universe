@@ -6212,7 +6212,7 @@ function getWrappedName(outerType, innerType, wrapperName) {
  */
 
 
-function getDisplayName(Component) {
+function getDisplayName$1(Component) {
   if (Component == null) {
     return undefined;
   }
@@ -7825,7 +7825,7 @@ function createStyled(input = {}) {
         }
 
         if (displayName === undefined) {
-          displayName = `Styled(${getDisplayName(tag)})`;
+          displayName = `Styled(${getDisplayName$1(tag)})`;
         }
 
         Component.displayName = displayName;
@@ -12349,6 +12349,45 @@ var Popover$1 = Popover;
 
 var logo = "data:image/png;base64,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";
 
+/**
+ * Get ENS infomation resolved from the provided wallet address or ENS name
+ * @param { string } - wallet address or ENS name
+ * @returns { object } - { address, name, displayName, avatar }
+ * @example getEnsInfo("0x8206a305Ad4dAb5117B5F1B7C200cD348d2b7a5D") returns { address: "0x...", displayName: "natt.eth" }
+ * @example getEnsInfo("natt.eth") // returns { address: "0x...", displayName: "natt.eth" }
+ * @example getEnsInfo("0x6CFd4180D5bFBFA467213e10e268B488F68e0460") // returns { address: "0x...", displayName: "0x..." } because not resolved to an ENS name
+ */
+async function getDisplayName(param) {
+  // Caching system
+  // 1. Gets cached data and returns cached data if matched
+  let sessionCache = sessionStorage.getItem("display_name_session_cache");
+  let sessionCacheSerialize = {};
+
+  if (sessionCache !== null) {
+    sessionCacheSerialize = JSON.parse(sessionCache);
+    const cacheData = sessionCacheSerialize[param];
+
+    if (cacheData !== undefined) {
+      console.log("cacheData", cacheData);
+      return cacheData['displayName'];
+    }
+  } // Fetches data if not in cache
+
+
+  const url = `https://api.ensideas.com/ens/resolve/${param}`;
+  const response = await fetch(url);
+  const data = await response.json(); // Caching system
+  // 2. Set cache data
+
+  sessionCacheSerialize[param] = data;
+  sessionStorage.setItem("display_name_session_cache", JSON.stringify(sessionCacheSerialize));
+  console.log(data);
+  return data['displayName'];
+}
+const shortenAddress = address => {
+  return address.slice(0, 6) + "..." + address.slice(-4);
+};
+
 function DmButton(props) {
   // Wamgi hooks
   const {
@@ -12370,7 +12409,8 @@ function DmButton(props) {
 
   const [accessToken, setAccessToken] = React.useState(null);
   const [messageText, setMessageText] = React.useState("");
-  const [popoverAnchor, setPopoverAnchor] = React.useState(null); // const displayName = "Poapdispenser.eth";
+  const [popoverAnchor, setPopoverAnchor] = React.useState(null);
+  const [displayName, setDisplayName] = React.useState(props.displayName); // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
   // Wallet modal
   // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
@@ -12381,7 +12421,18 @@ function DmButton(props) {
     if (wagmiError) {
       _t.error("Wallet not detected.");
     }
-  }, [wagmiError]);
+  }, [wagmiError]); //useEffect if displayName not defined
+
+  React.useEffect(() => {
+    async function resolveDisplayName() {
+      if (!displayName || displayName === "") {
+        const tempDisplayName = await getDisplayName(props.address);
+        setDisplayName(tempDisplayName);
+      }
+    }
+
+    resolveDisplayName();
+  }, [displayName, props.address]);
   React.useEffect(() => {
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
       method: "get"
@@ -12491,19 +12542,24 @@ function DmButton(props) {
         })]
       }), /*#__PURE__*/jsxRuntime.jsx("span", {
         className: "universal_button__text",
-        children: wagmiAddress === props.address ? "Check Messages" : `DM ${props.displayName}`
+        children: wagmiAddress === props.address ? "Check Messages" : `DM ${displayName ? displayName : shortenAddress(props.address)}`
       })]
     }), /*#__PURE__*/jsxRuntime.jsx(Popover$1, {
       anchorEl: popoverAnchor,
       anchorOrigin: {
-        vertical: "bottom",
+        vertical: props.popoverDirection,
         horizontal: "center"
       },
       className: "universal_button_popover",
+      style: props.popoverDirection === "bottom" ? {
+        marginTop: 8
+      } : {
+        marginTop: -8
+      },
       onClose: () => setPopoverAnchor(null),
       open: popoverAnchor !== null && ![null, undefined].includes(wagmiAddress),
       transformOrigin: {
-        vertical: "top",
+        vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
         horizontal: "center"
       },
       children: /*#__PURE__*/jsxRuntime.jsxs("div", {
@@ -12568,7 +12624,7 @@ function DmButton(props) {
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
-var css = ".universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n  margin-top: 8px;\n}\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  padding: 16px 16px 8px 16px;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
+var css = ".universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  padding: 16px 16px 8px 16px;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
 n(css,{});
 
 const {
@@ -12598,7 +12654,8 @@ function UniversalDm(props) {
     children: [/*#__PURE__*/jsxRuntime.jsx(Ie, {}), /*#__PURE__*/jsxRuntime.jsx(DmButton, {
       address: props.address,
       displayName: props.displayName,
-      theme: props.theme || "light"
+      theme: props.theme || "light",
+      popoverDirection: props.popoverDirection || "top"
     })]
   });
 }
