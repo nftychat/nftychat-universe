@@ -27,6 +27,8 @@ export default function DmButton(props) {
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName)
+  const [conversations, setConversations] = useState([])
+  const [authenticated, setAuthenticated] = useState(false)
   // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
 
@@ -61,19 +63,13 @@ export default function DmButton(props) {
       })
       .then((data) => {
         setNumberOfNotifications(data);
+        console.log(data)
       });
   }, [props.address]);
 
-  // useEffect to close popover if user is same as props.address
-  useEffect(() => {
-    if (props.address === wagmiAddress) {
-      setPopoverAnchor(null);
-    }
-  }, [props.address, wagmiAddress]);
-
-  async function sendClick() {
-    let tempAccessToken = accessToken;
-    if (accessToken === null) {
+  async function getAccessToken() {
+    let tempAccessToken = localStorage.getItem("token_"+ wagmiAddress);
+    if (!tempAccessToken) {
       const message_response = await fetch(
         mainUrl + "/v1/siwe_message?address=" + wagmiAddress,
       );
@@ -82,7 +78,51 @@ export default function DmButton(props) {
       const signature = await signMessageAsync({ message: siwe_message });
       tempAccessToken = await checkSignature(wagmiAddress, signature);
     }
+    localStorage.setItem("token_"+ wagmiAddress, tempAccessToken); 
+    setAuthenticated(true)
+    return tempAccessToken;
+  }
 
+  async function getConversations() {
+   const tempAccessToken = await getAccessToken();
+   fetch(mainUrl + "/v1/conversations", {
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "application/json",
+       Authorization: "Bearer " + tempAccessToken,
+     },
+   })
+     .then((response) => {
+       if (!response.ok) {
+         response.json().then((data) => {
+           toast.error(data["detail"]);
+         });
+         // TODO: Unsure what error is trying to throw
+         throw new Error("error");
+       }
+       return response.json();
+     })
+     .then((payload) => {
+      setConversations(payload.slice(0,3))
+     });
+  }
+  // useEffect to get signature after click
+  useEffect(() => {
+    if (!!wagmiAddress && !!popoverAnchor){
+      getAccessToken()
+    }
+  },
+  [popoverAnchor, wagmiAddress])
+
+  // useEffect to fetch conversations if user is same as props.address
+  useEffect(() => {
+    if (props.address === wagmiAddress && authenticated) {
+      getConversations();
+    }
+  }, [props.address, wagmiAddress, authenticated]);
+
+  async function sendClick() {
+    const tempAccessToken = await getAccessToken();
     const payload = { address: props.address, message_text: messageText };
     fetch(mainUrl + "/v1/send_message", {
       method: "POST",
@@ -144,14 +184,8 @@ export default function DmButton(props) {
         className="universal_button__button"
         type="button"
         onClick={(event) => {
-          if (wagmiAddress === props.address) {
-            window.open("https://nftychat.xyz/dms", "_blank");
-          } else {
-            if (!wagmiAddress) {
-              setWalletPopoverOpen(true);
-            }
-            setPopoverAnchor(event.currentTarget);
-          }
+          setWalletPopoverOpen(true);
+          setPopoverAnchor(event.currentTarget);
         }}
       >
         {/* Icon */}
@@ -169,9 +203,12 @@ export default function DmButton(props) {
 
         {/* Text */}
         <span className="universal_button__text">
-          {wagmiAddress === props.address
-            ? "Check Messages"
-            : `DM ${displayName ? displayName : shortenAddress(props.address)}`}
+          {(popoverAnchor !== null && authenticated === false) ? 
+          "Waiting for Signature" :
+          (wagmiAddress === props.address
+            ? "Recent Messages"
+            : `DM ${displayName ? displayName : shortenAddress(props.address)}`)
+          }
         </span>
       </button>
 
@@ -186,7 +223,7 @@ export default function DmButton(props) {
         style={props.popoverDirection === "bottom" ? {marginTop: 8} : {marginTop: -8}}
         onClose={() => setPopoverAnchor(null)}
         open={
-          popoverAnchor !== null && ![null, undefined].includes(wagmiAddress)
+          popoverAnchor !== null && authenticated 
         }
         transformOrigin={{
           vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
@@ -200,38 +237,85 @@ export default function DmButton(props) {
               : "universal_button_popover__container"
           }
         >
-          <textarea
-            className="universal_button_popover__textarea"
-            spellCheck={false}
-            value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
-          />
-          <div className="universal_button_popover__content">
-           
-            <a href="https://nftychat.xyz" 
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  styel={{ textDecoration: 'none' }}
-                >
-                 <div className="universal_button_popover__content_left">
-              <img src={logo} alt="Logo" style={{width:24, height:24}}/>
-              <span className="universal_button_popover__user_text">
-                  Sent via nftychat
-              </span>
-              </div>
-              </a>
+          {(wagmiAddress === props.address) ?
+          <>
+            {/* Recent Messages */}
+            <div className="universal_button_popover__content">
+            <span className="message_title"> Recent Messages </span>            
 
-            {/* Send button */}
-            <button
-              className="universal_button_popover__send"
-              onClick={sendClick}
+
+            <a href="https://nftychat.xyz" 
+              rel="noopener noreferrer"
+              target="_blank"
+              styel={{ textDecoration: 'none' }}
             >
-              <Icon
-                className="universal_button_popover__send_icon"
-                icon="ant-design:send-outlined"
+              <div className="universal_button_popover__subtitle">
+                <span className="universal_button_popover__link_text">
+                  View All
+                </span>
+                <img src={logo} alt="Logo" style={{width:24, height:24}}/>
+              </div>
+            </a>
+            </div>
+            <div className="message_separator"></div>
+            <div className="universal_button_popover__messages">
+            {conversations.map((conversation) => (
+              <div className="message__container" key={conversation.conversation_id} 
+              onClick={() =>{
+                window.open("https://nftychat.xyz/dms/"+conversation.conversation_id, "_blank")
+              }}>
+               <div className="hover_text"> View on nftychat</div> 
+                <div className="message_text__container">
+                  <span className="message_title"> {conversation.conversation_name}</span>
+                  <span className="message_text">{conversation.latest_message_text}</span>
+                </div>
+                {conversation.unread_message_count > 0 &&
+                <div className="message__badge">
+                  {conversation.unread_message_count}
+                </div>  }
+              </div>
+            ))}
+            </div>
+
+          </>
+          :
+          <>
+            {/* Send Message */}
+            <div className="universal_button_popover__content_top">
+              <textarea
+                className="universal_button_popover__textarea"
+                spellCheck={false}
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
               />
-            </button>
-          </div>
+            </div>
+            <div className="universal_button_popover__content_bottom">
+              <a href="https://nftychat.xyz" 
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    styel={{ textDecoration: 'none' }}
+                  >
+                  <div className="universal_button_popover__content_left">
+                <img src={logo} alt="Logo" style={{width:24, height:24}}/>
+                <span className="universal_button_popover__user_text">
+                    Sent via nftychat
+                </span>
+                </div>
+                </a>
+
+              {/* Send button */}
+              <button
+                className="universal_button_popover__send"
+                onClick={sendClick}
+              >
+                <Icon
+                  className="universal_button_popover__send_icon"
+                  icon="ant-design:send-outlined"
+                />
+              </button>
+            </div>
+          </>
+        }
         </div>
       </Popover>
 
