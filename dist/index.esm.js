@@ -5,7 +5,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { publicProvider } from 'wagmi/providers/public';
-import { jsxs, jsx } from 'react/jsx-runtime';
+import { jsxs, jsx, Fragment as Fragment$1 } from 'react/jsx-runtime';
 import * as ReactDOM from 'react-dom';
 import ReactDOM__default from 'react-dom';
 
@@ -12383,7 +12383,9 @@ function DmButton(props) {
   const [accessToken, setAccessToken] = useState(null);
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
-  const [displayName, setDisplayName] = useState(props.displayName); // const displayName = "Poapdispenser.eth";
+  const [displayName, setDisplayName] = useState(props.displayName);
+  const [conversations, setConversations] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false); // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
   // Wallet modal
   // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
@@ -12413,19 +12415,14 @@ function DmButton(props) {
       return payload.json();
     }).then(data => {
       setNumberOfNotifications(data);
+      console.log(data);
     });
-  }, [props.address]); // useEffect to close popover if user is same as props.address
+  }, [props.address]);
 
-  useEffect(() => {
-    if (props.address === wagmiAddress) {
-      setPopoverAnchor(null);
-    }
-  }, [props.address, wagmiAddress]);
+  async function getAccessToken() {
+    let tempAccessToken = localStorage.getItem("token_" + wagmiAddress);
 
-  async function sendClick() {
-    let tempAccessToken = accessToken;
-
-    if (accessToken === null) {
+    if (!tempAccessToken) {
       const message_response = await fetch(mainUrl + "/v1/siwe_message?address=" + wagmiAddress);
       const data = await message_response.json();
       const siwe_message = data.siwe_message;
@@ -12435,6 +12432,49 @@ function DmButton(props) {
       tempAccessToken = await checkSignature(wagmiAddress, signature);
     }
 
+    localStorage.setItem("token_" + wagmiAddress, tempAccessToken);
+    setAuthenticated(true);
+    return tempAccessToken;
+  }
+
+  async function getConversations() {
+    const tempAccessToken = await getAccessToken();
+    fetch(mainUrl + "/v1/conversations", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + tempAccessToken
+      }
+    }).then(response => {
+      if (!response.ok) {
+        response.json().then(data => {
+          _t.error(data["detail"]);
+        }); // TODO: Unsure what error is trying to throw
+
+        throw new Error("error");
+      }
+
+      return response.json();
+    }).then(payload => {
+      setConversations(payload.slice(0, 3));
+    });
+  } // useEffect to get signature after click
+
+
+  useEffect(() => {
+    if (!!wagmiAddress && !!popoverAnchor) {
+      getAccessToken();
+    }
+  }, [popoverAnchor, wagmiAddress]); // useEffect to fetch conversations if user is same as props.address
+
+  useEffect(() => {
+    if (props.address === wagmiAddress && authenticated) {
+      getConversations();
+    }
+  }, [props.address, wagmiAddress, authenticated]);
+
+  async function sendClick() {
+    const tempAccessToken = await getAccessToken();
     const payload = {
       address: props.address,
       message_text: messageText
@@ -12494,15 +12534,8 @@ function DmButton(props) {
       className: "universal_button__button",
       type: "button",
       onClick: event => {
-        if (wagmiAddress === props.address) {
-          window.open("https://nftychat.xyz/dms", "_blank");
-        } else {
-          if (!wagmiAddress) {
-            setWalletPopoverOpen(true);
-          }
-
-          setPopoverAnchor(event.currentTarget);
-        }
+        setWalletPopoverOpen(true);
+        setPopoverAnchor(event.currentTarget);
       },
       children: [/*#__PURE__*/jsxs("div", {
         className: "universal_button__icon_container",
@@ -12515,7 +12548,7 @@ function DmButton(props) {
         })]
       }), /*#__PURE__*/jsx("span", {
         className: "universal_button__text",
-        children: wagmiAddress === props.address ? "Check Messages" : `DM ${displayName ? displayName : shortenAddress(props.address)}`
+        children: popoverAnchor !== null && authenticated === false ? "Waiting for Signature" : wagmiAddress === props.address ? "Recent Messages" : `DM ${displayName ? displayName : shortenAddress(props.address)}`
       })]
     }), /*#__PURE__*/jsx(Popover$1, {
       anchorEl: popoverAnchor,
@@ -12530,50 +12563,110 @@ function DmButton(props) {
         marginTop: -8
       },
       onClose: () => setPopoverAnchor(null),
-      open: popoverAnchor !== null && ![null, undefined].includes(wagmiAddress),
+      open: popoverAnchor !== null && authenticated,
       transformOrigin: {
         vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
         horizontal: "center"
       },
-      children: /*#__PURE__*/jsxs("div", {
+      children: /*#__PURE__*/jsx("div", {
         className: props.theme === "dark" ? "universal_button_popover__container universal_button_popover__container___dark" : "universal_button_popover__container",
-        children: [/*#__PURE__*/jsx("textarea", {
-          className: "universal_button_popover__textarea",
-          spellCheck: false,
-          value: messageText,
-          onChange: e => setMessageText(e.target.value)
-        }), /*#__PURE__*/jsxs("div", {
-          className: "universal_button_popover__content",
-          children: [/*#__PURE__*/jsx("a", {
-            href: "https://nftychat.xyz",
-            rel: "noopener noreferrer",
-            target: "_blank",
-            styel: {
-              textDecoration: 'none'
-            },
-            children: /*#__PURE__*/jsxs("div", {
-              className: "universal_button_popover__content_left",
-              children: [/*#__PURE__*/jsx("img", {
-                src: logo,
-                alt: "Logo",
-                style: {
-                  width: 24,
-                  height: 24
-                }
-              }), /*#__PURE__*/jsx("span", {
-                className: "universal_button_popover__user_text",
-                children: "Sent via nftychat"
+        children: wagmiAddress === props.address ? /*#__PURE__*/jsxs(Fragment$1, {
+          children: [/*#__PURE__*/jsxs("div", {
+            className: "universal_button_popover__content",
+            children: [/*#__PURE__*/jsx("span", {
+              className: "message_title",
+              children: " Recent Messages "
+            }), /*#__PURE__*/jsx("a", {
+              href: "https://nftychat.xyz",
+              rel: "noopener noreferrer",
+              target: "_blank",
+              styel: {
+                textDecoration: 'none'
+              },
+              children: /*#__PURE__*/jsxs("div", {
+                className: "universal_button_popover__subtitle",
+                children: [/*#__PURE__*/jsx("span", {
+                  className: "universal_button_popover__link_text",
+                  children: "View All"
+                }), /*#__PURE__*/jsx("img", {
+                  src: logo,
+                  alt: "Logo",
+                  style: {
+                    width: 24,
+                    height: 24
+                  }
+                })]
+              })
+            })]
+          }), /*#__PURE__*/jsx("div", {
+            className: "message_separator"
+          }), /*#__PURE__*/jsx("div", {
+            className: "universal_button_popover__messages",
+            children: conversations.map(conversation => /*#__PURE__*/jsxs("div", {
+              className: "message__container",
+              onClick: () => {
+                window.open("https://nftychat.xyz/dms/" + conversation.conversation_id, "_blank");
+              },
+              children: [/*#__PURE__*/jsx("div", {
+                className: "hover_text",
+                children: " View on nftychat"
+              }), /*#__PURE__*/jsxs("div", {
+                className: "message_text__container",
+                children: [/*#__PURE__*/jsxs("span", {
+                  className: "message_title",
+                  children: [" ", conversation.conversation_name]
+                }), /*#__PURE__*/jsx("span", {
+                  className: "message_text",
+                  children: conversation.latest_message_text
+                })]
+              }), conversation.unread_message_count > 0 && /*#__PURE__*/jsx("div", {
+                className: "message__badge",
+                children: conversation.unread_message_count
               })]
-            })
-          }), /*#__PURE__*/jsx("button", {
-            className: "universal_button_popover__send",
-            onClick: sendClick,
-            children: /*#__PURE__*/jsx(Icon, {
-              className: "universal_button_popover__send_icon",
-              icon: "ant-design:send-outlined"
-            })
+            }, conversation.conversation_id))
           })]
-        })]
+        }) : /*#__PURE__*/jsxs(Fragment$1, {
+          children: [/*#__PURE__*/jsx("div", {
+            className: "universal_button_popover__content_top",
+            children: /*#__PURE__*/jsx("textarea", {
+              className: "universal_button_popover__textarea",
+              spellCheck: false,
+              value: messageText,
+              onChange: e => setMessageText(e.target.value)
+            })
+          }), /*#__PURE__*/jsxs("div", {
+            className: "universal_button_popover__content_bottom",
+            children: [/*#__PURE__*/jsx("a", {
+              href: "https://nftychat.xyz",
+              rel: "noopener noreferrer",
+              target: "_blank",
+              styel: {
+                textDecoration: 'none'
+              },
+              children: /*#__PURE__*/jsxs("div", {
+                className: "universal_button_popover__content_left",
+                children: [/*#__PURE__*/jsx("img", {
+                  src: logo,
+                  alt: "Logo",
+                  style: {
+                    width: 24,
+                    height: 24
+                  }
+                }), /*#__PURE__*/jsx("span", {
+                  className: "universal_button_popover__user_text",
+                  children: "Sent via nftychat"
+                })]
+              })
+            }), /*#__PURE__*/jsx("button", {
+              className: "universal_button_popover__send",
+              onClick: sendClick,
+              children: /*#__PURE__*/jsx(Icon, {
+                className: "universal_button_popover__send_icon",
+                icon: "ant-design:send-outlined"
+              })
+            })]
+          })]
+        })
       })
     }), /*#__PURE__*/jsx(Modal$1, {
       "aria-labelledby": "wallet_popover",
@@ -12597,7 +12690,7 @@ function DmButton(props) {
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
-var css = ".universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  padding: 16px 16px 8px 16px;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
+var css = "* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n\n/* recent messages */\n.universal_button_popover__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 12px; \n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 600;\n  line-height: 19px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray12)\n}\n.message_text{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray10);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--gray6);\n  height: 0px;\n  margin-bottom: 12px;\n}\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--button-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(2px);\n  -moz-filter: blur(2px);\n  -ms-filter: blur(2px);\n  -o-filter: blur(2px);\n  filter: blur(2px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
 n(css,{});
 
 const {
