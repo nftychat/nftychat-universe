@@ -117,6 +117,10 @@ export default function DmButton(props) {
        if (!response.ok) {
          response.json().then((data) => {
            toast.error(data["detail"]);
+           console.log(data["detail"])
+           // force reauth
+           setAuthenticated(false);
+           localStorage.removeItem("token_"+ wagmiAddress);
          });
          // TODO: Unsure what error is trying to throw
          throw new Error("error");
@@ -158,6 +162,10 @@ export default function DmButton(props) {
         if (!response.ok) {
           response.json().then((data) => {
             toast.error(data["detail"]);
+            console.log(data["detail"]);
+            // force reauth
+            setAuthenticated(false);
+            localStorage.removeItem("token_"+ wagmiAddress);
           });
           // TODO: Unsure what error is trying to throw
           throw new Error("error");
