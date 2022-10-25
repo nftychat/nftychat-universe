@@ -12380,7 +12380,6 @@ function DmButton(props) {
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
   const mainUrl = "https://nftychat-staging.herokuapp.com"; // const mainUrl = "http://localhost:8080";
 
-  const [accessToken, setAccessToken] = useState(null);
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName);
@@ -12407,7 +12406,8 @@ function DmButton(props) {
     }
 
     resolveDisplayName();
-  }, [displayName, props.address]);
+  }, [displayName, props.address]); // badge of unread messages
+
   useEffect(() => {
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
       method: "get"
@@ -12417,7 +12417,30 @@ function DmButton(props) {
       setNumberOfNotifications(data);
       console.log(data);
     });
-  }, [props.address]);
+  }, [props.address]); // Checks validity of signature
+
+  async function checkSignature(tempAddress = wagmiAddress, signature = "0x") {
+    const signatureUrl = `${mainUrl}/v1/authenticate?address=${tempAddress}&signature=${signature}&source=${window.location.hostname}`;
+    const loginResponse = await fetch(signatureUrl);
+
+    if (!loginResponse.ok) {
+      loginResponse.json().then(data => {
+        _t.error(data["detail"]);
+      });
+      throw new Error(loginResponse.status);
+    } //Set local storage with login vars
+
+
+    const loginData = await loginResponse.json(); // If multisig wallet
+
+    if (loginData["status"] === "pending") {
+      _t.error("Multisig not enabled");
+      return;
+    }
+
+    return loginData["token"];
+  } // calls check signature and saves access token
+
 
   async function getAccessToken() {
     let tempAccessToken = localStorage.getItem("token_" + wagmiAddress);
@@ -12462,6 +12485,8 @@ function DmButton(props) {
 
 
   useEffect(() => {
+    console.log(popoverAnchor, wagmiAddress);
+
     if (!!wagmiAddress && !!popoverAnchor) {
       getAccessToken();
     }
@@ -12503,29 +12528,6 @@ function DmButton(props) {
       setMessageText("");
       setPopoverAnchor(null);
     });
-  }
-
-  async function checkSignature(tempAddress = wagmiAddress, signature = "0x") {
-    const signatureUrl = `${mainUrl}/v1/authenticate?address=${tempAddress}&signature=${signature}&source=${window.location.hostname}`;
-    const loginResponse = await fetch(signatureUrl);
-
-    if (!loginResponse.ok) {
-      loginResponse.json().then(data => {
-        _t.error(data["detail"]);
-      });
-      throw new Error(loginResponse.status);
-    } //Set local storage with login vars
-
-
-    const loginData = await loginResponse.json(); // If multisig wallet
-
-    if (loginData["status"] === "pending") {
-      _t.error("Multisig not enabled");
-      return;
-    }
-
-    setAccessToken(loginData["token"]);
-    return loginData["token"];
   }
 
   return /*#__PURE__*/jsxs("div", {
