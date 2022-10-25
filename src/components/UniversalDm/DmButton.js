@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import logo from "../../assets/images/bestagonCircle.png";
-import { getDisplayName, shortenAddress } from "../../utilities";
+import { getDisplayName, shortenAddress, formatDmMessage } from "../../utilities";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -277,7 +277,7 @@ export default function DmButton(props) {
                <div className="hover_text"> View on nftychat</div> 
                 <div className="message_text__container">
                   <span className="message_title"> {conversation.conversation_name}</span>
-                  <span className="message_text">{conversation.latest_message_text}</span>
+                  <span className="message_text">{formatDmMessage(conversation.latest_message_text)}</span>
                 </div>
                 {conversation.unread_message_count > 0 &&
                 <div className="message__badge">
@@ -303,7 +303,7 @@ export default function DmButton(props) {
               <a href="https://nftychat.xyz" 
                     rel="noopener noreferrer"
                     target="_blank"
-                    styel={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none' }}
                   >
                   <div className="universal_button_popover__content_left">
                 <img src={logo} alt="Logo" style={{width:24, height:24}}/>

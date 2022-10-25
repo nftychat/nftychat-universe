@@ -173,7 +173,7 @@
   color: var(--gray10);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
 }
 .message_separator {
   width: 100%;
@@ -184,6 +184,7 @@
 .message_text__container{
   display: flex;
   flex-direction: column;
+  max-width: 96%;  
 }
 
 .message__badge {

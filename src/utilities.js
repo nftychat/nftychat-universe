@@ -40,3 +40,11 @@ export async function getDisplayName(param) {
 export const shortenAddress = (address) => {
   return address.slice(0, 6) + "..." + address.slice(-4);
 };
+
+export function formatDmMessage(message) {
+  let tempMessage = message;
+  if (tempMessage.length > 80) {
+    tempMessage = message.substring(0, 40) + "...";
+  }
+  return tempMessage;
+}
