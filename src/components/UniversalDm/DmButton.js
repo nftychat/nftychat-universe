@@ -63,7 +63,6 @@ export default function DmButton(props) {
       })
       .then((data) => {
         setNumberOfNotifications(data);
-        console.log(data)
       });
   }, [props.address]);
 
@@ -130,7 +129,6 @@ export default function DmButton(props) {
   }
   // useEffect to get signature after click
   useEffect(() => {
-    console.log(popoverAnchor, wagmiAddress)
     if (!!wagmiAddress && !!popoverAnchor){
       getAccessToken()
     }
