@@ -89,6 +89,7 @@ export default function DmButton(props) {
 
   // calls check signature and saves access token
   async function getAccessToken() {
+    if (!wagmiAddress) return null;
     let tempAccessToken = localStorage.getItem("token_"+ wagmiAddress);
     if (!tempAccessToken) {
       const message_response = await fetch(
@@ -188,6 +189,7 @@ export default function DmButton(props) {
         onClick={(event) => {
           setWalletPopoverOpen(true);
           setPopoverAnchor(event.currentTarget);
+          getAccessToken();
         }}
       >
         {/* Icon */}
