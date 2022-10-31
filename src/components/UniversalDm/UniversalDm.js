@@ -12,7 +12,7 @@ const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [publicProvider(), infuraProvider({ infuraId: infuraId })]
+  [infuraProvider({ infuraId: infuraId }), publicProvider()]
 );
 
 const defaultWagmiClient = createClient({
