@@ -15,7 +15,6 @@ export async function getDisplayName(param) {
     sessionCacheSerialize = JSON.parse(sessionCache);
     const cacheData = sessionCacheSerialize[param];
     if (cacheData !== undefined) {
-      console.log("cacheData", cacheData);
 	    return cacheData['displayName'];
     }
   }

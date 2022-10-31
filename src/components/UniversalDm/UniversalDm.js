@@ -6,10 +6,13 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { publicProvider } from "wagmi/providers/public";
 import DmButton from "./DmButton";
 import "./UniversalDm.css";
+import { infuraProvider } from "wagmi/providers/infura";
+
+const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [publicProvider()]
+  [publicProvider(), infuraProvider({ infuraId: infuraId })]
 );
 
 const defaultWagmiClient = createClient({
