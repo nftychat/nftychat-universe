@@ -31,7 +31,6 @@ export async function getDisplayName(param) {
     "display_name_session_cache",
     JSON.stringify(sessionCacheSerialize)
   );
-  console.log(data)
 
   return data['displayName'];
 }

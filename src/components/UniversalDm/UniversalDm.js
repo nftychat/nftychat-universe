@@ -7,12 +7,14 @@ import { publicProvider } from "wagmi/providers/public";
 import DmButton from "./DmButton";
 import "./UniversalDm.css";
 import { infuraProvider } from "wagmi/providers/infura";
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
+const alchemyKey = "zlvaztiS9mtCfBps34F7pqBQdOWzv3_l";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [infuraProvider({ infuraId: infuraId })]
+  [alchemyProvider({apiKey: alchemyKey}), infuraProvider({ infuraId: infuraId })]
 );
 
 const defaultWagmiClient = createClient({

@@ -49,6 +49,7 @@
     "@emotion/styled": "^11.10.4",
     "@iconify/react": "^3.2.2",
     "@mui/material": "^5.10.7",
+    "buffer": "^6.0.3",
     "react-hot-toast": "^2.3.0"
   },
   "devDependencies": {
