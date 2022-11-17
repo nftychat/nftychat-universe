@@ -86,9 +86,9 @@
     "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
-    "ethers": "^5.7.0",
+    "ethers": ">=5.7.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "wagmi": "^0.6.4"
+    "wagmi": ">=0.6.4"
   }
 }
