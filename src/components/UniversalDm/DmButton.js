@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import logo from "../../assets/images/bestagonCircle.png";
-import { getDisplayName, shortenAddress, formatDmMessage } from "../../utilities";
+import {
+  getDisplayName,
+  shortenAddress,
+  formatDmMessage,
+} from "../../utilities";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -25,10 +29,10 @@ export default function DmButton(props) {
   // const mainUrl = "http://localhost:8080";
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
-  const [displayName, setDisplayName] = useState(props.displayName)
-  const [displayText, setDisplayText] = useState(props.displayText)
-  const [conversations, setConversations] = useState([])
-  const [authenticated, setAuthenticated] = useState(false)
+  const [displayName, setDisplayName] = useState(props.displayName);
+  const [displayText, setDisplayText] = useState(props.displayText);
+  const [conversations, setConversations] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
   // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
 
@@ -44,22 +48,24 @@ export default function DmButton(props) {
   }, [wagmiError]);
 
   //useEffect if displayName not defined
-  useEffect(() =>{
-    async function resolveDisplayName(){
+  useEffect(() => {
+    async function resolveDisplayName() {
       if (!displayName || displayName === "") {
         const tempDisplayName = await getDisplayName(props.address);
-        setDisplayName(tempDisplayName)
+        setDisplayName(tempDisplayName);
       }
     }
     resolveDisplayName();
-  },[displayName, props.address])
+  }, [displayName, props.address]);
 
   // useEffect if displayText not defined
   useEffect(() => {
-    if ([undefined, null].includes(props.displayText)){
-      setDisplayText(`DM ${displayName ? displayName : shortenAddress(props.address)}`);
+    if ([undefined, null].includes(props.displayText)) {
+      setDisplayText(
+        `DM ${displayName ? displayName : shortenAddress(props.address)}`
+      );
     }
-  }, [displayName, props.displayText, props.address])
+  }, [displayName, props.displayText, props.address]);
 
   // badge of unread messages
   useEffect(() => {
@@ -97,55 +103,54 @@ export default function DmButton(props) {
   // calls check signature and saves access token
   async function getAccessToken() {
     if (!wagmiAddress) return null;
-    let tempAccessToken = localStorage.getItem("token_"+ wagmiAddress);
+    let tempAccessToken = localStorage.getItem("token_" + wagmiAddress);
     if (!tempAccessToken) {
       const message_response = await fetch(
-        mainUrl + "/v1/siwe_message?address=" + wagmiAddress,
+        mainUrl + "/v1/siwe_message?address=" + wagmiAddress
       );
       const data = await message_response.json();
       const siwe_message = data.siwe_message;
       const signature = await signMessageAsync({ message: siwe_message });
       tempAccessToken = await checkSignature(wagmiAddress, signature);
     }
-    localStorage.setItem("token_"+ wagmiAddress, tempAccessToken); 
-    setAuthenticated(true)
+    localStorage.setItem("token_" + wagmiAddress, tempAccessToken);
+    setAuthenticated(true);
     return tempAccessToken;
   }
 
   async function getConversations() {
-   const tempAccessToken = await getAccessToken();
-   fetch(mainUrl + "/v1/conversations", {
-     headers: {
-       Accept: "application/json",
-       "Content-Type": "application/json",
-       Authorization: "Bearer " + tempAccessToken,
-     },
-   })
-     .then((response) => {
-       if (!response.ok) {
-         response.json().then((data) => {
-           toast.error(data["detail"]);
-           console.log(data["detail"])
-           // force reauth
-           setAuthenticated(false);
-           localStorage.removeItem("token_"+ wagmiAddress);
-         });
-         // TODO: Unsure what error is trying to throw
-         throw new Error("error");
-       }
-       return response.json();
-     })
-     .then((payload) => {
-      setConversations(payload.slice(0,3))
-     });
+    const tempAccessToken = await getAccessToken();
+    fetch(mainUrl + "/v1/conversations", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + tempAccessToken,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          response.json().then((data) => {
+            toast.error(data["detail"]);
+            console.log(data["detail"]);
+            // force reauth
+            setAuthenticated(false);
+            localStorage.removeItem("token_" + wagmiAddress);
+          });
+          // TODO: Unsure what error is trying to throw
+          throw new Error("error");
+        }
+        return response.json();
+      })
+      .then((payload) => {
+        setConversations(payload.slice(0, 3));
+      });
   }
   // useEffect to get signature after click
   useEffect(() => {
-    if (!!wagmiAddress && !!popoverAnchor){
-      getAccessToken()
+    if (!!wagmiAddress && !!popoverAnchor) {
+      getAccessToken();
     }
-  },
-  [popoverAnchor, wagmiAddress])
+  }, [popoverAnchor, wagmiAddress]);
 
   // useEffect to fetch conversations if user is same as props.address
   useEffect(() => {
@@ -173,7 +178,7 @@ export default function DmButton(props) {
             console.log(data["detail"]);
             // force reauth
             setAuthenticated(false);
-            localStorage.removeItem("token_"+ wagmiAddress);
+            localStorage.removeItem("token_" + wagmiAddress);
           });
           // TODO: Unsure what error is trying to throw
           throw new Error("error");
@@ -220,14 +225,16 @@ export default function DmButton(props) {
         </div>
 
         {/* Text */}
-        <span className="universal_button__text">
-          {(popoverAnchor !== null && authenticated === false) ? 
-          "Waiting for Signature" :
-          (wagmiAddress === props.address
-            ? "Recent Messages"
-            : displayText)
-          }
-        </span>
+
+        {popoverAnchor !== null && authenticated === false ? (
+          <span className="universal_button__text">Waiting for Signature</span>
+        ) : wagmiAddress === props.address ? (
+          <span className="universal_button__text">Recent Messages</span>
+        ) : displayText !== "" ? (
+          <span className="universal_button__text">{displayText}</span>
+        ) : (
+          ""
+        )}
       </button>
 
       {/* Message Popover */}
@@ -238,11 +245,13 @@ export default function DmButton(props) {
           horizontal: "center",
         }}
         className="universal_button_popover"
-        style={props.popoverDirection === "bottom" ? {marginTop: 8} : {marginTop: -8}}
-        onClose={() => setPopoverAnchor(null)}
-        open={
-          popoverAnchor !== null && authenticated 
+        style={
+          props.popoverDirection === "bottom"
+            ? { marginTop: 8 }
+            : { marginTop: -8 }
         }
+        onClose={() => setPopoverAnchor(null)}
+        open={popoverAnchor !== null && authenticated}
         transformOrigin={{
           vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
           horizontal: "center",
@@ -255,85 +264,106 @@ export default function DmButton(props) {
               : "universal_button_popover__container"
           }
         >
-          {(wagmiAddress === props.address) ?
-          <>
-            {/* Recent Messages */}
-            <div className="universal_button_popover__content">
-            <span className="message_title"> Recent Messages </span>            
+          {wagmiAddress === props.address ? (
+            <>
+              {/* Recent Messages */}
+              <div className="universal_button_popover__content">
+                <span className="message_title"> Recent Messages </span>
 
-
-            <a href="https://nftychat.xyz" 
-              rel="noopener noreferrer"
-              target="_blank"
-              styel={{ textDecoration: 'none' }}
-            >
-              <div className="universal_button_popover__subtitle">
-                <span className="universal_button_popover__link_text">
-                  View All
-                </span>
-                <img src={logo} alt="Logo" style={{width:24, height:24}}/>
+                <a
+                  href="https://nftychat.xyz"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  styel={{ textDecoration: "none" }}
+                >
+                  <div className="universal_button_popover__subtitle">
+                    <span className="universal_button_popover__link_text">
+                      View All
+                    </span>
+                    <img
+                      src={logo}
+                      alt="Logo"
+                      style={{ width: 24, height: 24 }}
+                    />
+                  </div>
+                </a>
               </div>
-            </a>
-            </div>
-            <div className="message_separator"></div>
-            <div className="universal_button_popover__messages">
-            {conversations.map((conversation) => (
-              <div className="message__container" key={conversation.conversation_id} 
-              onClick={() =>{
-                window.open("https://nftychat.xyz/dms/"+conversation.conversation_id, "_blank")
-              }}>
-               <div className="hover_text"> View on nftychat</div> 
-                <div className="message_text__container">
-                  <span className="message_title"> {conversation.conversation_name}</span>
-                  <span className="message_text">{formatDmMessage(conversation.latest_message_text)}</span>
-                </div>
-                {conversation.unread_message_count > 0 &&
-                <div className="message__badge">
-                  {conversation.unread_message_count}
-                </div>  }
-              </div>
-            ))}
-            </div>
-
-          </>
-          :
-          <>
-            {/* Send Message */}
-            <div className="universal_button_popover__content_top">
-              <textarea
-                className="universal_button_popover__textarea"
-                spellCheck={false}
-                value={messageText}
-                onChange={(e) => setMessageText(e.target.value)}
-              />
-            </div>
-            <div className="universal_button_popover__content_bottom">
-              <a href="https://nftychat.xyz" 
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    style={{ textDecoration: 'none' }}
+              <div className="message_separator"></div>
+              <div className="universal_button_popover__messages">
+                {conversations.map((conversation) => (
+                  <div
+                    className="message__container"
+                    key={conversation.conversation_id}
+                    onClick={() => {
+                      window.open(
+                        "https://nftychat.xyz/dms/" +
+                          conversation.conversation_id,
+                        "_blank"
+                      );
+                    }}
                   >
+                    <div className="hover_text"> View on nftychat</div>
+                    <div className="message_text__container">
+                      <span className="message_title">
+                        {" "}
+                        {conversation.conversation_name}
+                      </span>
+                      <span className="message_text">
+                        {formatDmMessage(conversation.latest_message_text)}
+                      </span>
+                    </div>
+                    {conversation.unread_message_count > 0 && (
+                      <div className="message__badge">
+                        {conversation.unread_message_count}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Send Message */}
+              <div className="universal_button_popover__content_top">
+                <textarea
+                  className="universal_button_popover__textarea"
+                  spellCheck={false}
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                />
+              </div>
+              <div className="universal_button_popover__content_bottom">
+                <a
+                  href="https://nftychat.xyz"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
                   <div className="universal_button_popover__content_left">
-                <img src={logo} alt="Logo" style={{width:24, height:24}}/>
-                <span className="universal_button_popover__user_text">
-                    Sent via nftychat
-                </span>
-                </div>
+                    <img
+                      src={logo}
+                      alt="Logo"
+                      style={{ width: 24, height: 24 }}
+                    />
+                    <span className="universal_button_popover__user_text">
+                      Sent via nftychat
+                    </span>
+                  </div>
                 </a>
 
-              {/* Send button */}
-              <button
-                className="universal_button_popover__send"
-                onClick={sendClick}
-              >
-                <Icon
-                  className="universal_button_popover__send_icon"
-                  icon="ant-design:send-outlined"
-                />
-              </button>
-            </div>
-          </>
-        }
+                {/* Send button */}
+                <button
+                  className="universal_button_popover__send"
+                  onClick={sendClick}
+                >
+                  <Icon
+                    className="universal_button_popover__send_icon"
+                    icon="ant-design:send-outlined"
+                  />
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </Popover>
 

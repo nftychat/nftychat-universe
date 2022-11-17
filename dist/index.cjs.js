@@ -12597,10 +12597,16 @@ function DmButton(props) {
           className: "universal_button__icon",
           icon: "ant-design:message-outlined"
         })]
-      }), /*#__PURE__*/jsxRuntime.jsx("span", {
+      }), popoverAnchor !== null && authenticated === false ? /*#__PURE__*/jsxRuntime.jsx("span", {
         className: "universal_button__text",
-        children: popoverAnchor !== null && authenticated === false ? "Waiting for Signature" : wagmiAddress === props.address ? "Recent Messages" : displayText
-      })]
+        children: "Waiting for Signature"
+      }) : wagmiAddress === props.address ? /*#__PURE__*/jsxRuntime.jsx("span", {
+        className: "universal_button__text",
+        children: "Recent Messages"
+      }) : displayText !== "" ? /*#__PURE__*/jsxRuntime.jsx("span", {
+        className: "universal_button__text",
+        children: displayText
+      }) : ""]
     }), /*#__PURE__*/jsxRuntime.jsx(Popover$1, {
       anchorEl: popoverAnchor,
       anchorOrigin: {
@@ -12632,7 +12638,7 @@ function DmButton(props) {
               rel: "noopener noreferrer",
               target: "_blank",
               styel: {
-                textDecoration: 'none'
+                textDecoration: "none"
               },
               children: /*#__PURE__*/jsxRuntime.jsxs("div", {
                 className: "universal_button_popover__subtitle",
@@ -12692,7 +12698,7 @@ function DmButton(props) {
               rel: "noopener noreferrer",
               target: "_blank",
               style: {
-                textDecoration: 'none'
+                textDecoration: "none"
               },
               children: /*#__PURE__*/jsxRuntime.jsxs("div", {
                 className: "universal_button_popover__content_left",
