@@ -4,10 +4,11 @@ import { useAccount, useConnect, useSignMessage, configureChains, chain, createC
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { publicProvider } from 'wagmi/providers/public';
 import { jsxs, jsx, Fragment as Fragment$1 } from 'react/jsx-runtime';
 import * as ReactDOM from 'react-dom';
 import ReactDOM__default from 'react-dom';
+import { infuraProvider } from 'wagmi/providers/infura';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 let e$1={data:""},t$1=t=>"object"==typeof window?((t?t.querySelector("#_goober"):window._goober)||Object.assign((t||document.head).appendChild(document.createElement("style")),{innerHTML:" ",id:"_goober"})).firstChild:t||e$1,l=/(?:([\u0080-\uFFFF\w-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(}\s*)/g,a=/\/\*[^]*?\*\/|  +/g,n$2=/\n+/g,o=(e,t)=>{let r="",l="",a="";for(let n in e){let c=e[n];"@"==n[0]?"i"==n[1]?r=n+" "+c+";":l+="f"==n[1]?o(c,n):n+"{"+o(c,"k"==n[1]?"":t)+"}":"object"==typeof c?l+=o(c,t?t.replace(/([^,])+/g,e=>n.replace(/(^:.*)|([^,])+/g,t=>/&/.test(t)?t.replace(/&/g,e):e?e+" "+t:t)):n):null!=c&&(n=/^--/.test(n)?n:n.replace(/[A-Z]/g,"-$&").toLowerCase(),a+=o.p?o.p(n,c):n+":"+c+";");}return r+(t&&a?t+"{"+a+"}":a)+l},c={},s=e=>{if("object"==typeof e){let t="";for(let r in e)t+=r+s(e[r]);return t}return e},i=(e,t,r,i,p)=>{let u=s(e),d=c[u]||(c[u]=(e=>{let t=0,r=11;for(;t<e.length;)r=101*r+e.charCodeAt(t++)>>>0;return "go"+r})(u));if(!c[d]){let t=u!==e?e:(e=>{let t,r,o=[{}];for(;t=l.exec(e.replace(a,""));)t[4]?o.shift():t[3]?(r=t[3].replace(n$2," ").trim(),o.unshift(o[0][r]=o[0][r]||{})):o[0][t[1]]=t[2].replace(n$2," ").trim();return o[0]})(e);c[d]=o(p?{["@keyframes "+d]:t}:t,r?"":"."+d);}let f=r&&c.g?c.g:null;return r&&(c.g=c[d]),((e,t,r,l)=>{l?t.data=t.data.replace(l,e):-1===t.data.indexOf(e)&&(t.data=r?e+t.data:t.data+e);})(c[d],t,i,f),d},p=(e,t,r)=>e.reduce((e,l,a)=>{let n=t[a];if(n&&n.call){let e=n(r),t=e&&e.props&&e.props.className||/^go/.test(e)&&e;n=t?"."+t:e&&"object"==typeof e?e.props?"":o(e,""):!1===e?"":e;}return e+l+(null==n?"":n)},"");function u$1(e){let r=this||{},l=e.call?e(r.p):e;return i(l.unshift?l.raw?p(l,[].slice.call(arguments,1),r.p):l.reduce((e,t)=>Object.assign(e,t&&t.call?t(r.p):t),{}):l,t$1(r.target),r.g,r.o,r.k)}let d,f,g;u$1.bind({g:1});let h$1=u$1.bind({k:1});function m(e,t,r,l){o.p=t,d=e,f=r,g=l;}function j(e,t){let r=this||{};return function(){let l=arguments;function a(n,o){let c=Object.assign({},n),s=c.className||a.className;r.p=Object.assign({theme:f&&f()},c),r.o=/ *go\d+/.test(s),c.className=u$1.apply(r,l)+(s?" "+s:""),t&&(c.ref=o);let i=e;return e[0]&&(i=c.as||e,delete c.as),g&&i[0]&&g(c),d(i,c)}return t?t(a):a}}
 
@@ -12341,7 +12342,6 @@ async function getDisplayName(param) {
     const cacheData = sessionCacheSerialize[param];
 
     if (cacheData !== undefined) {
-      console.log("cacheData", cacheData);
       return cacheData['displayName'];
     }
   } // Fetches data if not in cache
@@ -12354,7 +12354,6 @@ async function getDisplayName(param) {
 
   sessionCacheSerialize[param] = data;
   sessionStorage.setItem("display_name_session_cache", JSON.stringify(sessionCacheSerialize));
-  console.log(data);
   return data['displayName'];
 }
 const shortenAddress = address => {
@@ -12392,6 +12391,7 @@ function DmButton(props) {
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName);
+  const [displayText, setDisplayText] = useState(props.displayText);
   const [conversations, setConversations] = useState([]);
   const [authenticated, setAuthenticated] = useState(false); // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
@@ -12415,7 +12415,13 @@ function DmButton(props) {
     }
 
     resolveDisplayName();
-  }, [displayName, props.address]); // badge of unread messages
+  }, [displayName, props.address]); // useEffect if displayText not defined
+
+  useEffect(() => {
+    if ([undefined, null].includes(props.displayText)) {
+      setDisplayText(`DM ${displayName ? displayName : shortenAddress(props.address)}`);
+    }
+  }, [displayName, props.displayText, props.address]); // badge of unread messages
 
   useEffect(() => {
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
@@ -12566,7 +12572,7 @@ function DmButton(props) {
         })]
       }), /*#__PURE__*/jsx("span", {
         className: "universal_button__text",
-        children: popoverAnchor !== null && authenticated === false ? "Waiting for Signature" : wagmiAddress === props.address ? "Recent Messages" : `DM ${displayName ? displayName : shortenAddress(props.address)}`
+        children: popoverAnchor !== null && authenticated === false ? "Waiting for Signature" : wagmiAddress === props.address ? "Recent Messages" : displayText
       })]
     }), /*#__PURE__*/jsx(Popover$1, {
       anchorEl: popoverAnchor,
@@ -12711,10 +12717,16 @@ var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r
 var css = "* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n\n/* recent messages */\n.universal_button_popover__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 12px; \n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 600;\n  line-height: 19px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray12)\n}\n.message_text{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray10);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--gray6);\n  height: 0px;\n  margin-bottom: 12px;\n}\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n  max-width: 96%;  \n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--button-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(2px);\n  -moz-filter: blur(2px);\n  -ms-filter: blur(2px);\n  -o-filter: blur(2px);\n  filter: blur(2px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
 n(css,{});
 
+const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
+const alchemyKey = "zlvaztiS9mtCfBps34F7pqBQdOWzv3_l";
 const {
   chains,
   provider
-} = configureChains([chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum], [publicProvider()]);
+} = configureChains([chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum], [alchemyProvider({
+  apiKey: alchemyKey
+}), infuraProvider({
+  infuraId: infuraId
+})]);
 const defaultWagmiClient = createClient({
   autoConnect: true,
   connectors: [new MetaMaskConnector({
@@ -12737,6 +12749,7 @@ function UniversalDm(props) {
     client: defaultWagmiClient,
     children: [/*#__PURE__*/jsx(Ie, {}), /*#__PURE__*/jsx(DmButton, {
       address: props.address,
+      displayText: props.displayText,
       displayName: props.displayName,
       theme: props.theme || "light",
       popoverDirection: props.popoverDirection || "top"
