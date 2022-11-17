@@ -3,7 +3,6 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { publicProvider } from "wagmi/providers/public";
 import DmButton from "./DmButton";
 import "./UniversalDm.css";
 import { infuraProvider } from "wagmi/providers/infura";
@@ -43,6 +42,7 @@ export default function UniversalDm(props) {
       <Toaster />
       <DmButton
         address={props.address}
+        displayText={props.displayText}
         displayName={props.displayName}
         theme={props.theme || "light"}
         popoverDirection={props.popoverDirection || "top"}

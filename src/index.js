@@ -17,6 +17,7 @@ root.render(
       address={sampleAddress}
       theme='light'
       popoverDirection='bottom'
+      displayText=""
     />
     </div>
   </React.StrictMode>

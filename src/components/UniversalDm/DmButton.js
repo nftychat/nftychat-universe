@@ -26,6 +26,7 @@ export default function DmButton(props) {
   const [messageText, setMessageText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName)
+  const [displayText, setDisplayText] = useState(props.displayText)
   const [conversations, setConversations] = useState([])
   const [authenticated, setAuthenticated] = useState(false)
   // const displayName = "Poapdispenser.eth";
@@ -45,13 +46,20 @@ export default function DmButton(props) {
   //useEffect if displayName not defined
   useEffect(() =>{
     async function resolveDisplayName(){
-      if (!displayName || displayName === ""){
+      if (!displayName || displayName === "") {
         const tempDisplayName = await getDisplayName(props.address);
         setDisplayName(tempDisplayName)
       }
     }
     resolveDisplayName();
   },[displayName, props.address])
+
+  // useEffect if displayText not defined
+  useEffect(() => {
+    if ([undefined, null].includes(props.displayText)){
+      setDisplayText(`DM ${displayName ? displayName : shortenAddress(props.address)}`);
+    }
+  }, [displayName, props.displayText, props.address])
 
   // badge of unread messages
   useEffect(() => {
@@ -217,7 +225,7 @@ export default function DmButton(props) {
           "Waiting for Signature" :
           (wagmiAddress === props.address
             ? "Recent Messages"
-            : `DM ${displayName ? displayName : shortenAddress(props.address)}`)
+            : displayText)
           }
         </span>
       </button>
