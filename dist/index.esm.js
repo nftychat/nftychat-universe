@@ -12321,8 +12321,6 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes
 } : void 0;
 var Popover$1 = Popover;
 
-var logo = "data:image/png;base64,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";
-
 /**
  * Get ENS infomation resolved from the provided wallet address or ENS name
  * @param { string } - wallet address or ENS name
@@ -12342,7 +12340,7 @@ async function getDisplayName(param) {
     const cacheData = sessionCacheSerialize[param];
 
     if (cacheData !== undefined) {
-      return cacheData['displayName'];
+      return truncateEns(cacheData['displayName'], 18);
     }
   } // Fetches data if not in cache
 
@@ -12354,7 +12352,25 @@ async function getDisplayName(param) {
 
   sessionCacheSerialize[param] = data;
   sessionStorage.setItem("display_name_session_cache", JSON.stringify(sessionCacheSerialize));
-  return data['displayName'];
+  return truncateEns(data['displayName'], 18);
+} // Make sure ens is short on page
+
+function truncateEns(str, max_length) {
+  let ens;
+  let left;
+  let right;
+  let letters_to_remove;
+
+  if (str.length >= max_length) {
+    letters_to_remove = Math.floor((str.length - max_length) / 2);
+    left = str.substring(0, Math.floor(str.length / 2 - letters_to_remove));
+    right = str.substring(Math.floor(str.length / 2) + letters_to_remove, str.length);
+    ens = left + "..." + right;
+  } else {
+    ens = str;
+  }
+
+  return ens;
 }
 const shortenAddress = address => {
   return address.slice(0, 6) + "..." + address.slice(-4);
@@ -12368,6 +12384,27 @@ function formatDmMessage(message) {
 
   return tempMessage;
 }
+
+function InboxButton({
+  showRecentMessages,
+  setShowRecentMessages,
+  inboxNotEmpty
+}) {
+  return /*#__PURE__*/jsx(Fragment$1, {
+    children: /*#__PURE__*/jsxs("button", {
+      className: `universal_dm__inbox ${showRecentMessages ? "universal_dm__inbox__selected" : ""}`,
+      onClick: () => setShowRecentMessages(!showRecentMessages),
+      children: [/*#__PURE__*/jsx(Icon, {
+        className: "universal_dm__inbox_icon",
+        icon: "bi:inbox"
+      }), inboxNotEmpty && /*#__PURE__*/jsx("div", {
+        className: "universal_dm__inbox_badge"
+      })]
+    })
+  });
+}
+
+var bestagonSuccessImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAvCAYAAACsaemzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPmSURBVHgBzZpPUtswFMbfU3BX7Uxu0HCDAGWmS7IgLUvWHf74BJATACcATpAA7XQJu7ahM8meQNMT1EdgQTexZfXJTlw7lhMH21i/YSaxJWJ/lvTp6ckIz2S9+6XOgdcnxyjwERk8Qs4IF6oCRdW/CFSZK+gY3wJiVQhRZ4DWoLnTmNRfggV5d3u1QT/UdoHXMFyAAoSA/EHvz4d+n8SMvwvvvBDu73B1Bguw1r06IDE9+loDTSBRw/BxakHve19r9DzOQDcY60cOISW2zY9AP6zB5k4/fCKVoPVumwa/uw+aQUPqZPpcKlNwoXINuoFw87C525k+PbeFVruX+6CRCYyx+BM3VQU467+kEdi2rZWrgRTDeWO4ZVqqwpldbuTYB6hb6zBsDZtqMV5xUoFsHZorD0E3XJjptomCNLVpQtRXv18mPmjlGJJGQAVt0JdHbrxZHja2Y7GjsoVIjKatE1Bdcv4q7zEmSMZroJ9Nx6Cg9NAPx6JEBI3jtTKNwEJEuRSw0lS2bSc2LFi0gmcENSgHb36RsZn8hFSixIZczoTPBIL81iktXotMlvJzLGoucm0WPg4EUfOVFa8pZ35mGGmNqRa2cc+2S7RppZjVn5/b6C7UWwIb91qoJJvOS4wksHGUzUXJjVPIjKBJDqupqiI9UYevxMTcXp5mCbcMw1hmyHAPskNP212hO+3PrSnFCEXL3F4dZY0dndFon8nYCLIRdB1uONt0x8PEmhMxTTNSxxcjjiEjtIKtM7+rPB+aCM3AbhsmDU6noRRVsJgJJIgNIQNyHgiHIEpRLySGcnY3jPJ2J5ANb1Vb710HhjAtijm8VbQYwnI573vzEAWkPRlGQCZwyI3XjXBIX//WrhkAG3dbZidcswAxgC60Bh93z3By4Uql8gcyExc1TRFiCOu+ubssv3gTqxzUdJGsXQ+kY1bsp0j3C1OQmEh+LojlnFfuWVbHG/+8UpRcZxUhhug8NP/n5wJBciALF3NoJQmJcp6C2HDtx8VeUXlxmgMj9xzLKdCT/JXDZDuGdUDwPk1WHSgEPL9v7kSii9gSnGy8BblBQWZhYmSE4sRaPSbIz+aniMlKRhqBKnuqzPqQcjMfgygMK2wEYZSCfBuHc9AUBpXt5LIE8rPx3OncNT8lxp+JgvK18fyYtulpZu4PPVBspJNByGgmaRtlwtwNrxyi8bywBh/2judVmivIs3Ha/oOSUe2nqki1aUwJjVaZBoHU7ZNseppUgsq2ccebF9OR+j0F38bTJdHzBc/nGUGkNizAeCH4YpvIsquFX0xKw0Lv+gRJdCEucFa6KiNSCJmAuagYyT+Tbgxl1bf7vAAAAABJRU5ErkJggg==";
 
 function DmButton(props) {
   // Wamgi hooks
@@ -12392,10 +12429,14 @@ function DmButton(props) {
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName);
   const [displayText, setDisplayText] = useState(props.displayText);
+  const [userName, setUserName] = useState("");
   const [conversations, setConversations] = useState([]);
   const [authenticated, setAuthenticated] = useState(false); // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
-  // Wallet modal
+
+  const [showRecentMessages, setShowRecentMessages] = useState(false);
+  const [inboxNotEmpty, setInboxNotEmpty] = useState(false);
+  const [messageSentScreen, setMessageSentScreen] = useState(false); // Wallet modal
   // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
 
   const [walletPopoverOpen, setWalletPopoverOpen] = useState(false); // UseEffect to warn user on error
@@ -12404,7 +12445,18 @@ function DmButton(props) {
     if (wagmiError) {
       _t.error("Wallet not detected.");
     }
-  }, [wagmiError]); //useEffect if displayName not defined
+  }, [wagmiError]); //useEffect to resolve username
+
+  useEffect(() => {
+    async function resolveUserName() {
+      if (!userName || userName === "") {
+        const tempUserName = await getDisplayName(wagmiAddress);
+        setUserName(tempUserName);
+      }
+    }
+
+    resolveUserName();
+  }, [userName, wagmiAddress]); //useEffect if displayName not defined
 
   useEffect(() => {
     async function resolveDisplayName() {
@@ -12424,6 +12476,7 @@ function DmButton(props) {
   }, [displayName, props.displayText, props.address]); // badge of unread messages
 
   useEffect(() => {
+    if (["", undefined, null].includes(props.address)) return;
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
       method: "get"
     }).then(payload => {
@@ -12431,7 +12484,21 @@ function DmButton(props) {
     }).then(data => {
       setNumberOfNotifications(data);
     });
-  }, [props.address]); // Checks validity of signature
+  }, [props.address]);
+  useEffect(() => {
+    if (["", undefined, null].includes(wagmiAddress)) return;
+    fetch(mainUrl + "/v1/unread_message_count?address=" + wagmiAddress, {
+      method: "get"
+    }).then(payload => {
+      return payload.json();
+    }).then(data => {
+      if (data > 0) {
+        setInboxNotEmpty(true);
+      } else {
+        setInboxNotEmpty(false);
+      }
+    });
+  }, [wagmiAddress]); // Checks validity of signature
 
   async function checkSignature(tempAddress = wagmiAddress, signature = "0x") {
     const signatureUrl = `${mainUrl}/v1/authenticate?address=${tempAddress}&signature=${signature}&source=${window.location.hostname}`;
@@ -12507,15 +12574,16 @@ function DmButton(props) {
     if (!!wagmiAddress && !!popoverAnchor) {
       getAccessToken();
     }
-  }, [popoverAnchor, wagmiAddress]); // useEffect to fetch conversations if user is same as props.address
+  }, [popoverAnchor, wagmiAddress]); // useEffect to fetch conversations if user has authenticated
 
   useEffect(() => {
-    if (props.address === wagmiAddress && authenticated) {
+    if (authenticated) {
       getConversations();
     }
   }, [props.address, wagmiAddress, authenticated]);
 
   async function sendClick() {
+    if (messageText === "") return;
     const tempAccessToken = await getAccessToken();
     const payload = {
       address: props.address,
@@ -12547,7 +12615,7 @@ function DmButton(props) {
       _t.success("Message sent!");
       setNumberOfNotifications(num => num + 1);
       setMessageText("");
-      setPopoverAnchor(null);
+      setMessageSentScreen(true);
     });
   }
 
@@ -12598,40 +12666,26 @@ function DmButton(props) {
         vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
         horizontal: "center"
       },
-      children: /*#__PURE__*/jsx("div", {
+      children: /*#__PURE__*/jsxs("div", {
         className: props.theme === "dark" ? "universal_button_popover__container universal_button_popover__container___dark" : "universal_button_popover__container",
-        children: wagmiAddress === props.address ? /*#__PURE__*/jsxs(Fragment$1, {
+        children: [(wagmiAddress === props.address || showRecentMessages) && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
           children: [/*#__PURE__*/jsxs("div", {
-            className: "universal_button_popover__content",
+            className: "universal_dm__content universal_dm__top",
             children: [/*#__PURE__*/jsx("span", {
-              className: "message_title",
+              className: "universal_dm__title",
               children: " Recent Messages "
-            }), /*#__PURE__*/jsx("a", {
-              href: "https://nftychat.xyz",
-              rel: "noopener noreferrer",
-              target: "_blank",
-              styel: {
-                textDecoration: "none"
-              },
-              children: /*#__PURE__*/jsxs("div", {
-                className: "universal_button_popover__subtitle",
-                children: [/*#__PURE__*/jsx("span", {
-                  className: "universal_button_popover__link_text",
-                  children: "View All"
-                }), /*#__PURE__*/jsx("img", {
-                  src: logo,
-                  alt: "Logo",
-                  style: {
-                    width: 24,
-                    height: 24
-                  }
-                })]
-              })
+            }), /*#__PURE__*/jsx(InboxButton, {
+              showRecentMessages: showRecentMessages,
+              setShowRecentMessages: setShowRecentMessages,
+              inboxNotEmpty: inboxNotEmpty
             })]
           }), /*#__PURE__*/jsx("div", {
-            className: "message_separator"
+            className: "universal_dm__content",
+            children: /*#__PURE__*/jsx("div", {
+              className: "message_separator"
+            })
           }), /*#__PURE__*/jsx("div", {
-            className: "universal_button_popover__messages",
+            className: "universal_dm__messages",
             children: conversations.map(conversation => /*#__PURE__*/jsxs("div", {
               className: "message__container",
               onClick: () => {
@@ -12639,7 +12693,7 @@ function DmButton(props) {
               },
               children: [/*#__PURE__*/jsx("div", {
                 className: "hover_text",
-                children: " View on nftychat"
+                children: " View on nftychat.xyz"
               }), /*#__PURE__*/jsxs("div", {
                 className: "message_text__container",
                 children: [/*#__PURE__*/jsxs("span", {
@@ -12654,49 +12708,110 @@ function DmButton(props) {
                 children: conversation.unread_message_count
               })]
             }, conversation.conversation_id))
+          }), /*#__PURE__*/jsxs("div", {
+            className: "universal_dm__content universal_dm__bottom_2",
+            children: [/*#__PURE__*/jsxs("span", {
+              className: "universal_dm__user_text",
+              children: ["Connected: ", userName]
+            }), /*#__PURE__*/jsxs("a", {
+              href: "https://nftychat.xyz",
+              rel: "noopener noreferrer",
+              target: "_blank",
+              className: "universal_dm__nfty_link",
+              children: [" ", "View all", /*#__PURE__*/jsx(Icon, {
+                className: "universal_dm__link_arrow",
+                icon: "bi:arrow-right"
+              })]
+            })]
           })]
-        }) : /*#__PURE__*/jsxs(Fragment$1, {
-          children: [/*#__PURE__*/jsx("div", {
-            className: "universal_button_popover__content_top",
+        }), wagmiAddress !== props.address && !showRecentMessages && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
+          children: [/*#__PURE__*/jsxs("div", {
+            className: "universal_dm__content universal_dm__top",
+            children: [/*#__PURE__*/jsxs("span", {
+              className: "universal_dm__title",
+              children: [" Message ", displayName, " "]
+            }), /*#__PURE__*/jsx(InboxButton, {
+              showRecentMessages: showRecentMessages,
+              setShowRecentMessages: setShowRecentMessages
+            })]
+          }), /*#__PURE__*/jsx("div", {
+            className: "universal_dm__content",
+            children: /*#__PURE__*/jsx("div", {
+              className: "message_separator"
+            })
+          }), /*#__PURE__*/jsx("div", {
+            className: "universal_dm__content",
             children: /*#__PURE__*/jsx("textarea", {
-              className: "universal_button_popover__textarea",
+              className: "universal_dm__textarea",
               spellCheck: false,
               value: messageText,
               onChange: e => setMessageText(e.target.value)
             })
           }), /*#__PURE__*/jsxs("div", {
-            className: "universal_button_popover__content_bottom",
-            children: [/*#__PURE__*/jsx("a", {
-              href: "https://nftychat.xyz",
-              rel: "noopener noreferrer",
-              target: "_blank",
-              style: {
-                textDecoration: "none"
-              },
-              children: /*#__PURE__*/jsxs("div", {
-                className: "universal_button_popover__content_left",
-                children: [/*#__PURE__*/jsx("img", {
-                  src: logo,
-                  alt: "Logo",
-                  style: {
-                    width: 24,
-                    height: 24
-                  }
-                }), /*#__PURE__*/jsx("span", {
-                  className: "universal_button_popover__user_text",
-                  children: "Sent via nftychat"
-                })]
-              })
+            className: "universal_dm__content universal_dm__bottom_1",
+            children: [/*#__PURE__*/jsxs("span", {
+              className: "universal_dm__user_text",
+              children: ["Connected: ", userName]
             }), /*#__PURE__*/jsx("button", {
-              className: "universal_button_popover__send",
+              className: "universal_dm__send",
               onClick: sendClick,
               children: /*#__PURE__*/jsx(Icon, {
-                className: "universal_button_popover__send_icon",
-                icon: "ant-design:send-outlined"
+                className: "universal_dm__send_icon",
+                icon: "fluent:send-24-filled"
               })
             })]
           })]
-        })
+        }), messageSentScreen && /*#__PURE__*/jsx(Fragment$1, {
+          children: /*#__PURE__*/jsxs("div", {
+            className: "universal_dm__message_sent",
+            children: [/*#__PURE__*/jsx("img", {
+              className: "universal_dm__message_sent__image",
+              src: bestagonSuccessImg,
+              alt: "successIcon"
+            }), /*#__PURE__*/jsxs("div", {
+              className: "universal_dm__message_sent__text",
+              children: [/*#__PURE__*/jsxs("span", {
+                className: "universal_dm__message_sent__title",
+                children: ["Message sent to ", displayName]
+              }), /*#__PURE__*/jsx("span", {
+                className: "universal_dm__message_sent__subtitle",
+                children: "Send another message or view recent messages"
+              })]
+            }), /*#__PURE__*/jsxs("div", {
+              className: "universal_dm__message_sent__button_group",
+              children: [/*#__PURE__*/jsxs("button", {
+                className: "universal_dm__message_sent__button",
+                onClick: () => {
+                  setMessageSentScreen(false);
+                  setShowRecentMessages(false);
+                },
+                children: [/*#__PURE__*/jsx(Icon, {
+                  className: "universal_dm__message_sent__button_icon",
+                  icon: "ant-design:message-outlined"
+                }), "Send Message"]
+              }), /*#__PURE__*/jsxs("button", {
+                className: "universal_dm__message_sent__button",
+                onClick: () => {
+                  setMessageSentScreen(false);
+                  setShowRecentMessages(true);
+                },
+                children: [/*#__PURE__*/jsx(Icon, {
+                  className: "universal_dm__message_sent__button_icon",
+                  icon: "bi:inbox"
+                }), "View Messages"]
+              })]
+            })]
+          })
+        }), /*#__PURE__*/jsx("div", {
+          className: "universal_dm__bottom_border",
+          children: /*#__PURE__*/jsx("a", {
+            href: "https://nftychat.xyz",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            className: "universal_dm__bottom_border__text",
+            children: "\u26A1\uFE0F by nftychat"
+          })
+        })]
       })
     }), /*#__PURE__*/jsx(Modal$1, {
       "aria-labelledby": "wallet_popover",
@@ -12720,7 +12835,7 @@ function DmButton(props) {
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
-var css = "* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --gray1: hsl(0 0% 99%);\n  --gray2: hsl(0 0% 97.3%);\n  --gray3: hsl(0 0% 95.1%);\n  --gray4: hsl(0 0% 93%);\n  --gray5: hsl(0 0% 90.9%);\n  --gray6: hsl(0 0% 88.7%);\n  --gray7: hsl(0 0% 85.8%);\n  --gray8: hsl(0 0% 78%);\n  --gray9: hsl(0 0% 56.1%);\n  --gray10: hsl(0 0% 52.3%);\n  --gray11: hsl(0 0% 43.5%);\n  --gray12: hsl(0 0% 9%);\n\n  --button-text: #467ee5;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --gray1: hsl(0 0% 8.5%);\n  --gray2: hsl(0 0% 11%);\n  --gray3: hsl(0 0% 13.6%);\n  --gray4: hsl(0 0% 15.8%);\n  --gray5: hsl(0 0% 17.9%);\n  --gray6: hsl(0 0% 20.5%);\n  --gray7: hsl(0 0% 24.3%);\n  --gray8: hsl(0 0% 31.2%);\n  --gray9: hsl(0 0% 43.9%);\n  --gray10: hsl(0 0% 49.4%);\n  --gray11: hsl(0 0% 62.8%);\n  --gray12: hsl(0 0% 93%);\n\n  --button-text: #94eede;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 9999px;\n  border: 1px solid var(--gray2);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--gray1);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_button_popover__textarea {\n  background-color: var(--gray1);\n  border-radius: 6px;\n  border: 1px solid var(--gray6);\n  color: var(--gray12);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 6px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_button_popover__textarea:focus {\n  border-color: var(--gray8);\n}\n\n\n/* recent messages */\n.universal_button_popover__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 12px; \n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 600;\n  line-height: 19px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray12)\n}\n.message_text{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--gray10);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--gray6);\n  height: 0px;\n  margin-bottom: 12px;\n}\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n  max-width: 96%;  \n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--button-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(2px);\n  -moz-filter: blur(2px);\n  -ms-filter: blur(2px);\n  -o-filter: blur(2px);\n  filter: blur(2px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n\n.universal_button_popover__content {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_button_popover__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__user_text {\n  text-decoration: none;\n  color: var(--gray11);\n  font-family: Inter, sans-serif;\n  font-size: 16px;\n}\n\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n.universal_button_popover__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--button-text);\n  cursor: pointer;\n  display: flex;\n  height: 32px;\n  justify-content: center;\n  padding: 6px;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n\n.universal_button_popover__send:hover {\n  background-color: var(--gray3);\n}\n\n.universal_button_popover__send_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--gray1);\n  border-radius: 14px;\n  border: 1px solid var(--gray6);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
+var css = "* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --background: #fff;\n  --primary-text: #19191A;\n  --secondary-text: #606166;\n  --bottom-border: #f3f3f3;\n  --main-gray: #dedede;\n  --button-hover: #ccc;\n\n  font-family: \"Inter\", sans-serif;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --background: #0f0f0f;\n  --primary-text: #fff;\n  --secondary-text: #ccc;\n  --bottom-border: #2c2c27;\n  --main-gray: #2c2c2f;\n  --button-hover: #4f4f55;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 9999px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n.universal_dm__inbox_badge{\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  justify-content: center;\n  position: absolute;\n  right: 20px;\n  top: 12px;\n  height: 8px;\n  width: 8px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--background);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_dm__textarea {\n  background-color: var(--background);\n  border-radius: 6px;\n  border: 1px solid var(--main-gray);\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 8px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_dm__textarea:focus {\n  border-color: var(--button-hover);\n}\n\n.universal_dm__title{\n  font-family: 'Noto Sans';\n  font-size: 18px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n\n/* recent messages */\n.universal_dm__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 16px 8px 16px;\n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n.message_text{\n  font-family: Inter;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 24px;\n  min-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--secondary-text);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--main-gray);\n  height: 0px;\n  margin-bottom: 12px;\n} \n\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n  max-width: 96%;  \n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--primary-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(3px);\n  -moz-filter: blur(3px);\n  -ms-filter: blur(3px);\n  -o-filter: blur(3px);\n  filter: blur(3px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n.universal_dm__content {\n  padding: 0px 16px;\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_dm__top {\n  margin-bottom: 8px;\n  margin-top: 10px;\n}\n\n.universal_dm__bottom_1 {\n  margin-bottom: 20px;\n}\n.universal_dm__bottom_2 {\n  margin-bottom: 16px;\n}\n\n\n.universal_button_popover__content {\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_dm__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_dm__user_text {\n  text-decoration: none;\n  color: var(--secondary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n}\n\n.universal_dm__nfty_link {\n  text-decoration: none;\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n  display: flex;\n  align-items: center;\n}\n\n.universal_dm__link_arrow{\n  margin-left: 4px\n}\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n/* inbox button */\n.universal_dm__inbox {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n.universal_dm__inbox__selected{\n  background-color: var(--main-gray);   \n}\n.universal_dm__inbox:hover {\n  background-color: var(--button-hover); \n}\n\n.universal_dm__inbox_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Send button */\n.universal_dm__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  height: 24px;\n  width: 24px;\n  justify-content: center;\n  padding: 3px 1px 3px 3px;\n  transition: color 200ms, background-color 200ms;\n  background-color: var(--main-gray);\n}\n\n.universal_dm__send:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_dm__send_icon {\n  height: 100%;\n  width: 100%;\n}\n.universal_dm__bottom_border {\n  background-color: var(--bottom-border);\n  padding:8px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n}\n.universal_dm__bottom_border__text {\n  color: var(--primary-text);\n  text-decoration: none;\n  font-size: 13px;\n}\n\n/* Message sent screen */\n.universal_dm__message_sent {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.universal_dm__message_sent__image{\n  margin-top: 24px;\n  margin-bottom: 18px;\n}\n\n.universal_dm__message_sent__text {\n  margin-bottom: 32px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n.universal_dm__message_sent__title {\n  color: var(--primary-text);\n  font-weight: 700;\n  font-size: 16px;\n  margin-bottom: 8px;\n}\n.universal_dm__message_sent__subtitle {\n  color: var(--primary-text);\n  font-weight: 400;\n  font-size: 13px;\n}\n\n.universal_dm__message_sent__button_group{\n  display: flex;\n  align-items: center;\n  justify-content:space-between;\n  margin: 0px 16px 24px 16px;\n  width: calc(100% - 32px);\n}\n.universal_dm__message_sent__button{\n padding: 10px 22px;\n padding-top: 10px;\n color: var(--primary-text);\n background-color: var(--main-gray);\n border: none;\n border-radius: 6px;\n display: flex;\n align-items: center;\n justify-content: left;\n cursor: pointer;\n}\n.universal_dm__message_sent__button:hover{\n  background-color: var(--button-hover);\n }\n .universal_dm__message_sent__button_icon{\n  height: 20px;\n  width: 20px;\n  margin-right: 6px;\n}\n\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 14px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
 n(css,{});
 
 const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
