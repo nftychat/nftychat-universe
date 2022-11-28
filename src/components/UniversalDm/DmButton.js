@@ -63,8 +63,8 @@ export default function DmButton(props) {
         setUserName(tempUserName);
       }
     }
-    console.log("wagmiAddress - " + wagmiAddress)
     resolveUserName();
+    console.log("wagmiAddress - " + wagmiAddress)
     console.log("userName - " + userName)
   }, [userName, wagmiAddress]);
 
