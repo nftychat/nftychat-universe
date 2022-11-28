@@ -9,7 +9,7 @@ export default function InboxButton({
   return (
     <>
       <button
-        className="universal_dm__inbox"
+        className={`universal_dm__inbox ${showRecentMessages ? "universal_dm__inbox__selected" : ""}`}
         onClick={() => setShowRecentMessages(!showRecentMessages)}
       >
         <Icon className="universal_dm__inbox_icon" icon="bi:inbox" />

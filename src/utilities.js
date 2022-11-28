@@ -15,7 +15,7 @@ export async function getDisplayName(param) {
     sessionCacheSerialize = JSON.parse(sessionCache);
     const cacheData = sessionCacheSerialize[param];
     if (cacheData !== undefined) {
-	    return cacheData['displayName'];
+	    return truncateEns(cacheData['displayName'], 18);
     }
   }
 
@@ -32,8 +32,29 @@ export async function getDisplayName(param) {
     JSON.stringify(sessionCacheSerialize)
   );
 
-  return data['displayName'];
+  return truncateEns(data['displayName'], 18);
 }
+
+// Make sure ens is short on page
+function truncateEns(str, max_length){
+  let ens;
+  let left;
+  let right;
+  let letters_to_remove;
+
+  if (str.length >= max_length) {
+    letters_to_remove = Math.floor((str.length - max_length) / 2);
+    left = str.substring(0, Math.floor(str.length / 2 - letters_to_remove));
+    right = str.substring(
+      Math.floor(str.length / 2) + letters_to_remove,
+      str.length
+    );
+    ens = left + "..." + right;
+  } else {
+    ens = str;
+  }
+  return ens;
+};
 
 export const shortenAddress = (address) => {
   return address.slice(0, 6) + "..." + address.slice(-4);

@@ -15,7 +15,7 @@ root.render(
     <div style={{padding: 300}}>
     <UniversalDm
       address={sampleAddress}
-      theme='dark'
+      theme='light'
       popoverDirection='top'
     />
     </div>

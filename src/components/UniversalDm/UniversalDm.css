@@ -241,8 +241,8 @@
 }
 
 .universal_dm__top {
-  margin-bottom: 6px;
-  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-top: 10px;
 }
 
 .universal_dm__bottom_1 {
@@ -328,9 +328,11 @@
   transition: color 200ms, background-color 200ms;
   width: 32px;
 }
+.universal_dm__inbox__selected{
+  background-color: var(--main-gray);   
+}
 .universal_dm__inbox:hover {
-  background-color: var(--button-hover);
-  
+  background-color: var(--button-hover); 
 }
 
 .universal_dm__inbox_icon {
@@ -383,6 +385,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.universal_dm__message_sent__image{
+  margin-top: 24px;
+  margin-bottom: 18px;
+}
+
 .universal_dm__message_sent__text {
   margin-bottom: 32px;
   display: flex;

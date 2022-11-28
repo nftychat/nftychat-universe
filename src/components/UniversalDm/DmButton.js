@@ -10,6 +10,7 @@ import {
   formatDmMessage,
 } from "../../utilities";
 import InboxButton from "./InboxButton";
+import bestagonSuccessImg from "../../assets/images/bestagonSuccess.png";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -397,6 +398,7 @@ export default function DmButton(props) {
             <>
               {/* MessageSent */}
               <div className="universal_dm__message_sent">
+              <img className="universal_dm__message_sent__image" src={bestagonSuccessImg} alt="successIcon"/> 
               <div className="universal_dm__message_sent__text">
                <span className="universal_dm__message_sent__title">Message sent to {displayName}</span> 
                 <span className="universal_dm__message_sent__subtitle">Send another message or view recent messages</span> 
