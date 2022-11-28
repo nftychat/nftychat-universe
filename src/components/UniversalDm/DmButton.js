@@ -24,6 +24,9 @@ export default function DmButton(props) {
   } = useConnect();
   const { signMessageAsync } = useSignMessage();
 
+  // make sure signature requested once
+  const [signedWallet, setSignedWallet] = useState("No wallet signed"); 
+
   // Custom states
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
   const mainUrl = "https://nftychat-staging.herokuapp.com";
@@ -55,12 +58,14 @@ export default function DmButton(props) {
   //useEffect to resolve username
   useEffect(() => {
     async function resolveUserName() {
-      if (!userName || userName === "") {
+      if (!userName || userName === "" || userName === undefined) {
         const tempUserName = await getDisplayName(wagmiAddress);
         setUserName(tempUserName);
       }
     }
+    console.log("wagmiAddress - " + wagmiAddress)
     resolveUserName();
+    console.log("userName - " + userName)
   }, [userName, wagmiAddress]);
 
   //useEffect if displayName not defined
@@ -181,10 +186,11 @@ export default function DmButton(props) {
   }
   // useEffect to get signature after click
   useEffect(() => {
-    if (!!wagmiAddress && !!popoverAnchor) {
+    if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
       getAccessToken();
+      setSignedWallet(wagmiAddress)
     }
-  }, [popoverAnchor, wagmiAddress]);
+  }, [popoverAnchor, wagmiAddress, signedWallet]);
 
   // useEffect to fetch conversations if user has authenticated
   useEffect(() => {
@@ -243,7 +249,6 @@ export default function DmButton(props) {
         onClick={(event) => {
           setWalletPopoverOpen(true);
           setPopoverAnchor(event.currentTarget);
-          getAccessToken();
         }}
       >
         {/* Icon */}
