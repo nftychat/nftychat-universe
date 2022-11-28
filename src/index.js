@@ -15,9 +15,8 @@ root.render(
     <div style={{padding: 300}}>
     <UniversalDm
       address={sampleAddress}
-      theme='light'
+      theme='dark'
       popoverDirection='top'
-      displayText="Message"
     />
     </div>
   </React.StrictMode>

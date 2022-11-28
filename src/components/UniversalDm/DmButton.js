@@ -37,6 +37,8 @@ export default function DmButton(props) {
   // const displayName = "Poapdispenser.eth";
   // const address = "0x11B002247efc78A149F4e6aDc9F143b47bE9123D"
   const [showRecentMessages, setShowRecentMessages] = useState(false)
+  const [inboxNotEmpty, setInboxNotEmpty] = useState(false)
+  const [messageSentScreen, setMessageSentScreen] = useState(false)
 
   // Wallet modal
   // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
@@ -82,6 +84,7 @@ export default function DmButton(props) {
 
   // badge of unread messages
   useEffect(() => {
+    if(["", undefined, null].includes(props.address)) return;
     fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
       method: "get",
     })
@@ -92,6 +95,23 @@ export default function DmButton(props) {
         setNumberOfNotifications(data);
       });
   }, [props.address]);
+
+  useEffect(() => {
+    if(["", undefined, null].includes(wagmiAddress)) return;
+    fetch(mainUrl + "/v1/unread_message_count?address=" + wagmiAddress, {
+      method: "get",
+    })
+      .then((payload) => {
+        return payload.json();
+      })
+      .then((data) => {
+        if (data > 0 ){
+          setInboxNotEmpty(true);
+        } else{
+          setInboxNotEmpty(false); 
+        }
+      });
+  }, [wagmiAddress])
 
   // Checks validity of signature
   async function checkSignature(tempAddress = wagmiAddress, signature = "0x") {
@@ -165,9 +185,9 @@ export default function DmButton(props) {
     }
   }, [popoverAnchor, wagmiAddress]);
 
-  // useEffect to fetch conversations if user is same as props.address
+  // useEffect to fetch conversations if user has authenticated
   useEffect(() => {
-    if (props.address === wagmiAddress && authenticated) {
+    if (authenticated) {
       getConversations();
     }
   }, [props.address, wagmiAddress, authenticated]);
@@ -203,7 +223,7 @@ export default function DmButton(props) {
         toast.success("Message sent!");
         setNumberOfNotifications((num) => num + 1);
         setMessageText("");
-        setPopoverAnchor(null);
+        setMessageSentScreen(true);
       });
   }
 
@@ -239,7 +259,6 @@ export default function DmButton(props) {
         </div>
 
         {/* Text */}
-
         {popoverAnchor !== null && authenticated === false ? (
           <span className="universal_button__text">Waiting for Signature</span>
         ) : wagmiAddress === props.address ? (
@@ -278,12 +297,12 @@ export default function DmButton(props) {
               : "universal_button_popover__container"
           }
         >
-          {(wagmiAddress === props.address || showRecentMessages) ? (
+          {(wagmiAddress === props.address || showRecentMessages) && (!messageSentScreen) && (
             <>
               {/* Recent Messages */}
               <div className="universal_dm__content universal_dm__top">
-                <span className="message_title"> Recent Messages </span>
-                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} />
+                <span className="universal_dm__title"> Recent Messages </span>
+                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty} />
               </div>
               <div className="universal_dm__content">
                 <div className="message_separator"></div>
@@ -301,7 +320,7 @@ export default function DmButton(props) {
                       );
                     }}
                   >
-                    <div className="hover_text"> View on nftychat</div>
+                    <div className="hover_text"> View on nftychat.xyz</div>
                     <div className="message_text__container">
                       <span className="message_title">
                         {" "}
@@ -319,7 +338,7 @@ export default function DmButton(props) {
                   </div>
                 ))}
               </div>
-              <div className="universal_dm__content">
+              <div className="universal_dm__content universal_dm__bottom_2">
                 <span className="universal_dm__user_text">
                   Connected: {userName}
                 </span>
@@ -327,18 +346,23 @@ export default function DmButton(props) {
                   href="https://nftychat.xyz"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ textDecoration: "none" }}
+                  className="universal_dm__nfty_link"
                 >
                   {" "}
                   View all
+                  <Icon
+                    className="universal_dm__link_arrow"
+                    icon="bi:arrow-right"
+                  />
                 </a>
               </div>
             </>
-          ) : (
+          )}
+          {((wagmiAddress !== props.address && !showRecentMessages)) && (!messageSentScreen) && (
             <>
               {/* Send Message */}
               <div className="universal_dm__content universal_dm__top">
-                <span className="message_title"> Message {displayName} </span>
+                <span className="universal_dm__title"> Message {displayName} </span>
                 {/* Inbox button */}
                 <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} />
               </div>
@@ -354,7 +378,7 @@ export default function DmButton(props) {
                   onChange={(e) => setMessageText(e.target.value)}
                 />
               </div>
-              <div className="universal_dm__content universal_dm__bottom">
+              <div className="universal_dm__content universal_dm__bottom_1">
                 <span className="universal_dm__user_text">
                   Connected: {userName}
                 </span>
@@ -369,7 +393,51 @@ export default function DmButton(props) {
               </div>
             </>
           )}
-          <div className="universal_dm__bottom_border">⚡️ by nftychat</div>
+          {(messageSentScreen) && (
+            <>
+              {/* MessageSent */}
+              <div className="universal_dm__message_sent">
+              <div className="universal_dm__message_sent__text">
+               <span className="universal_dm__message_sent__title">Message sent to {displayName}</span> 
+                <span className="universal_dm__message_sent__subtitle">Send another message or view recent messages</span> 
+              </div>
+              <div className="universal_dm__message_sent__button_group">
+                <button className="universal_dm__message_sent__button"
+                onClick={() => {
+                  setMessageSentScreen(false);
+                  setShowRecentMessages(false);
+                }}>
+                <Icon
+                  className="universal_dm__message_sent__button_icon"
+                  icon="ant-design:message-outlined"
+                />
+                 Send Message
+                </button> 
+                <button className="universal_dm__message_sent__button"
+                onClick={() => {
+                  setMessageSentScreen(false);
+                  setShowRecentMessages(true);
+                }}>
+                <Icon
+                  className="universal_dm__message_sent__button_icon"
+                  icon="bi:inbox"
+                />
+                 View Messages
+                </button> 
+              </div>
+              </div>
+            </>
+          )}
+          <div className="universal_dm__bottom_border">
+          <a
+            href="https://nftychat.xyz"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="universal_dm__bottom_border__text"
+          >
+          ⚡️ by nftychat
+          </a>
+            </div>
         </div>
       </Popover>
 
