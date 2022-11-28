@@ -20,7 +20,7 @@
   --gray11: hsl(0 0% 43.5%);
   --gray12: hsl(0 0% 9%);
 
-  --button-text: #467ee5;
+  --button-text: #19191A;
 
   font-family: "Inter", sans-serif;
 }
@@ -44,7 +44,7 @@
   --gray11: hsl(0 0% 62.8%);
   --gray12: hsl(0 0% 93%);
 
-  --button-text: #94eede;
+  --button-text: #FFFFFF;
 }
 
 .universal_button {
@@ -68,7 +68,7 @@
 }
 
 .universal_button__button:hover {
-  background-color: var(--gray3);
+  background-color: #F3F3F3;
 }
 
 .universal_button__icon_container {
@@ -117,14 +117,14 @@
   width: 384px;
 }
 
-.universal_button_popover__textarea {
+.universal_dm__textarea {
   background-color: var(--gray1);
   border-radius: 6px;
   border: 1px solid var(--gray6);
   color: var(--gray12);
   font-family: Inter, sans-serif;
   font-size: 1rem;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   min-height: 66px;
   outline: none;
   padding: 8px;
@@ -133,21 +133,22 @@
   flex: auto;
 }
 
-.universal_button_popover__textarea:focus {
+.universal_dm__textarea:focus {
   border-color: var(--gray8);
 }
 
 
 /* recent messages */
-.universal_button_popover__messages {
+.universal_dm__messages {
   display: flex;
   justify-content: space-between;
-  margin: 12px; 
+  margin: 16px; 
   flex-direction: column;
 }
 
 .message__container{
   margin-bottom: 8px; 
+  align-items: center;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
@@ -168,6 +169,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+  min-height: 24px;
   letter-spacing: 0em;
   text-align: left;
   color: var(--gray10);
@@ -180,7 +182,8 @@
   border: 1px solid var(--gray6);
   height: 0px;
   margin-bottom: 12px;
-}
+} 
+
 .message_text__container{
   display: flex;
   flex-direction: column;
@@ -228,11 +231,24 @@
   opacity: 1;
 }
 
-
-.universal_button_popover__content {
+.universal_dm__content {
+  padding: 0px 16px;
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.universal_dm__top {
+  margin-bottom: 6px;
+  margin-top: 8px;
+}
+
+.universal_dm__bottom {
+  margin-bottom: 20px;
+}
+
+
+.universal_button_popover__content {
   margin: 12px;
 }
 
@@ -250,7 +266,7 @@
   margin: 0px 12px 12px 12px;
 }
 
-.universal_button_popover__content_left {
+.universal_dm__content_left {
   align-items: center;
   display: flex;
   gap: 8px;
@@ -262,11 +278,11 @@
   gap: 8px;
 }
 
-.universal_button_popover__user_text {
+.universal_dm__user_text {
   text-decoration: none;
   color: var(--gray11);
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 
@@ -282,7 +298,30 @@
   text-decoration: none;
 }
 
-.universal_button_popover__send {
+/* inbox button */
+.universal_dm__inbox {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 9999px;
+  border: none;
+  color: var(--button-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  transition: color 200ms, background-color 200ms;
+  width: 32px;
+}
+.universal_dm__inbox:hover {
+  background-color: #cccccc;
+}
+
+.universal_dm__inbox_icon {
+  height: 100%;
+  width: 100%;
+}
+
+/* Send button */
+.universal_dm__send {
   align-items: center;
   background-color: transparent;
   border-radius: 9999px;
@@ -292,18 +331,27 @@
   display: flex;
   height: 32px;
   justify-content: center;
-  padding: 6px;
+  padding: 6px 4px 6px 6px;
   transition: color 200ms, background-color 200ms;
   width: 32px;
+  background-color: #DEDEDE;
 }
 
-.universal_button_popover__send:hover {
-  background-color: var(--gray3);
+.universal_dm__send:hover {
+  background-color: #cccccc;
 }
 
-.universal_button_popover__send_icon {
+.universal_dm__send_icon {
   height: 100%;
   width: 100%;
+}
+.universal_dm__bottom_border {
+  background-color: #f3f3f3;
+  padding:8px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 13px;
 }
 
 /* Wallet popover */

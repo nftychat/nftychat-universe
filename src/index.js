@@ -5,7 +5,7 @@ import {UniversalDm} from "./components/index.js";
 // Params
 // sampleAddress is the user we're messaging 
 // const sampleAddress = '0x11B002247efc78A149F4e6aDc9F143b47bE9123D'
-const sampleAddress = '0xB56c077D106b45D27D86D6F1d820acD3cD2Bed3e'
+const sampleAddress = '0x57632Ba9A844af0AB7d5cdf98b0056c8d87e3A85'
 // optional param
 // const sampleDisplayName = 'Poapdispenser.eth'
 
@@ -16,8 +16,8 @@ root.render(
     <UniversalDm
       address={sampleAddress}
       theme='light'
-      popoverDirection='bottom'
-      displayText=""
+      popoverDirection='top'
+      displayText="Message"
     />
     </div>
   </React.StrictMode>
