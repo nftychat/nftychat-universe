@@ -12478,15 +12478,13 @@ function DmButton(props) {
 
   React.useEffect(() => {
     async function resolveUserName() {
-      if (!userName || userName === "" || userName === undefined) {
+      if (!!wagmiAddress) {
         const tempUserName = await getDisplayName(wagmiAddress);
         setUserName(tempUserName);
       }
     }
 
     resolveUserName();
-    console.log("wagmiAddress - " + wagmiAddress);
-    console.log("userName - " + userName);
   }, [userName, wagmiAddress]); //useEffect if displayName not defined
 
   React.useEffect(() => {
