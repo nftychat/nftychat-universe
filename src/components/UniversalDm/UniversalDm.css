@@ -14,7 +14,7 @@
   --main-gray: #dedede;
   --button-hover: #ccc;
 
-  font-family: "Inter", sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .universal_button___dark,
@@ -160,14 +160,14 @@
 }
 
 .message_title{
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-align: left;
   color: var(--primary-text)
 }
 .message_text{
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
