@@ -12413,6 +12413,7 @@ function formatDmMessage(message) {
 }
 
 function InboxButton({
+  getConversations,
   showRecentMessages,
   setShowRecentMessages,
   inboxNotEmpty
@@ -12420,7 +12421,10 @@ function InboxButton({
   return /*#__PURE__*/jsxRuntime.jsx(jsxRuntime.Fragment, {
     children: /*#__PURE__*/jsxRuntime.jsxs("button", {
       className: `universal_dm__inbox ${showRecentMessages ? "universal_dm__inbox__selected" : ""}`,
-      onClick: () => setShowRecentMessages(!showRecentMessages),
+      onClick: () => {
+        getConversations();
+        setShowRecentMessages(!showRecentMessages);
+      },
       children: [/*#__PURE__*/jsxRuntime.jsx(Icon, {
         className: "universal_dm__inbox_icon",
         icon: "bi:inbox"
@@ -12513,7 +12517,8 @@ function DmButton(props) {
     }).then(data => {
       setNumberOfNotifications(data);
     });
-  }, [props.address]);
+  }, [props.address]); // inbox unread message badge
+
   React.useEffect(() => {
     if (["", undefined, null].includes(wagmiAddress)) return;
     fetch(mainUrl + "/v1/unread_message_count?address=" + wagmiAddress, {
@@ -12704,6 +12709,7 @@ function DmButton(props) {
               className: "universal_dm__title",
               children: " Recent Messages "
             }), /*#__PURE__*/jsxRuntime.jsx(InboxButton, {
+              getConversations: getConversations,
               showRecentMessages: showRecentMessages,
               setShowRecentMessages: setShowRecentMessages,
               inboxNotEmpty: inboxNotEmpty

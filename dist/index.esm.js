@@ -12386,6 +12386,7 @@ function formatDmMessage(message) {
 }
 
 function InboxButton({
+  getConversations,
   showRecentMessages,
   setShowRecentMessages,
   inboxNotEmpty
@@ -12393,7 +12394,10 @@ function InboxButton({
   return /*#__PURE__*/jsx(Fragment$1, {
     children: /*#__PURE__*/jsxs("button", {
       className: `universal_dm__inbox ${showRecentMessages ? "universal_dm__inbox__selected" : ""}`,
-      onClick: () => setShowRecentMessages(!showRecentMessages),
+      onClick: () => {
+        getConversations();
+        setShowRecentMessages(!showRecentMessages);
+      },
       children: [/*#__PURE__*/jsx(Icon, {
         className: "universal_dm__inbox_icon",
         icon: "bi:inbox"
@@ -12486,7 +12490,8 @@ function DmButton(props) {
     }).then(data => {
       setNumberOfNotifications(data);
     });
-  }, [props.address]);
+  }, [props.address]); // inbox unread message badge
+
   useEffect(() => {
     if (["", undefined, null].includes(wagmiAddress)) return;
     fetch(mainUrl + "/v1/unread_message_count?address=" + wagmiAddress, {
@@ -12677,6 +12682,7 @@ function DmButton(props) {
               className: "universal_dm__title",
               children: " Recent Messages "
             }), /*#__PURE__*/jsx(InboxButton, {
+              getConversations: getConversations,
               showRecentMessages: showRecentMessages,
               setShowRecentMessages: setShowRecentMessages,
               inboxNotEmpty: inboxNotEmpty
