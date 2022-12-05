@@ -100,6 +100,7 @@ export default function DmButton(props) {
       });
   }, [props.address]);
 
+  // inbox unread message badge
   useEffect(() => {
     if(["", undefined, null].includes(wagmiAddress)) return;
     fetch(mainUrl + "/v1/unread_message_count?address=" + wagmiAddress, {
@@ -306,7 +307,7 @@ export default function DmButton(props) {
               {/* Recent Messages */}
               <div className="universal_dm__content universal_dm__top">
                 <span className="universal_dm__title"> Recent Messages </span>
-                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty} />
+                <InboxButton getConversations={getConversations} showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty} />
               </div>
               <div className="universal_dm__content">
                 <div className="message_separator"></div>
