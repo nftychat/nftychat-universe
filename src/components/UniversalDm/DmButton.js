@@ -421,6 +421,7 @@ export default function DmButton(props) {
                 </button> 
                 <button className="universal_dm__message_sent__button"
                 onClick={() => {
+                  getConversations();
                   setMessageSentScreen(false);
                   setShowRecentMessages(true);
                 }}>
