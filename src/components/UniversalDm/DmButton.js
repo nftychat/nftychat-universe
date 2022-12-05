@@ -306,8 +306,8 @@ export default function DmButton(props) {
             <>
               {/* Recent Messages */}
               <div className="universal_dm__content universal_dm__top">
-                <span className="universal_dm__title"> Recent Messages </span>
-                <InboxButton getConversations={getConversations} showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty} />
+                <span className="universal_dm__title"> Your Inbox </span>
+                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty}  getConversations={getConversations} />
               </div>
               <div className="universal_dm__content">
                 <div className="message_separator"></div>
@@ -369,7 +369,7 @@ export default function DmButton(props) {
               <div className="universal_dm__content universal_dm__top">
                 <span className="universal_dm__title"> Message {displayName} </span>
                 {/* Inbox button */}
-                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} />
+                <InboxButton showRecentMessages={showRecentMessages} setShowRecentMessages={setShowRecentMessages} inboxNotEmpty={inboxNotEmpty}  getConversations={getConversations}/>
               </div>
               <div className="universal_dm__content">
                 <div className="message_separator"></div>

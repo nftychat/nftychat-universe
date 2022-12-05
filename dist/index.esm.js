@@ -12386,10 +12386,10 @@ function formatDmMessage(message) {
 }
 
 function InboxButton({
-  getConversations,
   showRecentMessages,
   setShowRecentMessages,
-  inboxNotEmpty
+  inboxNotEmpty,
+  getConversations
 }) {
   return /*#__PURE__*/jsx(Fragment$1, {
     children: /*#__PURE__*/jsxs("button", {
@@ -12680,12 +12680,12 @@ function DmButton(props) {
             className: "universal_dm__content universal_dm__top",
             children: [/*#__PURE__*/jsx("span", {
               className: "universal_dm__title",
-              children: " Recent Messages "
+              children: " Your Inbox "
             }), /*#__PURE__*/jsx(InboxButton, {
-              getConversations: getConversations,
               showRecentMessages: showRecentMessages,
               setShowRecentMessages: setShowRecentMessages,
-              inboxNotEmpty: inboxNotEmpty
+              inboxNotEmpty: inboxNotEmpty,
+              getConversations: getConversations
             })]
           }), /*#__PURE__*/jsx("div", {
             className: "universal_dm__content",
@@ -12740,7 +12740,9 @@ function DmButton(props) {
               children: [" Message ", displayName, " "]
             }), /*#__PURE__*/jsx(InboxButton, {
               showRecentMessages: showRecentMessages,
-              setShowRecentMessages: setShowRecentMessages
+              setShowRecentMessages: setShowRecentMessages,
+              inboxNotEmpty: inboxNotEmpty,
+              getConversations: getConversations
             })]
           }), /*#__PURE__*/jsx("div", {
             className: "universal_dm__content",
