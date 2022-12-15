@@ -3,7 +3,7 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import DmButton from "./DmButton";
+import DmButton from "./DmButton.js";
 import "./UniversalDm.css";
 import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from 'wagmi/providers/alchemy'

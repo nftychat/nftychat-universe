@@ -8,8 +8,8 @@ import {
   getDisplayName,
   shortenAddress,
   formatDmMessage,
-} from "../../utilities";
-import InboxButton from "./InboxButton";
+} from "../../utilities.js";
+import InboxButton from "./InboxButton.js";
 import bestagonSuccessImg from "../../assets/images/bestagonSuccess.png";
 
 export default function DmButton(props) {

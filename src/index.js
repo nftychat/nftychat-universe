@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {UniversalDm} from "./components/index.js";
+import {UniversalSupport} from "./components/index.js";
 
 // Params
 // sampleAddress is the user we're messaging 
@@ -17,6 +18,10 @@ root.render(
       address={sampleAddress}
       theme='dark'
       popoverDirection='top'
+    />
+    <UniversalSupport
+      address={sampleAddress}
+      theme='dark'
     />
     </div>
   </React.StrictMode>

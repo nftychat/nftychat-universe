@@ -6,10 +6,8 @@ import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import {
   getDisplayName,
-  shortenAddress,
-  formatDmMessage,
-} from "../../utilities";
-// import bestagonSuccessImg from "../../assets/images/bestagonSuccess.png";
+} from "../../utilities.js";
+import bestagonSupportImg from "../../assets/images/bestagonSupport.png";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -30,9 +28,10 @@ export default function DmButton(props) {
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
   const mainUrl = "https://nftychat-staging.herokuapp.com";
   // const mainUrl = "http://localhost:8080";
-  const [messageText, setMessageText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [userName, setUserName] = useState("");
+  const [conversation, setConversation] = useState(null)
   const [messages, setMessages] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -112,9 +111,49 @@ export default function DmButton(props) {
     return tempAccessToken;
   }
 
+  // gets conversation data
+  async function getConversationData(tempAccessToken) {
+    if (conversation !== null){
+      return conversation;
+    }
+    else{
+      fetch(mainUrl + "/v1/conversations", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tempAccessToken,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            response.json().then((data) => {
+              toast.error(data["detail"]);
+              console.log(data["detail"]);
+              // force reauth
+              setAuthenticated(false);
+              localStorage.removeItem("token_" + wagmiAddress);
+            });
+            // TODO: Unsure what error is trying to throw
+            throw new Error("error");
+          }
+          return response.json();
+        })
+        .then((payload) => {
+          const tempConvo = payload.find(convo => convo.members.some(member => member.address === props.address))
+          setConversation(tempConvo)
+          return tempConvo
+        });
+    }
+  }
+
   async function getMessages() {
     const tempAccessToken = await getAccessToken();
-    fetch(mainUrl + "/v1/messages?", {
+    const tempConvo = await getConversationData(tempAccessToken);
+    if (tempConvo === undefined){
+      setMessages([]);
+      return;
+    }
+    fetch(mainUrl + "/v1/messages?conversation_id=" + tempConvo.conversation_id, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -137,9 +176,10 @@ export default function DmButton(props) {
       })
       .then((payload) => {
         // set messages
-        setConversations(payload.slice(0, 3));
+        setMessages(payload);
       });
   }
+
   // useEffect to get signature after click
   useEffect(() => {
     if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
@@ -148,17 +188,17 @@ export default function DmButton(props) {
     }
   }, [popoverAnchor, wagmiAddress, signedWallet]);
 
-  // useEffect to fetch conversations if user has authenticated
+  // useEffect to fetch messages if user has authenticated
   useEffect(() => {
     if (authenticated) {
-      getConversations();
+      getMessages();
     }
   }, [props.address, wagmiAddress, authenticated]);
 
   async function sendClick() {
-    if (messageText === "") return;
+    if (inputText === "") return;
     const tempAccessToken = await getAccessToken();
-    const payload = { address: props.address, message_text: messageText };
+    const payload = { address: props.address, message_text: inputText };
     fetch(mainUrl + "/v1/send_message", {
       method: "POST",
       headers: {
@@ -183,10 +223,7 @@ export default function DmButton(props) {
         return response.json();
       })
       .then(() => {
-        toast.success("Message sent!");
-        setNumberOfNotifications((num) => num + 1);
-        setMessageText("");
-        setMessageSentScreen(true);
+        setInputText("");
       });
   }
 
@@ -214,22 +251,8 @@ export default function DmButton(props) {
               {numberOfNotifications}
             </div>
           )}
-          <Icon
-            className="universal_button__icon"
-            icon="ant-design:message-outlined"
-          />
+          <img className="universal_dm__message_sent__image" src={bestagonSupportImg} alt="supportIcon"/> 
         </div>
-
-        {/* Text */}
-        {popoverAnchor !== null && authenticated === false ? (
-          <span className="universal_button__text">Waiting for Signature</span>
-        ) : wagmiAddress === props.address ? (
-          <span className="universal_button__text">Recent Messages</span>
-        ) : displayText !== "" ? (
-          <span className="universal_button__text">{displayText}</span>
-        ) : (
-          ""
-        )}
       </button>
 
       {/* Chat Popover */}
@@ -239,7 +262,7 @@ export default function DmButton(props) {
           vertical: "top",
           horizontal: "center",
         }}
-        className="chat_popover"
+        className="universal_support__popover"
         style={
           {marginTop: -8 }
         }
@@ -251,13 +274,9 @@ export default function DmButton(props) {
         }}
       >
         <div
-          className={
-            props.theme === "dark"
-              ? "universal_button_popover__container universal_button_popover__container___dark"
-              : "universal_button_popover__container"
-          }
+          className={"universal_support__popover_contents"}
         >
-          <div className="universal_dm__bottom_border">
+          <div className="universal_support__bottom_border">
           <a
             href="https://nftychat.xyz"
             rel="noopener noreferrer"

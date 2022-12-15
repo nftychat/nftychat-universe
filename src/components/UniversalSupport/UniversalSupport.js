@@ -3,8 +3,8 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import DmButton from "./SupportButton";
-import "./UniversalDm.css";
+import SupportButton from "./SupportButton.js";
+import "./UniversalSupport.css";
 import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 
@@ -42,7 +42,7 @@ export default function UniversalDm(props) {
       <Toaster />
       <SupportButton
         address={props.address}
-        chatTitle={props.chatTitle}
+        chatTitle={props.chatTitle || "Support Chat"}
         welcomMessage={props.welcomMessage}
         theme={props.theme || "light"}
         />
