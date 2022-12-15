@@ -105,12 +105,13 @@ export default function DmButton(props) {
     }
     localStorage.setItem("token_" + wagmiAddress, tempAccessToken);
     setAuthenticated(true);
+    setSignedWallet(wagmiAddress)
     return tempAccessToken;
   }
 
   // gets conversation data
   async function getConversationData(tempAccessToken) {
-    if (conversation !== null) {
+    if (conversation !== null && signedWallet === wagmiAddress) {
       return conversation;
     } else {
       return fetch(mainUrl + "/v1/conversations", {
@@ -190,26 +191,22 @@ export default function DmButton(props) {
   // useEffect to get signature after click
   useEffect(() => {
     if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
+      setAuthenticated(false)
       getAccessToken();
-      setSignedWallet(wagmiAddress);
     }
   }, [popoverAnchor, wagmiAddress, signedWallet]);
 
-  // useEffect to fetch messages if user has authenticated
-  useEffect(() => {
-    if (authenticated) {
-      getMessages();
-    }
-  }, [props.address, wagmiAddress, authenticated]);
-
-
   // useEffect to continually fetch messages
   useEffect(() => {
-    const interval = setInterval(() => getMessages(), 2000);
+    const interval = setInterval(() => {
+      if (authenticated) {
+        getMessages()
+      }
+    }, 2000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [props.address, wagmiAddress, authenticated]);
 
   async function sendMessage() {
     if (inputText === "") return;
@@ -335,11 +332,16 @@ export default function DmButton(props) {
             <button
               className="universal_support__connect_button"
               onClick={() => {
+              if(!wagmiAddress){
                 if(props.connectWalletFunction){
                   props.connectWalletFunction()
                 }else{
                   setWalletPopoverOpen(true)
                 }
+              } else{
+                getAccessToken()
+              }
+
               }
               }
             >

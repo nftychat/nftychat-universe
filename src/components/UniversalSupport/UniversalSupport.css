@@ -413,7 +413,7 @@
   cursor: pointer;
 }
 .universal_support__connect_button:hover{
-  background-color: var(--bottom-border);
+  background-color: var(--button-hover);
 }
 
 .universal_support__text_input{
