@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "@mui/material";
-import Popover from "@mui/material/Popover";
+import { Popover } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";

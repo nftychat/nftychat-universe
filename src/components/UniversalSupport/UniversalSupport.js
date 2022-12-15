@@ -43,7 +43,7 @@ export default function UniversalDm(props) {
       <SupportButton
         address={props.address}
         chatTitle={props.chatTitle || "Support Chat"}
-        welcomMessage={props.welcomMessage}
+        welcomeMessage={props.welcomeMessage || "Welcome to Support Chat. We typically respond in 24 hours."}
         theme={props.theme || "light"}
         />
     </WagmiConfig>

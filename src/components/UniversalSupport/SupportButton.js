@@ -1,13 +1,13 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "@mui/material";
-import Popover from "@mui/material/Popover";
+import { Popover } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
-import {
-  getDisplayName,
-} from "../../utilities.js";
+import { getDisplayName } from "../../utilities.js";
 import bestagonSupportImg from "../../assets/images/bestagonSupport.png";
+import { useRef } from "react";
+import { isHotkey } from "is-hotkey";
 
 export default function DmButton(props) {
   // Wamgi hooks
@@ -22,7 +22,7 @@ export default function DmButton(props) {
   const { signMessageAsync } = useSignMessage();
 
   // make sure signature requested once
-  const [signedWallet, setSignedWallet] = useState("No wallet signed"); 
+  const [signedWallet, setSignedWallet] = useState("No wallet signed");
 
   // Custom states
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
@@ -31,9 +31,11 @@ export default function DmButton(props) {
   const [inputText, setInputText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [userName, setUserName] = useState("");
-  const [conversation, setConversation] = useState(null)
+  const [conversation, setConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
+  const bottomRef = useRef(null);
+  
 
   // Wallet modal
   // Connectors 0: metamask, 1:WalletConnect, 2: coinbase
@@ -57,21 +59,17 @@ export default function DmButton(props) {
     resolveUserName();
   }, [userName, wagmiAddress]);
 
-
-  // badge of unread messages
-  // TODO
+  // Function to scroll down
+  function scrollDown() {
+    console.log(bottomRef)
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView()
+    };
+  }
+  // UseEffect for scrolling
   useEffect(() => {
-    if(["", undefined, null].includes(props.address)) return;
-    fetch(mainUrl + "/v1/unread_message_count?address=" + props.address, {
-      method: "get",
-    })
-      .then((payload) => {
-        return payload.json();
-      })
-      .then((data) => {
-        setNumberOfNotifications(data);
-      });
-  }, [props.address]);
+    scrollDown() 
+  }, [JSON.stringify(messages), popoverAnchor, bottomRef])
 
   // Checks validity of signature
   async function checkSignature(tempAddress = wagmiAddress, signature = "0x") {
@@ -113,11 +111,10 @@ export default function DmButton(props) {
 
   // gets conversation data
   async function getConversationData(tempAccessToken) {
-    if (conversation !== null){
+    if (conversation !== null) {
       return conversation;
-    }
-    else{
-      fetch(mainUrl + "/v1/conversations", {
+    } else {
+      return fetch(mainUrl + "/v1/conversations", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -139,9 +136,14 @@ export default function DmButton(props) {
           return response.json();
         })
         .then((payload) => {
-          const tempConvo = payload.find(convo => convo.members.some(member => member.address === props.address))
-          setConversation(tempConvo)
-          return tempConvo
+          const tempConvo = payload.find((convo) =>
+            convo.members.some((member) => member.address === props.address)
+          );
+          setConversation(tempConvo);
+          if (tempConvo !== undefined){
+            setNumberOfNotifications(tempConvo.unread_message_count)
+          }
+          return tempConvo;
         });
     }
   }
@@ -149,17 +151,20 @@ export default function DmButton(props) {
   async function getMessages() {
     const tempAccessToken = await getAccessToken();
     const tempConvo = await getConversationData(tempAccessToken);
-    if (tempConvo === undefined){
+    if (tempConvo === undefined) {
       setMessages([]);
       return;
     }
-    fetch(mainUrl + "/v1/messages?conversation_id=" + tempConvo.conversation_id, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + tempAccessToken,
-      },
-    })
+    fetch(
+      mainUrl + "/v1/messages?conversation_id=" + tempConvo.conversation_id,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tempAccessToken,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           response.json().then((data) => {
@@ -184,7 +189,7 @@ export default function DmButton(props) {
   useEffect(() => {
     if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
       getAccessToken();
-      setSignedWallet(wagmiAddress)
+      setSignedWallet(wagmiAddress);
     }
   }, [popoverAnchor, wagmiAddress, signedWallet]);
 
@@ -195,7 +200,16 @@ export default function DmButton(props) {
     }
   }, [props.address, wagmiAddress, authenticated]);
 
-  async function sendClick() {
+
+  // useEffect to continually fetch messages
+  useEffect(() => {
+    const interval = setInterval(() => getMessages(), 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  async function sendMessage() {
     if (inputText === "") return;
     const tempAccessToken = await getAccessToken();
     const payload = { address: props.address, message_text: inputText };
@@ -213,8 +227,6 @@ export default function DmButton(props) {
           response.json().then((data) => {
             toast.error(data["detail"]);
             console.log(data["detail"]);
-            // force reauth
-            setAuthenticated(false);
             localStorage.removeItem("token_" + wagmiAddress);
           });
           // TODO: Unsure what error is trying to throw
@@ -223,35 +235,48 @@ export default function DmButton(props) {
         return response.json();
       })
       .then(() => {
+        setMessages((messages) => [...messages, {message_id:Math.random(), member: {address: wagmiAddress, display_name:userName}, text: inputText }] )
         setInputText("");
       });
+  }
+
+  function handleKeyDown(e) {
+    if (
+      isHotkey("return", e) &&
+      !isHotkey("shift+return", e) &&
+      !isHotkey("meta+return", e)
+    ) {
+      e.preventDefault();
+      sendMessage();
+      return false;
+    }
   }
 
   return (
     <div
       className={
         props.theme === "dark"
-          ? "universal_button universal_button___dark"
-          : "universal_button"
+          ? "universal_support universal_support___dark"
+          : "universal_support"
       }
     >
       {/* Activation button */}
       <button
-        className="universal_button__button"
+        className="universal_support__button"
         type="button"
         onClick={(event) => {
-          setWalletPopoverOpen(true);
           setPopoverAnchor(event.currentTarget);
+          setTimeout(scrollDown, 100)
         }}
       >
         {/* Icon */}
         <div className="universal_button__icon_container">
           {numberOfNotifications > 0 && (
-            <div className="universal_button__badge">
+            <div className="universal_support__badge">
               {numberOfNotifications}
             </div>
           )}
-          <img className="universal_dm__message_sent__image" src={bestagonSupportImg} alt="supportIcon"/> 
+          <img src={bestagonSupportImg} alt="supportIcon" className="universal_support__icon" />
         </div>
       </button>
 
@@ -262,10 +287,12 @@ export default function DmButton(props) {
           vertical: "top",
           horizontal: "center",
         }}
-        className="universal_support__popover"
-        style={
-          {marginTop: -8 }
+        className={
+          props.theme === "dark"
+            ? "universal_support__popover universal_support__popover_dark"
+            : "universal_support__popover"
         }
+        style={{ marginTop: -16 }}
         onClose={() => setPopoverAnchor(null)}
         open={popoverAnchor !== null}
         transformOrigin={{
@@ -273,19 +300,77 @@ export default function DmButton(props) {
           horizontal: "center",
         }}
       >
-        <div
-          className={"universal_support__popover_contents"}
-        >
-          <div className="universal_support__bottom_border">
-          <a
-            href="https://nftychat.xyz"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="universal_dm__bottom_border__text"
-          >
-          ⚡️ by nftychat
-          </a>
+        <div className={"universal_support__popover_contents"}>
+          <div className="universal_support__title">
+            <span className="universal_support__title_text">
+              {props.chatTitle}
+            </span>
+            <Icon
+              icon="fluent:arrow-minimize-20-regular"
+              className="universal_support__title_icon"
+              onClick={() => setPopoverAnchor(null)}
+            />
+          </div>
+          <div className="universal_support__seperator"></div>
+          <div className="universal_support__chat">
+            <div className="universal_support__chat__welcome_message">
+              {props.welcomeMessage}
             </div>
+            <div className="universal_support__chat__buffer"></div>
+            {authenticated && (
+              <div className="universal_support__chat__message_container">
+                {messages.map((message) => {
+                  return (<div key={message.message_id} className="universal_support__chat__message">
+                    <span className={message.member.address === props.address ? "universal_support__chat__username" : "universal_support__chat__username_purple"}>{message.member.display_name} </span>
+                    {message.text}
+                    </div>)
+                })}
+                <div className="universal_support__chat__bottom_ref" ref={bottomRef}></div>
+              </div>
+            )}
+          </div>
+          {!authenticated ? (
+            <button
+              className="universal_support__connect_button"
+              onClick={() => setWalletPopoverOpen(true)}
+            >
+              Connect to chat
+            </button>
+          ) : (
+            <>
+              <textarea
+                onKeyDown={handleKeyDown}
+                className="universal_support__text_input"
+                spellCheck={false}
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+              />
+
+              <div className="universal_support__bottom_content">
+                <span className="universal_support__user_text">
+                  Connected: {userName}
+                </span>
+
+                {/* Send button */}
+                <button className="universal_support__send" onClick={sendMessage}>
+                  <Icon
+                    className="universal_support__send_icon"
+                    icon="fluent:send-24-filled"
+                  />
+                </button>
+              </div>
+            </>
+          )}
+          <div className="universal_support__bottom_border">
+            <a
+              href="https://nftychat.xyz"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="universal_support__bottom_border__text"
+            >
+              ⚡️ by nftychat
+            </a>
+          </div>
         </div>
       </Popover>
 
