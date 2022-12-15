@@ -459,6 +459,11 @@
   font-size: 13px;
 }
 
+.universal_support__icon{
+  width: 48px;
+  height: 44px;
+}
+
 /* Send button */
 .universal_support__send {
   align-items: center;
