@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Modal } from "@mui/material";
-import Popover from "@mui/material/Popover";
+import { Popover } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
@@ -8,8 +8,8 @@ import {
   getDisplayName,
   shortenAddress,
   formatDmMessage,
-} from "../../utilities";
-import InboxButton from "./InboxButton";
+} from "../../utilities.js";
+import InboxButton from "./InboxButton.js";
 import bestagonSuccessImg from "../../assets/images/bestagonSuccess.png";
 
 export default function DmButton(props) {
