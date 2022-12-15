@@ -46,6 +46,7 @@ export default function UniversalDm(props) {
         displayName={props.displayName}
         theme={props.theme || "light"}
         popoverDirection={props.popoverDirection || "top"}
+        connectWalletFunction={props.connectWalletFunction}
       />
     </WagmiConfig>
   );

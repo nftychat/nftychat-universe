@@ -12458,6 +12458,9 @@ function DmButton$1(props) {
   }
   async function getMessages() {
     const tempAccessToken = await getAccessToken();
+    if ([undefined, null, ""].includes(tempAccessToken)) {
+      return;
+    }
     const tempConvo = await getConversationData(tempAccessToken);
     if (tempConvo === undefined) {
       setMessages([]);
@@ -12629,7 +12632,13 @@ function DmButton$1(props) {
           })]
         }), !authenticated ? /*#__PURE__*/jsx("button", {
           className: "universal_support__connect_button",
-          onClick: () => setWalletPopoverOpen(true),
+          onClick: () => {
+            if (props.connectWalletFunction) {
+              props.connectWalletFunction();
+            } else {
+              setWalletPopoverOpen(true);
+            }
+          },
           children: "Connect to chat"
         }) : /*#__PURE__*/jsxs(Fragment$1, {
           children: [/*#__PURE__*/jsx("textarea", {
@@ -12722,7 +12731,8 @@ function UniversalDm$1(props) {
       address: props.address,
       chatTitle: props.chatTitle || "Support Chat",
       welcomeMessage: props.welcomeMessage || "Welcome to Support Chat. We typically respond in 24 hours.",
-      theme: props.theme || "light"
+      theme: props.theme || "light",
+      connectWalletFunction: props.connectWalletFunction
     })]
   });
 }
@@ -12973,7 +12983,11 @@ function DmButton(props) {
       className: "universal_button__button",
       type: "button",
       onClick: event => {
-        setWalletPopoverOpen(true);
+        if (props.connectWalletFunction) {
+          props.connectWalletFunction();
+        } else {
+          setWalletPopoverOpen(true);
+        }
         setPopoverAnchor(event.currentTarget);
       },
       children: [/*#__PURE__*/jsxs("div", {
@@ -13222,7 +13236,8 @@ function UniversalDm(props) {
       displayText: props.displayText,
       displayName: props.displayName,
       theme: props.theme || "light",
-      popoverDirection: props.popoverDirection || "top"
+      popoverDirection: props.popoverDirection || "top",
+      connectWalletFunction: props.connectWalletFunction
     })]
   });
 }

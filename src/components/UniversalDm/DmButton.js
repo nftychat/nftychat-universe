@@ -246,7 +246,11 @@ export default function DmButton(props) {
         className="universal_button__button"
         type="button"
         onClick={(event) => {
-          setWalletPopoverOpen(true);
+          if(props.connectWalletFunction){
+            props.connectWalletFunction()
+          }else{
+            setWalletPopoverOpen(true)
+          }
           setPopoverAnchor(event.currentTarget);
         }}
       >

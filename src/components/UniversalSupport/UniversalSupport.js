@@ -45,6 +45,7 @@ export default function UniversalDm(props) {
         chatTitle={props.chatTitle || "Support Chat"}
         welcomeMessage={props.welcomeMessage || "Welcome to Support Chat. We typically respond in 24 hours."}
         theme={props.theme || "light"}
+        connectWalletFunction={props.connectWalletFunction}
         />
     </WagmiConfig>
   );

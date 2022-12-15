@@ -150,6 +150,9 @@ export default function DmButton(props) {
 
   async function getMessages() {
     const tempAccessToken = await getAccessToken();
+    if ([undefined, null, ""].includes(tempAccessToken)){
+      return
+    }
     const tempConvo = await getConversationData(tempAccessToken);
     if (tempConvo === undefined) {
       setMessages([]);
@@ -332,7 +335,14 @@ export default function DmButton(props) {
           {!authenticated ? (
             <button
               className="universal_support__connect_button"
-              onClick={() => setWalletPopoverOpen(true)}
+              onClick={() => {
+                if(props.connectWalletFunction){
+                  props.connectWalletFunction()
+                }else{
+                  setWalletPopoverOpen(true)
+                }
+              }
+              }
             >
               Connect to chat
             </button>
