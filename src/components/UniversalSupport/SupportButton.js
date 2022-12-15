@@ -26,8 +26,8 @@ export default function DmButton(props) {
 
   // Custom states
   const [numberOfNotifications, setNumberOfNotifications] = useState(0);
-  //const mainUrl = "https://nftychat-staging.herokuapp.com";
-  const mainUrl = "http://localhost:8080";
+  const mainUrl = "https://nftychat-staging.herokuapp.com";
+  //const mainUrl = "http://localhost:8080";
   const [inputText, setInputText] = useState("");
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [userName, setUserName] = useState("");
@@ -61,7 +61,6 @@ export default function DmButton(props) {
 
   // Function to scroll down
   function scrollDown() {
-    console.log(bottomRef)
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView()
     };
