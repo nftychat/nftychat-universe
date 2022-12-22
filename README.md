@@ -2,37 +2,4 @@
 nftychat universe is a suite of react components that add messaging
 capabilities to your site with just a few lines of code.
 
-## Install
-```
-yarn add nftychat-universe ethers wagmi
-```
-or
-```
-npm install nftychat-universe ethers wagmi
-```
-
-## UniversalDm
-import the component
-```
-import {UniversalDm} from 'nftychat-universe';
-```
-
-Then add the component. Customize your address, displayName and theme.
-```
-<UniversalDm
-  address="0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF"
-  displayName="slobo.eth"
-  theme="dark"
-  popoverDirection="bottom"
-/>
-```
-Parameters
-| name  | description |
-| ------------- | ------------- |
-| address  | Ethereum address of the user receiving messages.  |
-| displayName  | Name displayed on the dm button. Optional.  |
-| theme  | "dark" or "light". Theme of button and popover. Further styling can be done using css.  |
-| popoverDirection  | "top" or "bottom". Specifies whether popover is above buttom (top) or below button (bottom). |
-
 Check out a demo and more information at [nftychat.xyz/universe](https://nftychat.xyz/universe)
-
