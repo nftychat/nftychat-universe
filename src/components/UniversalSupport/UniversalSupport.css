@@ -269,6 +269,7 @@
   --button-hover: #ccc;
 
   font-family: Inter, sans-serif;
+  font-variant-ligatures: no-contextual;
 }
 
 .universal_support__dark,

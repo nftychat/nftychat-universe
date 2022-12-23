@@ -137,7 +137,7 @@ export default function DmButton(props) {
         })
         .then((payload) => {
           const tempConvo = payload.find((convo) =>
-            convo.members.some((member) => member.address === props.address)
+            convo.members.some((member) => member.address.toLowerCase() === props.address.toLowerCase())
           );
           setConversation(tempConvo);
           if (tempConvo !== undefined){
@@ -192,6 +192,7 @@ export default function DmButton(props) {
   useEffect(() => {
     if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
       setAuthenticated(false)
+      setConversation(null)
       getAccessToken();
     }
   }, [popoverAnchor, wagmiAddress, signedWallet]);
