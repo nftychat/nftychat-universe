@@ -12770,7 +12770,7 @@ function DmButtonPopover(props) {
     address: wagmiAddress
   } = useAccount();
   return /*#__PURE__*/jsx(Fragment$1, {
-    children: props.AddOnType === "div" ? /*#__PURE__*/jsx(Fragment$1, {
+    children: props.addOnType === "div" ? /*#__PURE__*/jsx(Fragment$1, {
       children: props.children
     }) : /*#__PURE__*/jsxs(Fragment$1, {
       children: [/*#__PURE__*/jsxs("button", {
@@ -13035,7 +13035,7 @@ function UniversalDmInner(props) {
   }
   return /*#__PURE__*/jsxs(Fragment$1, {
     children: [/*#__PURE__*/jsx(DmButtonPopover, {
-      AddOnType: props.AddOnType,
+      addOnType: props.addOnType,
       numberOfNotifications: numberOfNotifications,
       displayText: displayText,
       popoverDirection: props.popoverDirection,
