@@ -12319,7 +12319,7 @@ lib.compareHotkey = compareHotkey;
 lib.toKeyCode = toKeyCode;
 lib.toKeyName = toKeyName;
 
-function DmButton$1(props) {
+function SupportButton(props) {
   // Wamgi hooks
   const {
     address: wagmiAddress
@@ -12729,7 +12729,7 @@ const defaultWagmiClient$1 = createClient({
 function UniversalDm$1(props) {
   return /*#__PURE__*/jsxs(WagmiConfig, {
     client: defaultWagmiClient$1,
-    children: [/*#__PURE__*/jsx(Ie, {}), /*#__PURE__*/jsx(DmButton$1, {
+    children: [/*#__PURE__*/jsx(Ie, {}), /*#__PURE__*/jsx(SupportButton, {
       address: props.address,
       chatTitle: props.chatTitle || "Support Chat",
       welcomeMessage: props.welcomeMessage || "Welcome to Support Chat. We typically respond in 24 hours.",
@@ -12764,7 +12764,62 @@ function InboxButton({
 
 var bestagonSuccessImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAvCAYAAACsaemzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPmSURBVHgBzZpPUtswFMbfU3BX7Uxu0HCDAGWmS7IgLUvWHf74BJATACcATpAA7XQJu7ahM8meQNMT1EdgQTexZfXJTlw7lhMH21i/YSaxJWJ/lvTp6ckIz2S9+6XOgdcnxyjwERk8Qs4IF6oCRdW/CFSZK+gY3wJiVQhRZ4DWoLnTmNRfggV5d3u1QT/UdoHXMFyAAoSA/EHvz4d+n8SMvwvvvBDu73B1Bguw1r06IDE9+loDTSBRw/BxakHve19r9DzOQDcY60cOISW2zY9AP6zB5k4/fCKVoPVumwa/uw+aQUPqZPpcKlNwoXINuoFw87C525k+PbeFVruX+6CRCYyx+BM3VQU467+kEdi2rZWrgRTDeWO4ZVqqwpldbuTYB6hb6zBsDZtqMV5xUoFsHZorD0E3XJjptomCNLVpQtRXv18mPmjlGJJGQAVt0JdHbrxZHja2Y7GjsoVIjKatE1Bdcv4q7zEmSMZroJ9Nx6Cg9NAPx6JEBI3jtTKNwEJEuRSw0lS2bSc2LFi0gmcENSgHb36RsZn8hFSixIZczoTPBIL81iktXotMlvJzLGoucm0WPg4EUfOVFa8pZ35mGGmNqRa2cc+2S7RppZjVn5/b6C7UWwIb91qoJJvOS4wksHGUzUXJjVPIjKBJDqupqiI9UYevxMTcXp5mCbcMw1hmyHAPskNP212hO+3PrSnFCEXL3F4dZY0dndFon8nYCLIRdB1uONt0x8PEmhMxTTNSxxcjjiEjtIKtM7+rPB+aCM3AbhsmDU6noRRVsJgJJIgNIQNyHgiHIEpRLySGcnY3jPJ2J5ANb1Vb710HhjAtijm8VbQYwnI573vzEAWkPRlGQCZwyI3XjXBIX//WrhkAG3dbZidcswAxgC60Bh93z3By4Uql8gcyExc1TRFiCOu+ubssv3gTqxzUdJGsXQ+kY1bsp0j3C1OQmEh+LojlnFfuWVbHG/+8UpRcZxUhhug8NP/n5wJBciALF3NoJQmJcp6C2HDtx8VeUXlxmgMj9xzLKdCT/JXDZDuGdUDwPk1WHSgEPL9v7kSii9gSnGy8BblBQWZhYmSE4sRaPSbIz+aniMlKRhqBKnuqzPqQcjMfgygMK2wEYZSCfBuHc9AUBpXt5LIE8rPx3OncNT8lxp+JgvK18fyYtulpZu4PPVBspJNByGgmaRtlwtwNrxyi8bywBh/2judVmivIs3Ha/oOSUe2nqki1aUwJjVaZBoHU7ZNseppUgsq2ccebF9OR+j0F38bTJdHzBc/nGUGkNizAeCH4YpvIsquFX0xKw0Lv+gRJdCEucFa6KiNSCJmAuagYyT+Tbgxl1bf7vAAAAABJRU5ErkJggg==";
 
-function DmButton(props) {
+function DmButtonPopover(props) {
+  const [popoverAnchor, setPopoverAnchor] = useState(null);
+  const {
+    address: wagmiAddress
+  } = useAccount();
+  return /*#__PURE__*/jsx(Fragment$1, {
+    children: props.AddOnType === "div" ? /*#__PURE__*/jsx(Fragment$1, {
+      children: props.children
+    }) : /*#__PURE__*/jsxs(Fragment$1, {
+      children: [/*#__PURE__*/jsxs("button", {
+        className: "universal_button__button",
+        type: "button",
+        onClick: event => {
+          setPopoverAnchor(event.currentTarget);
+        },
+        children: [/*#__PURE__*/jsxs("div", {
+          className: "universal_button__icon_container",
+          children: [props.numberOfNotifications > 0 && /*#__PURE__*/jsx("div", {
+            className: "universal_button__badge",
+            children: props.numberOfNotifications
+          }), /*#__PURE__*/jsx(Icon, {
+            className: "universal_button__icon",
+            icon: "ant-design:message-outlined"
+          })]
+        }), wagmiAddress === props.address ? /*#__PURE__*/jsx("span", {
+          className: "universal_button__text",
+          children: "Recent Messages"
+        }) : /*#__PURE__*/jsx("span", {
+          className: "universal_button__text",
+          children: props.displayText
+        })]
+      }), /*#__PURE__*/jsx(Popover$1, {
+        anchorEl: popoverAnchor,
+        anchorOrigin: {
+          vertical: props.popoverDirection,
+          horizontal: "center"
+        },
+        className: "universal_button_popover",
+        style: props.popoverDirection === "bottom" ? {
+          marginTop: 8
+        } : {
+          marginTop: -8
+        },
+        onClose: () => setPopoverAnchor(null),
+        open: popoverAnchor !== null,
+        transformOrigin: {
+          vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
+          horizontal: "center"
+        },
+        children: props.children
+      })]
+    })
+  });
+}
+
+function UniversalDmInner(props) {
   // Wamgi hooks
   const {
     address: wagmiAddress
@@ -12788,7 +12843,6 @@ function DmButton(props) {
   const mainUrl = "https://nftychat-staging.herokuapp.com";
   // const mainUrl = "http://localhost:8080";
   const [messageText, setMessageText] = useState("");
-  const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [displayName, setDisplayName] = useState(props.displayName);
   const [displayText, setDisplayText] = useState(props.displayText);
   const [userName, setUserName] = useState("");
@@ -12932,11 +12986,11 @@ function DmButton(props) {
   }
   // useEffect to get signature after click
   useEffect(() => {
-    if (!!wagmiAddress && !!popoverAnchor && wagmiAddress !== signedWallet) {
+    if (!!wagmiAddress && wagmiAddress !== signedWallet) {
       getAccessToken();
       setSignedWallet(wagmiAddress);
     }
-  }, [popoverAnchor, wagmiAddress, signedWallet]);
+  }, [wagmiAddress, signedWallet]);
 
   // useEffect to fetch conversations if user has authenticated
   useEffect(() => {
@@ -12979,196 +13033,182 @@ function DmButton(props) {
       setMessageSentScreen(true);
     });
   }
-  return /*#__PURE__*/jsxs("div", {
-    className: props.theme === "dark" ? "universal_button universal_button___dark" : "universal_button",
-    children: [/*#__PURE__*/jsxs("button", {
-      className: "universal_button__button",
-      type: "button",
-      onClick: event => {
-        if (props.connectWalletFunction) {
-          props.connectWalletFunction();
-        } else {
-          setWalletPopoverOpen(true);
-        }
-        setPopoverAnchor(event.currentTarget);
-      },
-      children: [/*#__PURE__*/jsxs("div", {
-        className: "universal_button__icon_container",
-        children: [numberOfNotifications > 0 && /*#__PURE__*/jsx("div", {
-          className: "universal_button__badge",
-          children: numberOfNotifications
-        }), /*#__PURE__*/jsx(Icon, {
-          className: "universal_button__icon",
-          icon: "ant-design:message-outlined"
-        })]
-      }), popoverAnchor !== null && authenticated === false ? /*#__PURE__*/jsx("span", {
-        className: "universal_button__text",
-        children: "Waiting for Signature"
-      }) : wagmiAddress === props.address ? /*#__PURE__*/jsx("span", {
-        className: "universal_button__text",
-        children: "Recent Messages"
-      }) : displayText !== "" ? /*#__PURE__*/jsx("span", {
-        className: "universal_button__text",
-        children: displayText
-      }) : ""]
-    }), /*#__PURE__*/jsx(Popover$1, {
-      anchorEl: popoverAnchor,
-      anchorOrigin: {
-        vertical: props.popoverDirection,
-        horizontal: "center"
-      },
-      className: "universal_button_popover",
-      style: props.popoverDirection === "bottom" ? {
-        marginTop: 8
-      } : {
-        marginTop: -8
-      },
-      onClose: () => setPopoverAnchor(null),
-      open: popoverAnchor !== null && authenticated,
-      transformOrigin: {
-        vertical: props.popoverDirection === "bottom" ? "top" : "bottom",
-        horizontal: "center"
-      },
+  return /*#__PURE__*/jsxs(Fragment$1, {
+    children: [/*#__PURE__*/jsx(DmButtonPopover, {
+      AddOnType: props.AddOnType,
+      numberOfNotifications: numberOfNotifications,
+      displayText: displayText,
+      popoverDirection: props.popoverDirection,
+      address: props.address,
       children: /*#__PURE__*/jsxs("div", {
         className: props.theme === "dark" ? "universal_button_popover__container universal_button_popover__container___dark" : "universal_button_popover__container",
-        children: [(wagmiAddress === props.address || showRecentMessages) && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
-          children: [/*#__PURE__*/jsxs("div", {
+        children: [!authenticated ? /*#__PURE__*/jsxs(Fragment$1, {
+          children: [/*#__PURE__*/jsx("div", {
             className: "universal_dm__content universal_dm__top",
-            children: [/*#__PURE__*/jsx("span", {
+            children: /*#__PURE__*/jsxs("span", {
               className: "universal_dm__title",
-              children: " Your Inbox "
-            }), /*#__PURE__*/jsx(InboxButton, {
-              showRecentMessages: showRecentMessages,
-              setShowRecentMessages: setShowRecentMessages,
-              inboxNotEmpty: inboxNotEmpty,
-              getConversations: getConversations
-            })]
+              children: [" ", "Message ", displayName, " "]
+            })
           }), /*#__PURE__*/jsx("div", {
             className: "universal_dm__content",
             children: /*#__PURE__*/jsx("div", {
               className: "message_separator"
             })
-          }), /*#__PURE__*/jsx("div", {
-            className: "universal_dm__messages",
-            children: conversations.map(conversation => /*#__PURE__*/jsxs("div", {
-              className: "message__container",
-              onClick: () => {
-                window.open("https://nftychat.xyz/dms/" + conversation.conversation_id, "_blank");
-              },
-              children: [/*#__PURE__*/jsx("div", {
-                className: "hover_text",
-                children: " View on nftychat.xyz"
-              }), /*#__PURE__*/jsxs("div", {
-                className: "message_text__container",
-                children: [/*#__PURE__*/jsxs("span", {
-                  className: "message_title",
-                  children: [" ", conversation.conversation_name]
-                }), /*#__PURE__*/jsx("span", {
-                  className: "message_text",
-                  children: formatDmMessage(conversation.latest_message_text)
-                })]
-              }), conversation.unread_message_count > 0 && /*#__PURE__*/jsx("div", {
-                className: "message__badge",
-                children: conversation.unread_message_count
-              })]
-            }, conversation.conversation_id))
-          }), /*#__PURE__*/jsxs("div", {
-            className: "universal_dm__content universal_dm__bottom_2",
-            children: [/*#__PURE__*/jsxs("span", {
-              className: "universal_dm__user_text",
-              children: ["Connected: ", userName]
-            }), /*#__PURE__*/jsxs("a", {
-              href: "https://nftychat.xyz",
-              rel: "noopener noreferrer",
-              target: "_blank",
-              className: "universal_dm__nfty_link",
-              children: [" ", "View all", /*#__PURE__*/jsx(Icon, {
-                className: "universal_dm__link_arrow",
-                icon: "bi:arrow-right"
-              })]
-            })]
+          }), /*#__PURE__*/jsx("button", {
+            className: "universal_dm__connect_button",
+            onClick: () => {
+              if (!wagmiAddress) {
+                if (props.connectWalletFunction) {
+                  props.connectWalletFunction();
+                } else {
+                  setWalletPopoverOpen(true);
+                }
+              } else {
+                getAccessToken();
+              }
+            },
+            children: "Connect to chat"
           })]
-        }), wagmiAddress !== props.address && !showRecentMessages && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
-          children: [/*#__PURE__*/jsxs("div", {
-            className: "universal_dm__content universal_dm__top",
-            children: [/*#__PURE__*/jsxs("span", {
-              className: "universal_dm__title",
-              children: [" Message ", displayName, " "]
-            }), /*#__PURE__*/jsx(InboxButton, {
-              showRecentMessages: showRecentMessages,
-              setShowRecentMessages: setShowRecentMessages,
-              inboxNotEmpty: inboxNotEmpty,
-              getConversations: getConversations
-            })]
-          }), /*#__PURE__*/jsx("div", {
-            className: "universal_dm__content",
-            children: /*#__PURE__*/jsx("div", {
-              className: "message_separator"
-            })
-          }), /*#__PURE__*/jsx("div", {
-            className: "universal_dm__content",
-            children: /*#__PURE__*/jsx("textarea", {
-              className: "universal_dm__textarea",
-              spellCheck: false,
-              value: messageText,
-              onChange: e => setMessageText(e.target.value)
-            })
-          }), /*#__PURE__*/jsxs("div", {
-            className: "universal_dm__content universal_dm__bottom_1",
-            children: [/*#__PURE__*/jsxs("span", {
-              className: "universal_dm__user_text",
-              children: ["Connected: ", userName]
-            }), /*#__PURE__*/jsx("button", {
-              className: "universal_dm__send",
-              onClick: sendClick,
-              children: /*#__PURE__*/jsx(Icon, {
-                className: "universal_dm__send_icon",
-                icon: "fluent:send-24-filled"
+        }) : /*#__PURE__*/jsxs(Fragment$1, {
+          children: [(wagmiAddress === props.address || showRecentMessages) && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
+            children: [/*#__PURE__*/jsxs("div", {
+              className: "universal_dm__content universal_dm__top",
+              children: [/*#__PURE__*/jsx("span", {
+                className: "universal_dm__title",
+                children: " Your Inbox "
+              }), /*#__PURE__*/jsx(InboxButton, {
+                showRecentMessages: showRecentMessages,
+                setShowRecentMessages: setShowRecentMessages,
+                inboxNotEmpty: inboxNotEmpty,
+                getConversations: getConversations
+              })]
+            }), /*#__PURE__*/jsx("div", {
+              className: "universal_dm__content",
+              children: /*#__PURE__*/jsx("div", {
+                className: "message_separator"
               })
-            })]
-          })]
-        }), messageSentScreen && /*#__PURE__*/jsx(Fragment$1, {
-          children: /*#__PURE__*/jsxs("div", {
-            className: "universal_dm__message_sent",
-            children: [/*#__PURE__*/jsx("img", {
-              className: "universal_dm__message_sent__image",
-              src: bestagonSuccessImg,
-              alt: "successIcon"
+            }), /*#__PURE__*/jsx("div", {
+              className: "universal_dm__messages",
+              children: conversations.map(conversation => /*#__PURE__*/jsxs("div", {
+                className: "message__container",
+                onClick: () => {
+                  window.open("https://nftychat.xyz/dms/" + conversation.conversation_id, "_blank");
+                },
+                children: [/*#__PURE__*/jsxs("div", {
+                  className: "hover_text",
+                  children: [" ", "View on nftychat.xyz"]
+                }), /*#__PURE__*/jsxs("div", {
+                  className: "message_text__container",
+                  children: [/*#__PURE__*/jsxs("span", {
+                    className: "message_title",
+                    children: [" ", conversation.conversation_name]
+                  }), /*#__PURE__*/jsx("span", {
+                    className: "message_text",
+                    children: formatDmMessage(conversation.latest_message_text)
+                  })]
+                }), conversation.unread_message_count > 0 && /*#__PURE__*/jsx("div", {
+                  className: "message__badge",
+                  children: conversation.unread_message_count
+                })]
+              }, conversation.conversation_id))
             }), /*#__PURE__*/jsxs("div", {
-              className: "universal_dm__message_sent__text",
+              className: "universal_dm__content universal_dm__bottom_2",
               children: [/*#__PURE__*/jsxs("span", {
-                className: "universal_dm__message_sent__title",
-                children: ["Message sent to ", displayName]
-              }), /*#__PURE__*/jsx("span", {
-                className: "universal_dm__message_sent__subtitle",
-                children: "Send another message or view recent messages"
-              })]
-            }), /*#__PURE__*/jsxs("div", {
-              className: "universal_dm__message_sent__button_group",
-              children: [/*#__PURE__*/jsxs("button", {
-                className: "universal_dm__message_sent__button",
-                onClick: () => {
-                  setMessageSentScreen(false);
-                  setShowRecentMessages(false);
-                },
-                children: [/*#__PURE__*/jsx(Icon, {
-                  className: "universal_dm__message_sent__button_icon",
-                  icon: "ant-design:message-outlined"
-                }), "Send Message"]
-              }), /*#__PURE__*/jsxs("button", {
-                className: "universal_dm__message_sent__button",
-                onClick: () => {
-                  getConversations();
-                  setMessageSentScreen(false);
-                  setShowRecentMessages(true);
-                },
-                children: [/*#__PURE__*/jsx(Icon, {
-                  className: "universal_dm__message_sent__button_icon",
-                  icon: "bi:inbox"
-                }), "View Messages"]
+                className: "universal_dm__user_text",
+                children: ["Connected: ", userName]
+              }), /*#__PURE__*/jsxs("a", {
+                href: "https://nftychat.xyz",
+                rel: "noopener noreferrer",
+                target: "_blank",
+                className: "universal_dm__nfty_link",
+                children: [" ", "View all", /*#__PURE__*/jsx(Icon, {
+                  className: "universal_dm__link_arrow",
+                  icon: "bi:arrow-right"
+                })]
               })]
             })]
-          })
+          }), wagmiAddress !== props.address && !showRecentMessages && !messageSentScreen && /*#__PURE__*/jsxs(Fragment$1, {
+            children: [/*#__PURE__*/jsxs("div", {
+              className: "universal_dm__content universal_dm__top",
+              children: [/*#__PURE__*/jsxs("span", {
+                className: "universal_dm__title",
+                children: [" ", "Message ", displayName, " "]
+              }), /*#__PURE__*/jsx(InboxButton, {
+                showRecentMessages: showRecentMessages,
+                setShowRecentMessages: setShowRecentMessages,
+                inboxNotEmpty: inboxNotEmpty,
+                getConversations: getConversations
+              })]
+            }), /*#__PURE__*/jsx("div", {
+              className: "universal_dm__content",
+              children: /*#__PURE__*/jsx("div", {
+                className: "message_separator"
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "universal_dm__content",
+              children: /*#__PURE__*/jsx("textarea", {
+                className: "universal_dm__textarea",
+                spellCheck: false,
+                value: messageText,
+                onChange: e => setMessageText(e.target.value)
+              })
+            }), /*#__PURE__*/jsxs("div", {
+              className: "universal_dm__content universal_dm__bottom_1",
+              children: [/*#__PURE__*/jsxs("span", {
+                className: "universal_dm__user_text",
+                children: ["Connected: ", userName]
+              }), /*#__PURE__*/jsx("button", {
+                className: "universal_dm__send",
+                onClick: sendClick,
+                children: /*#__PURE__*/jsx(Icon, {
+                  className: "universal_dm__send_icon",
+                  icon: "fluent:send-24-filled"
+                })
+              })]
+            })]
+          }), messageSentScreen && /*#__PURE__*/jsx(Fragment$1, {
+            children: /*#__PURE__*/jsxs("div", {
+              className: "universal_dm__message_sent",
+              children: [/*#__PURE__*/jsx("img", {
+                className: "universal_dm__message_sent__image",
+                src: bestagonSuccessImg,
+                alt: "successIcon"
+              }), /*#__PURE__*/jsxs("div", {
+                className: "universal_dm__message_sent__text",
+                children: [/*#__PURE__*/jsxs("span", {
+                  className: "universal_dm__message_sent__title",
+                  children: ["Message sent to ", displayName]
+                }), /*#__PURE__*/jsx("span", {
+                  className: "universal_dm__message_sent__subtitle",
+                  children: "Send another message or view recent messages"
+                })]
+              }), /*#__PURE__*/jsxs("div", {
+                className: "universal_dm__message_sent__button_group",
+                children: [/*#__PURE__*/jsxs("button", {
+                  className: "universal_dm__message_sent__button",
+                  onClick: () => {
+                    setMessageSentScreen(false);
+                    setShowRecentMessages(false);
+                  },
+                  children: [/*#__PURE__*/jsx(Icon, {
+                    className: "universal_dm__message_sent__button_icon",
+                    icon: "ant-design:message-outlined"
+                  }), "Send Message"]
+                }), /*#__PURE__*/jsxs("button", {
+                  className: "universal_dm__message_sent__button",
+                  onClick: () => {
+                    getConversations();
+                    setMessageSentScreen(false);
+                    setShowRecentMessages(true);
+                  },
+                  children: [/*#__PURE__*/jsx(Icon, {
+                    className: "universal_dm__message_sent__button_icon",
+                    icon: "bi:inbox"
+                  }), "View Messages"]
+                })]
+              })]
+            })
+          })]
         }), /*#__PURE__*/jsx("div", {
           className: "universal_dm__bottom_border",
           children: /*#__PURE__*/jsx("a", {
@@ -13200,7 +13240,7 @@ function DmButton(props) {
   });
 }
 
-var css = "/* Fonts */\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n\n\n\n* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --background: #fff;\n  --primary-text: #19191A;\n  --secondary-text: #606166;\n  --bottom-border: #f3f3f3;\n  --main-gray: #dedede;\n  --button-hover: #ccc;\n\n  font-family: Inter, sans-serif;\n  font-variant-ligatures: no-contextual;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --background: #0f0f0f;\n  --primary-text: #fff;\n  --secondary-text: #ccc;\n  --bottom-border: #252527;\n  --main-gray: #2c2c2f;\n  --button-hover: #4f4f55;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 9999px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n.universal_dm__inbox_badge{\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  justify-content: center;\n  position: absolute;\n  right: 20px;\n  top: 12px;\n  height: 8px;\n  width: 8px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 15px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--background);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_dm__textarea {\n  background-color: var(--background);\n  border-radius: 6px;\n  border: 1px solid var(--main-gray);\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 8px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_dm__textarea:focus {\n  border-color: var(--button-hover);\n}\n\n.universal_dm__title{\n  font-family: 'Inter';\n  font-size: 17px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n\n/* recent messages */\n.universal_dm__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 16px 8px 16px;\n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter, sans-serif;\n  font-size: 15px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n.message_text{\n  font-family: Inter, sans-serif;\n  font-size: 15px;\n  font-weight: 400;\n  line-height: 24px;\n  min-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--secondary-text);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--main-gray);\n  height: 0px;\n  margin-bottom: 12px;\n} \n\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n  max-width: 96%;  \n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--primary-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(3px);\n  -moz-filter: blur(3px);\n  -ms-filter: blur(3px);\n  -o-filter: blur(3px);\n  filter: blur(3px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n.universal_dm__content {\n  padding: 0px 16px;\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_dm__top {\n  margin-bottom: 8px;\n  margin-top: 10px;\n}\n\n.universal_dm__bottom_1 {\n  margin-bottom: 20px;\n}\n.universal_dm__bottom_2 {\n  margin-bottom: 16px;\n}\n\n\n.universal_button_popover__content {\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_dm__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_dm__user_text {\n  text-decoration: none;\n  color: var(--secondary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n}\n\n.universal_dm__nfty_link {\n  text-decoration: none;\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n  display: flex;\n  align-items: center;\n}\n\n.universal_dm__link_arrow{\n  margin-left: 4px\n}\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n/* inbox button */\n.universal_dm__inbox {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n.universal_dm__inbox__selected{\n  background-color: var(--main-gray);   \n}\n.universal_dm__inbox:hover {\n  background-color: var(--button-hover); \n}\n\n.universal_dm__inbox_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Send button */\n.universal_dm__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  height: 24px;\n  width: 24px;\n  justify-content: center;\n  padding: 3px 1px 3px 3px;\n  transition: color 200ms, background-color 200ms;\n  background-color: var(--main-gray);\n}\n\n.universal_dm__send:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_dm__send_icon {\n  height: 100%;\n  width: 100%;\n}\n.universal_dm__bottom_border {\n  background-color: var(--bottom-border);\n  padding:8px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n}\n.universal_dm__bottom_border__text {\n  color: var(--primary-text);\n  text-decoration: none;\n  font-size: 13px;\n}\n\n/* Message sent screen */\n.universal_dm__message_sent {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.universal_dm__message_sent__image{\n  margin-top: 24px;\n  margin-bottom: 18px;\n}\n\n.universal_dm__message_sent__text {\n  margin-bottom: 32px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n.universal_dm__message_sent__title {\n  color: var(--primary-text);\n  font-weight: 700;\n  font-size: 15px;\n  margin-bottom: 8px;\n}\n.universal_dm__message_sent__subtitle {\n  color: var(--primary-text);\n  font-weight: 400;\n  font-size: 13px;\n}\n\n.universal_dm__message_sent__button_group{\n  display: flex;\n  align-items: center;\n  justify-content:space-between;\n  margin: 0px 16px 24px 16px;\n  width: calc(100% - 32px);\n}\n.universal_dm__message_sent__button{\n padding: 10px 22px;\n padding-top: 10px;\n color: var(--primary-text);\n background-color: var(--main-gray);\n border: none;\n border-radius: 6px;\n display: flex;\n align-items: center;\n justify-content: left;\n cursor: pointer;\n}\n.universal_dm__message_sent__button:hover{\n  background-color: var(--button-hover);\n }\n .universal_dm__message_sent__button_icon{\n  height: 20px;\n  width: 20px;\n  margin-right: 6px;\n}\n\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 14px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
+var css = "/* Fonts */\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0370-03FF;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7W0Q5n-wU.woff2) format('woff2');\n  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n\n\n\n* {\n  --message-height:44px\n}\n.universal_button,\n.universal_button *,\n.universal_button_popover__container,\n.universal_button_popover__container *,\n.wallet_popover__modal,\n.wallet_popover__modal * {\n  --background: #fff;\n  --primary-text: #19191A;\n  --secondary-text: #606166;\n  --bottom-border: #f3f3f3;\n  --main-gray: #dedede;\n  --button-hover: #ccc;\n\n  font-family: Inter, sans-serif;\n  font-variant-ligatures: no-contextual;\n}\n\n.universal_button___dark,\n.universal_button___dark *,\n.universal_button_popover__container___dark,\n.universal_button_popover__container___dark *,\n.wallet_popover__modal___dark,\n.wallet_popover__modal___dark * {\n  --background: #0f0f0f;\n  --primary-text: #fff;\n  --secondary-text: #ccc;\n  --bottom-border: #252527;\n  --main-gray: #2c2c2f;\n  --button-hover: #4f4f55;\n}\n\n.universal_button {\n  position: relative;\n}\n\n.universal_button__button {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 9999px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  font-family: Inter, sans-serif;\n  gap: 8px;\n  justify-content: center;\n  padding: 8px 16px;\n  transition: color 200ms, background-color 200ms;\n}\n\n.universal_button__button:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_dm__connect_button {\n  background-color: #2C2C2F;\n  color: #fff;\n  font-size: 14px;\n  font-weight: 600;\n  padding: 9px 12px;\n  align-items: center;\n  margin: 12px 16px;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n}\n.universal_dm__connect_button:hover{\n  background-color: var(--button-hover);\n}\n\n.universal_button__icon_container {\n  align-items: center;\n  display: flex;\n  height: 24px;\n  justify-content: center;\n  position: relative;\n  width: 24px;\n}\n.universal_dm__inbox_badge{\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  justify-content: center;\n  position: absolute;\n  right: 20px;\n  top: 12px;\n  height: 8px;\n  width: 8px;\n}\n\n.universal_button__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  position: absolute;\n  right: -4px;\n  top: -4px;\n  width: 14px;\n}\n\n.universal_button__icon {\n  height: 100%;\n  width: 100%;\n}\n\n.universal_button__text {\n  font-size: 15px;\n  font-weight: 400;\n}\n\n.universal_button_popover {\n  border-radius: 6px;\n}\n\n\n.universal_button_popover__container {\n  background-color: var(--background);\n  display: flex;\n  flex-direction: column;\n  width: 384px;\n}\n\n.universal_dm__textarea {\n  background-color: var(--background);\n  border-radius: 6px;\n  border: 1px solid var(--main-gray);\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 1rem;\n  margin-bottom: 8px;\n  min-height: 66px;\n  outline: none;\n  padding: 8px;\n  resize: none;\n  transition: border-color 200ms;\n  flex: auto;\n}\n\n.universal_dm__textarea:focus {\n  border-color: var(--button-hover);\n}\n\n.universal_dm__title{\n  font-family: 'Inter';\n  font-size: 17px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n\n/* recent messages */\n.universal_dm__messages {\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 16px 8px 16px;\n  flex-direction: column;\n}\n\n.message__container{\n  margin-bottom: 8px; \n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer;\n  height: var(--message-height);\n}\n\n.message_title{\n  font-family: Inter, sans-serif;\n  font-size: 15px;\n  font-weight: 600;\n  text-align: left;\n  color: var(--primary-text)\n}\n.message_text{\n  font-family: Inter, sans-serif;\n  font-size: 15px;\n  font-weight: 400;\n  line-height: 24px;\n  min-height: 24px;\n  letter-spacing: 0em;\n  text-align: left;\n  color: var(--secondary-text);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n}\n.message_separator {\n  width: 100%;\n  border: 1px solid var(--main-gray);\n  height: 0px;\n  margin-bottom: 12px;\n} \n\n.message_text__container{\n  display: flex;\n  flex-direction: column;\n  max-width: 96%;  \n}\n\n.message__badge {\n  align-items: center;\n  background-color: #fa2449;\n  border-radius: 9999px;\n  color: white;\n  display: flex;\n  font-size: 10px;\n  height: 14px;\n  justify-content: center;\n  width: 14px;\n}\n.hover_text {\n  color: var(--primary-text);\n  opacity: 0;\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  text-align: center;\n  position: absolute;\n  display: flex;\n  align-items: center; /** Y-axis align **/\n  justify-content: center; /** X-axis align **/\n  width: 98%;\n  height: var(--message-height);\n}\n.message__container:hover .message_text__container,\n.message__container:hover .message__badge{\n  -webkit-transition: all 300ms ease-in-out;\n  -o-transition: all 300ms ease-in-out;\n  transition: all 300ms ease-in-out;\n  -webkit-filter: blur(3px);\n  -moz-filter: blur(3px);\n  -ms-filter: blur(3px);\n  -o-filter: blur(3px);\n  filter: blur(3px);\n}\n.message__container:hover .hover_text {\n  -webkit-opacity: 1;\n  opacity: 1;\n}\n\n.universal_dm__content {\n  padding: 0px 16px;\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n\n.universal_dm__top {\n  margin-bottom: 8px;\n  margin-top: 10px;\n}\n\n.universal_dm__bottom_1 {\n  margin-bottom: 20px;\n}\n.universal_dm__bottom_2 {\n  margin-bottom: 16px;\n}\n\n\n.universal_button_popover__content {\n  margin: 12px;\n}\n\n.universal_button_popover__content_top {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 12px 12px 8px 12px;\n}\n\n.universal_button_popover__content_bottom {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  margin: 0px 12px 12px 12px;\n}\n\n.universal_dm__content_left {\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_button_popover__subtitle{\n  align-items: center;\n  display: flex;\n  gap: 8px;\n}\n\n.universal_dm__user_text {\n  text-decoration: none;\n  color: var(--secondary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n}\n\n.universal_dm__nfty_link {\n  text-decoration: none;\n  color: var(--primary-text);\n  font-family: Inter, sans-serif;\n  font-size: 13px;\n  display: flex;\n  align-items: center;\n}\n\n.universal_dm__link_arrow{\n  margin-left: 4px\n}\n\n.universal_button_popover__link_text{\n  color: var(--button-text);\n}\n\n.universal_button_popover__content a:hover, \n.universal_button_popover__content a:visited, \n.universal_button_popover__content a:link, \n.universal_button_popover__content a:active\n{\n  text-decoration: none;\n}\n\n/* inbox button */\n.universal_dm__inbox {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  transition: color 200ms, background-color 200ms;\n  width: 32px;\n}\n.universal_dm__inbox__selected{\n  background-color: var(--main-gray);   \n}\n.universal_dm__inbox:hover {\n  background-color: var(--button-hover); \n}\n\n.universal_dm__inbox_icon {\n  height: 100%;\n  width: 100%;\n}\n\n/* Send button */\n.universal_dm__send {\n  align-items: center;\n  background-color: transparent;\n  border-radius: 9999px;\n  border: none;\n  color: var(--primary-text);\n  cursor: pointer;\n  display: flex;\n  height: 24px;\n  width: 24px;\n  justify-content: center;\n  padding: 3px 1px 3px 3px;\n  transition: color 200ms, background-color 200ms;\n  background-color: var(--main-gray);\n}\n\n.universal_dm__send:hover {\n  background-color: var(--button-hover);\n}\n\n.universal_dm__send_icon {\n  height: 100%;\n  width: 100%;\n}\n.universal_dm__bottom_border {\n  background-color: var(--bottom-border);\n  padding:8px;\n  align-items: center;\n  justify-content: center;\n  display: flex;\n}\n.universal_dm__bottom_border__text {\n  color: var(--primary-text);\n  text-decoration: none;\n  font-size: 13px;\n}\n\n/* Message sent screen */\n.universal_dm__message_sent {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.universal_dm__message_sent__image{\n  margin-top: 24px;\n  margin-bottom: 18px;\n}\n\n.universal_dm__message_sent__text {\n  margin-bottom: 32px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n.universal_dm__message_sent__title {\n  color: var(--primary-text);\n  font-weight: 700;\n  font-size: 15px;\n  margin-bottom: 8px;\n}\n.universal_dm__message_sent__subtitle {\n  color: var(--primary-text);\n  font-weight: 400;\n  font-size: 13px;\n}\n\n.universal_dm__message_sent__button_group{\n  display: flex;\n  align-items: center;\n  justify-content:space-between;\n  margin: 0px 16px 24px 16px;\n  width: calc(100% - 32px);\n}\n.universal_dm__message_sent__button{\n padding: 10px 22px;\n padding-top: 10px;\n color: var(--primary-text);\n background-color: var(--main-gray);\n border: none;\n border-radius: 6px;\n display: flex;\n align-items: center;\n justify-content: left;\n cursor: pointer;\n}\n.universal_dm__message_sent__button:hover{\n  background-color: var(--button-hover);\n }\n .universal_dm__message_sent__button_icon{\n  height: 20px;\n  width: 20px;\n  margin-right: 6px;\n}\n\n\n/* Wallet popover */\n.wallet_popover {\n  /* border: red dashed 1px; */\n  align-items: center;\n  cursor: pointer;\n  display: flex;\n  height: 100vh;\n  justify-content: center;\n  width: 100vw;\n}\n\n.wallet_popover__modal {\n  align-items: center;\n  background-color: var(--background);\n  border-radius: 14px;\n  border: 1px solid var(--main-gray);\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 6%), 0px 4px 6px rgb(0 0 0 / 10%);\n  cursor: default;\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin: 0 24px;\n  max-width: 360px;\n  overflow: hidden;\n  padding: 24px;\n  pointer-events: auto;\n  position: relative;\n  width: 100%;\n  z-index: 1;\n}\n\n.wallet_popover__button {\n  align-items: center;\n  background-color: #298574;\n  border-radius: 9999px;\n  border: none;\n  color: white;\n  cursor: pointer;\n  cursor: pointer;\n  display: flex;\n  font-size: 15px;\n  font-weight: 500;\n  height: 48px;\n  justify-content: center;\n  transition: background-color 150ms;\n  user-select: none;\n  width: 164px;\n}\n\n.wallet_popover__button:enabled:hover {\n  background-color: hsl(169, 53%, 40%);\n}\n\n.wallet_popover__button:enabled:active {\n  background-color: hsl(169, 53%, 45%);\n}\n\n.wallet_popover__button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n";
 n(css,{});
 
 const infuraId = "806586b223e14b3eb1e6e4285bf8240e";
@@ -13233,13 +13273,17 @@ const defaultWagmiClient = createClient({
 function UniversalDm(props) {
   return /*#__PURE__*/jsxs(WagmiConfig, {
     client: defaultWagmiClient,
-    children: [/*#__PURE__*/jsx(Ie, {}), /*#__PURE__*/jsx(DmButton, {
-      address: props.address,
-      displayText: props.displayText,
-      displayName: props.displayName,
-      theme: props.theme || "light",
-      popoverDirection: props.popoverDirection || "top",
-      connectWalletFunction: props.connectWalletFunction
+    children: [/*#__PURE__*/jsx(Ie, {}), /*#__PURE__*/jsx("div", {
+      className: props.theme === "dark" ? "universal_button universal_button___dark" : "universal_button",
+      children: /*#__PURE__*/jsx(UniversalDmInner, {
+        addOnType: props.addOnType || 'popover',
+        address: props.address,
+        displayText: props.displayText,
+        displayName: props.displayName,
+        theme: props.theme || "light",
+        popoverDirection: props.popoverDirection || "top",
+        connectWalletFunction: props.connectWalletFunction
+      })
     })]
   });
 }
