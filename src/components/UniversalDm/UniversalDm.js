@@ -51,7 +51,7 @@ export default function UniversalDm(props) {
         }
       >
         <UniversalDmInner
-          AddOnType={props.AddOnType || 'popover'}
+          addOnType={props.addOnType || 'popover'}
           address={props.address}
           displayText={props.displayText}
           displayName={props.displayName}
