@@ -10,7 +10,7 @@ export default function DmButtonPopover(props) {
 
   return (
     <>
-      {props.AddOnType === "div" ? (
+      {props.addOnType === "div" ? (
         <>{props.children}</>
       ) : (
         <>

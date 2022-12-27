@@ -235,7 +235,7 @@ export default function UniversalDmInner(props) {
   return (
     <>
       {/* Message Popover */}
-        <DmButtonPopover AddOnType={props.AddOnType} numberOfNotifications={numberOfNotifications} displayText={displayText} popoverDirection={props.popoverDirection} address={props.address}>
+        <DmButtonPopover addOnType={props.addOnType} numberOfNotifications={numberOfNotifications} displayText={displayText} popoverDirection={props.popoverDirection} address={props.address}>
         <div
           className={
             props.theme === "dark"

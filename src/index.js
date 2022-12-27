@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <div style={{padding: 200}}>
     <UniversalDm
-      addOnType='popover'
+      addOnType='div'
       address={sampleAddress}
       theme='dark'
       popoverDirection='top'
