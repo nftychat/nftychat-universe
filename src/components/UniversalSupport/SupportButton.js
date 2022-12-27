@@ -9,7 +9,7 @@ import bestagonSupportImg from "../../assets/images/bestagonSupport.png";
 import { useRef } from "react";
 import { isHotkey } from "is-hotkey";
 
-export default function DmButton(props) {
+export default function SupportButton(props) {
   // Wamgi hooks
   const { address: wagmiAddress } = useAccount();
   const {

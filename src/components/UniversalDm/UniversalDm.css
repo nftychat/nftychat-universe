@@ -312,6 +312,22 @@
   background-color: var(--button-hover);
 }
 
+.universal_dm__connect_button {
+  background-color: #2C2C2F;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 12px;
+  align-items: center;
+  margin: 12px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.universal_dm__connect_button:hover{
+  background-color: var(--button-hover);
+}
+
 .universal_button__icon_container {
   align-items: center;
   display: flex;
