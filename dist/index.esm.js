@@ -3317,7 +3317,7 @@ var isPrependedWithRegularRules = function isPrependedWithRegularRules(index, ch
   return false;
 }; // use this to remove incorrect elements from further processing
 // so they don't get handed to the `sheet` (or anything else)
-// as that could potentially lead to additional logs which in turn could be overhelming to the user
+// as that could potentially lead to additional logs which in turn could be overwhelming to the user
 
 
 var nullifyElement = function nullifyElement(element) {
@@ -9068,7 +9068,7 @@ function FocusTrap(props) {
       }
 
       // Make sure the next tab starts from the right place.
-      // doc.activeElement referes to the origin.
+      // doc.activeElement refers to the origin.
       if (doc.activeElement === rootRef.current && nativeEvent.shiftKey) {
         // We need to ignore the next contain as
         // it will try to move the focus back to the rootRef element.
@@ -12008,7 +12008,7 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes /* remove-proptypes */
 var Popover$1 = Popover;
 
 /**
- * Get ENS infomation resolved from the provided wallet address or ENS name
+ * Get ENS information resolved from the provided wallet address or ENS name
  * @param { string } - wallet address or ENS name
  * @returns { object } - { address, name, displayName, avatar }
  * @example getEnsInfo("0x8206a305Ad4dAb5117B5F1B7C200cD348d2b7a5D") returns { address: "0x...", displayName: "natt.eth" }
