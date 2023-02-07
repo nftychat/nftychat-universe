@@ -1,5 +1,5 @@
 /**
- * Get ENS infomation resolved from the provided wallet address or ENS name
+ * Get ENS information resolved from the provided wallet address or ENS name
  * @param { string } - wallet address or ENS name
  * @returns { object } - { address, name, displayName, avatar }
  * @example getEnsInfo("0x8206a305Ad4dAb5117B5F1B7C200cD348d2b7a5D") returns { address: "0x...", displayName: "natt.eth" }
